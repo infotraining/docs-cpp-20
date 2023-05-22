@@ -1,0 +1,10 @@
+format: jb-article
+root: intro
+sections:
+- file: comparisons
+- file: basic-features
+- file: templates
+- file: concepts
+- file: ranges
+- file: coroutines
+- file: markdown
