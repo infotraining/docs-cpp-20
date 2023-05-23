@@ -50,7 +50,7 @@ C++20 do ustalania równości używa `operator ==` - jest on używany w operacja
 
 Nowy `operator <=>` pozwala zdefiniować porządek obiektów tzw. *ordering*. Zdefiniowany operator `<=>` może być wykorzystany operacjach: `<`, `>`, `<=`, `>=`
 
-### Sprawdzanie równości - `==`
+## Sprawdzanie równości - `==`
 
 * Aby sprawdzić równość (lub nierówność) dwóch obiektów **wystarczy** zaimplementować `operator==`
 * Jeśli kompilator nie znajdzie pasującej deklaracji dla wyrażenia `a!=b`, to spróbuje przepisać wyrażenie:

@@ -2,9 +2,9 @@ format: jb-article
 root: intro
 sections:
 - file: comparisons
+- file: concepts
 - file: basic-features
 - file: templates
-- file: concepts
 - file: ranges
 - file: coroutines
 - file: markdown
