@@ -20,6 +20,11 @@ p {
   font-size: 1.1em !important;
 }
 
+p + ul.simple
+{
+  margin-top: -1rem !important;
+}
+
 main.bd-content #main-content h1,
 main.bd-content #main-content h2,
 main.bd-content #main-content h3,
@@ -66,7 +71,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: "Cascadia Code", var(--pst-font-family-monospace) !important;
+  font-family: "Cascadia Mono", var(--pst-font-family-monospace) !important;
   font-size: 95% !important;
   border-radius: 0px !important;
 }

@@ -2,7 +2,7 @@
 
 ## Bezpieczne porównania liczb całkowitych
 
-* Porównania liczb całkowitych mogą dawać zaskakujące rezultaty (efekt konwersji typów)
+W efekcie niejawnej konwersji typów porównania liczb całkowitych mogą dawać zaskakujące rezultaty:
 
 ``` c++
 int x = -42;
@@ -12,7 +12,7 @@ if (x < y) // Ups!
     do_something();
 ```
 
-* Od C++20 mamy dostępną rodzinę funkcji umożliwiających bezpieczne porównania:
+Od C++20 mamy dostępną rodzinę funkcji umożliwiających bezpieczne porównania:
 
 ``` c++
 #include <utility>
@@ -46,13 +46,13 @@ C++20 zmienia sposób pisania operatorów porównań w klasach/strukturach
 
 ### Równość i porządek w C++20
 
-C++20 do ustalania równości używa `operator ==` - jest on używany w operacjach `==` i `!=`.
+C++20 do ustalania równości używa operatora `==`. Jest on używany w operacjach `==` i `!=`.
 
-Nowy `operator <=>` pozwala zdefiniować porządek obiektów tzw. *ordering*. Zdefiniowany operator `<=>` może być wykorzystany operacjach: `<`, `>`, `<=`, `>=`
+Nowy `operator <=>` pozwala zdefiniować porządek obiektów - tzw. *ordering*. Zdefiniowany operator `<=>` może być wykorzystany w operacjach: `<`, `>`, `<=`, `>=`
 
 ## Sprawdzanie równości - `==`
 
-* Aby sprawdzić równość (lub nierówność) dwóch obiektów **wystarczy** zaimplementować `operator==`
+* Aby sprawdzić równość (lub nierówność) dwóch obiektów **wystarczy** zaimplementować `operator==`.
 * Jeśli kompilator nie znajdzie pasującej deklaracji dla wyrażenia `a!=b`, to spróbuje przepisać wyrażenie:
   * do postaci `!(a==b)`
   * lub `!(b==a)`
@@ -166,7 +166,7 @@ public:
 
 ### Operator `<=>`
 
-* **Three-way comparison operator**
+* **Three-way comparison operator !!!**
 * Nowy dwuargumentowy operator umożliwiający wszystkie porównania między obiektami
 * Może zostać zdefiniowany jako `default`
 * Wykonuje tzw. *three-way comparison*, które zwraca wartość, która może być porównana do wartości `0`
@@ -250,8 +250,8 @@ bool result = v1 < v2;   // prefer standard comparisons
     * `std::weak_ordering::equivalent`
     * `std::weak_ordering::greater`
 * **partial ordering** 
-  * dowolna wartość danego typu może być *mniejsza*, **równoważna** lub *większa* od innej wartości tego typu (uwzględniając samą siebie)
-  * ale możliwa jest też sytuacja, że dla dwóch wartości nie można określić porządku
+  * dowolna wartość danego typu może być *mniejsza*, *równoważna* lub *większa* od innej wartości tego typu (uwzględniając samą siebie)
+  * ale możliwa jest też sytuacja, że dla dwóch wartości **nie można określić porządku**
   * np. typy zmiennoprzecinkowe (każde porównanie z `NaN` zwraca `false`)
   * sortowanie obiektów może być niemożliwe (jeśli w zbiorze wartości jest `NaN`)
   * wartości:
@@ -271,8 +271,9 @@ std::string{"hi"} <=> "hi" // yields std::strong_ordering::equal
 std::pair{42, 0.0} <=> std::pair{42, 7.7} // yields std::partial_ordering::less
 ```
 
-* Dozwolona jest niejawna konwersja do typu słabszej kategorii:
-  * `std::strong_ordering -> std::weak_ordering -> std::partial_ordering`
+Dozwolona jest niejawna konwersja do typu słabszej kategorii:
+
+* `std::strong_ordering -> std::weak_ordering -> std::partial_ordering`
 
 ``` c++
 if (x <=> y == std::partial_ordering::equivalent) // always OK
@@ -411,7 +412,7 @@ int main()
 
 ##### Składowa floating point
  
-W przypadku, gdy jako typ zwracany deklarujemy `auto`, dedukowaną kategorią porównanie jest `std::partial_ordering`:
+W przypadku, gdy jako typ zwracany deklarujemy `auto`, dedukowaną kategorią porównania jest `std::partial_ordering`:
 
 ``` c++
 struct Temperature
