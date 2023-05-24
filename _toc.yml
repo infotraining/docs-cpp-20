@@ -4,6 +4,7 @@ sections:
 - file: comparisons
 - file: concepts
 - file: ranges
+- file: span
 - file: core-features
 - file: templates
 - file: coroutines
