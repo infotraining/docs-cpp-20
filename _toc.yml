@@ -8,4 +8,5 @@ sections:
 - file: core-features
 - file: lambdas-20
 - file: templates
+- file: compile-time-programming
 - file: coroutines
