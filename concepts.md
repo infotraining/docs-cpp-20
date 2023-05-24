@@ -24,7 +24,7 @@
 * nie może być rekursywny
 * nie są dozwolone żadne specjalizacje (oryginalna definicja nie może być zmieniana)
 
-Przykłady konceptów zdefiniowanych przy pomocy traits'ów:
+Koncepty najczęściej mogą być definiowane przy pomocy traits'ów:
 
 ``` c++
 template <typename T>
@@ -37,7 +37,7 @@ template <typename T>
 concept UnsignedIntegral = Integral<T> && !SignedIntegral<T>;
 ```
 
-Koncept zdefiniowany przy pomocy wyrażenia `requires`:
+oraz przy pomocy wyrażenia `requires`:
 
 ```c++
 template<typename T>
@@ -97,6 +97,8 @@ Koncepty mogą być używane jako:
 
 ### Użycie konceptów w klasach
 
+Koncepty mogą być używane w klasach szablonowych:
+
 * jako ograniczenie parametru szablonu
 
 ``` c++
@@ -132,7 +134,7 @@ C4<int> c4i;
 c4i.foo(); // OK
 
 C4<double> c4d;
-c4d.foo(); // ERROR
+c4d.foo(); // ERROR - double is not integral type
 ```
 
 ### Koncepty + placeholder auto
@@ -149,7 +151,7 @@ auto get_id()
 std::unsigned_integral auto id = get_id(); // OK
 ```
 
-Jeśli przed placeholderem `auto` występuje koncept `C<A...>`, to dedukowany typ `T` musi spełniać ograniczenia zdefiniowane wyrażeniem `C<T, A...>`
+Jeśli przed placeholderem `auto` występuje koncept `C<A...>`, to dedukowany typ `T` musi spełniać ograniczenia zdefiniowane wyrażeniem `C<T, A...>`:
 
 ``` c++
 std::unsigned_integral auto get_id()
@@ -161,7 +163,7 @@ std::unsigned_integral auto get_id()
 std::convertible_to<uint64_t> auto id64 = get_id();
 ```
 
-* Możemy użyć też konceptu, aby wprowadzić ograniczenie dla parametru szablonu, który nie jest typem (NTTP):
+Możemy także użyć konceptu, aby wprowadzić ograniczenie dla parametru szablonu, który nie jest typem (NTTP):
 
 ```c++
 template <typename T, std::integral auto N>
@@ -201,6 +203,8 @@ template <typename T>
 ```
 
 ### Koniunkcja ograniczeń
+
+Koniunkcja ograniczeń tworzona jest przy pomocy operatora `&&`:
 
 ``` c++
 template <typename T>
@@ -383,7 +387,8 @@ template <typename T>
 
 #### Wymagania złożone (Compound requirements)
 
-* Wymagania złożone umożliwiają sprawdzenie określonych właściwości wyrażenia poddanego ewaluacji. Sprawdzane wyrażenie umieszczane jest w bloku `{}` a następnie można dodać:
+Wymagania złożone umożliwiają sprawdzenie określonych właściwości wyrażenia poddanego ewaluacji. Sprawdzane wyrażenie umieszczane jest w bloku `{}` a następnie można dodać:
+
 * klauzulę `noexcept`, aby sprawdzić czy wyrażenie nie rzuci wyjątku
 * `-> type_constrained`, aby sprawdzić czy typ zwracany z wyrażenia spełnia koncept
 
@@ -427,7 +432,7 @@ concept PostFixIncrementable = requires (T obj) {
 };
 ```
 
-Inny przykład:
+Inny przykład wymagań złożonych:
 
 ``` c++
 template <typename T>
@@ -476,7 +481,6 @@ W poniższym przykładzie `ShapeWithColor` subsumuje koncept `Shape`:
 template <typename T>
 concept Shape = requires(T obj)
 {
-    {obj.box() } -> std::same_as<BoundingBox>;
     obj.draw();
 };
 
@@ -492,17 +496,42 @@ W wyniku subsumacji `ShapeWithColor` konceptu `Shape` nie ma problemu przy wywo�
 
 ```c++ code-noblend
 template <Shape T>
-void render(T shp)
+void render(T shp)  // #1
 {
     shp.draw();
 }
 
 template <ShapeWithColor T>
-void render(T shp)
+void render(T shp)  // #2
 {
     shp.set_color(Color{0, 255, 22});
     shp.draw();
 }
+
+struct Rect
+{
+    int width, height;
+    Color color;
+
+    void draw() const
+    {
+        std::cout << "Drawing Recatangle(width=" << width << ", height=" << height << "\n";        
+    }
+
+    const Color& get_color() const
+    {
+        return color;
+    }
+
+    void set_color(const Color& new_color)
+    {
+        color = new_color;
+    }
+};
+
+//...
+
+render(Rect{100, 200, Color(255, 0, 128)}); // render#2 called - more constrained function
 ```
 
 Subsumacja działa tylko **dla konceptów**. Nie działa w sytuacji gdy ograniczenia są definiowane bez użycia konceptów.
@@ -584,5 +613,7 @@ my_algorithm_1(std::istream_iterator<int>{std::cin}, std::istream_iterator<int>{
 
 my_algorithm_2(std::istream_iterator<int>{std::cin}, std::istream_iterator<int>{});
 ```
-@[8, 1-2](OK)
-@[10, 5-7](ERROR - iterator przekazany do funkcji nie spełnia wymagań konceptu semantycznego)
+
+W powyższym przykładzie przekazanie iteratora strumienia wejścia do funkcji `my_algorithm_2` nie spełnia wymagań związanych z typem iteratora. Wymaganie to nie może być sprawdzone przez kompilator, ponieważ jest to wymaganie stricte semantyczne, związane z możliwością przejścia przez zakres przy pomocy iteratora wiele razy (iterator strumienia nie ma takiej własności).
+
+Ograniczenia definiowane przy pomocy konceptów semantycznych nie powodują błędów kompilacji.
