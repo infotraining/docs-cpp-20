@@ -1,12 +1,65 @@
 # Biblioteka Ranges
 
-## Ranges w C++20
+Biblioteka Ranges wprowadza nowy sposób transformacji kolekcji danych. Zaletą nowego podejścia jest łatwa możliwość kompozycji elementów transformujących.
 
-W skład bibilioteki Ranges wchodzą:
+Klasyczne algorytmy STL nie były łatwe w kompozycji:
+
+```c++
+std::vector<int> input = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+std::vector<int> intermediate, output;
+
+std::copy_if(input.begin(), input.end(), std::back_inserter(intermediate),
+             [](const int i) { return i % 3 == 0; });
+
+std::transform(intermediate.begin(), intermediate.end(), 
+               std::back_inserter(output), [](const int i) {return i * i; });
+```
+
+Od C++20 możemy otrzymać ten sam wynik w dużo prostszy sposób:
+
+```c++
+std::vector<int> input = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+auto output = input
+    | std::views::filter([](const int n) {return n % 3 == 0; }) 
+    | std::views::transform([](const int n) {return n * n; });  
+```
+
+## Definicja zakresu - koncept std::range
+
+W ogólności zakres jest "czymś", po czym można iterować. 
+
+Zakres jest reprezentowany przez:
+
+* **iterator**, który określa początek zakresu
+* i **wartownika** (*sentinel*), który pozwala określić koniec zakresu
+
+```{attention}
+Iterator i wartownik mogą (ale nie muszą) być obiektami różnych typów !!!
+```
+
+Biblioteka Ranges definiuje koncept `range` w następujący sposób:
+
+```c++
+namespace std::ranges
+{
+    template<class T>
+    concept range = requires(T& rg)
+    {
+        ranges::begin(rg);
+        ranges::end(rg);
+    };
+}
+```
+
+## Komponenty biblioteki Ranges
+
+W skład biblioteki Ranges wchodzą:
+
 * Algorytmy
 * Koncepty
 * Narzędzia pomocnicze
-  * funkcje, punkty customizacji, typy, cechy typów
+  * funkcje, punkty kastomizacji (*customization points*), typy, cechy typów
 * Widoki - *Views*
   * `lightweight ranges`
   * Potoki - `operator |`
@@ -24,29 +77,29 @@ W skład bibilioteki Ranges wchodzą:
 | `contiguous_range`    | Range with all elements in contiguous memory                        |
 | `sized_range`         | Range with constant-time size()                                     |
 | `view`                | Range that is cheap to copy or move and assign                      |
-| `viewable_range`      | Range that is convertible to a view (with std::ranges::all())       |
+| `viewable_range`      | Range that is convertible to a view (with `std::ranges::all()`)     |
 | `borrowed_range`      | Range with iterators that are not tied to the lifetime of the range |
 | `common_range`        | Ranges where begin and end (sentinel) have the same type            |
 
 Użycie konceptów z biblioteki Ranges:
 
 ``` c++
-void print(auto& obj)
+void print(auto& obj) // #1
 {
     std::cout << obj << "\n";
 }
 
-void print(std::ranges::input_range auto const& coll)
+void print(std::ranges::input_range auto const& coll) // #2
 {
     for(auto const& item : coll)
         std::cout << item << " ";
     std::cout << "\n";
 }
 
-print(665);
+print(665); // calls #1
 
 std::vector vec{1, 2, 3};
-print(vec);
+print(vec); // calls #2 - more constrained with std::ranges::input_range
 
 print("ranges");
 ```
@@ -72,6 +125,20 @@ r a n g e s
 * `std::ranges::borrowed_subrange_t<>`
 * `std::ranges::views::all_t<>`
 
+#### `std::ranges::range_value_t<>`
+
+Do najczęściej wykorzystywanych typów pomocniczych należy trait `std::ranges::range_value_t<>`, który umożliwia określenie typu elementów zakresu: 
+
+```c++
+using namespace std;
+
+vector<int> v{1,2,3};
+ranges::range_value_t<decltype(v)> elementType = v[2]; // elementType is an int 
+
+cout << elementType << endl; // outputs 3
+cout << typeid(elementType).name() << endl; // outputs int
+```
+
 ### Customization Point Objects
 
 * `std::ranges::begin()`
@@ -83,6 +150,26 @@ r a n g e s
 * `std::ranges::ssize()`
 * `std::ranges::data()`
 * `std::ranges::cdata()`
+
+*Customization point object* jest obiektem funkcyjnym typu literalnego, który wykonując operacje na obiekcie typu zdefiniowanego w programie (lub w bibliotece) sprawdza wymagania składniowe lub semantyczne określone dla tych operacji.
+
+```c++
+template <std::ranges::range Rng>
+auto only_unique(Rng&& rng)
+{
+    // copy a range to a vector
+    std::vector data(std::ranges::begin(rng), std::ranges::end(rng));
+
+    // sort
+    std::ranges::sort(data);
+    
+    // unique-erase idiom with ranges
+    const auto unique_items = std::ranges::unique(data);
+    data.erase(unique_items.begin(), unique_items.end());
+
+    return data;
+}
+```
 
 ## Ranges - algorytmy
 
@@ -385,12 +472,12 @@ void print(auto&& rng)
 }
 
 std::vector vec{1, 2, 3, 4, 5, 6, 7, 8, 9};
-print(vec | std::views::take(3)); // OK
-print(vec | std::views::drop(3)); // OK
+print(vec | std::views::take(3)); // OK 
+print(vec | std::views::drop(3)); // OK 
 
 std::list lst{1, 2, 3, 4, 5, 6, 7, 8, 9};
-print(lst | std::views::take(3)); // OK
-print(lst | std::views::drop(3)); // OK
+print(lst | std::views::take(3)); // OK 
+print(lst | std::views::drop(3)); // OK 
 ```
 
 ### Widoki - const_iterator & cbegin() 
@@ -411,7 +498,7 @@ for(decltype(vw)::const_iterator it = vw.begin(); // ERROR for a view
 some_algorithm(vw.cbegin(), vw.cend()); // ERROR for a view
 ```
 
-```{warning}
+````{warning}
 Funkcje `std::cbegin()` i `std::cend()` nie działają prawidłowo dla widoków!!!
 
 ```c++ 
@@ -421,7 +508,7 @@ for(auto it = std::cbegin(rng); it != std::cend(rng); ++it)
 }
 ```
 
-```
+````
 
 ### Podstawowe widoki
 
@@ -438,7 +525,6 @@ for(auto it = std::cbegin(rng); it != std::cend(rng); ++it)
   * `std::subrange{begin, end}`
   * lub `std::span{begin, end}` - w przypadku, gdy pamięć jest ciągła
   
-
 ### Użycie widoków
 
 ``` c++
@@ -475,9 +561,9 @@ std::ranges::sort(std::views::counted(vec.begin() + 1, 5), std::greater{});
 print(vec);
 
 print(vec 
-    | std::views::transform([](int x) { return x * x;}) 
-    | std::views::drop(3)                               
-    | std::views::take(3));                             
+    | std::views::transform([](int x) { return x * x;})
+    | std::views::drop(3)                              
+    | std::views::take(3));                            
 ```
 
 ## Ranges - nowe typy iteratorów
@@ -538,42 +624,51 @@ void some_algorithm(TBegin bgn, TEnd end)
 }
 ```
 
-### Borrowed iterator
+## Borrowed iterator
 
-* Wiele algorytmów zwraca iterator wskazujący na element(y) zakresu
-
-``` c++
-std::vector get_data(); // fwd declaration
-
-auto pos = find(get_data(), 665);
-
-std::cout << *pos << '\n';
-```
-
-* Aby chronić użytkownika przed *wiszącymi iteratorami* (*dangling iterators*) biblioteka wprowadza koncept *borrowed iterator*
-* Używając typu `std::ranges::borrowed_iterator_t<>` algorytmy mogą zadeklarować zwracany iterator jako *pożyczony* (*borrowed*) - taki iterator może być bezpiecznie użyty po wywołaniu funkcji
-
-* Przykładowa deklaracja algorytmu `find()` w bibliotece Ranges
+Wiele algorytmów zwraca iterator wskazujący na element(y) zakresu:
 
 ``` c++
-template<std::ranges::input_range Rg,
-typename T,
-typename Proj = identity>
-...
-constexpr std::ranges::borrowed_iterator_t<Rg>
-find(Rg&& r, const T& value, Proj proj = {});
+std::vector<int> data{1, 2, 665, 234};
+std::vector<int> get_data() { return {1, 2, 665, 234}; } 
+
+auto it_ok = find(data, 665); // passing lvalue - ok
+auto it_evil = find(get_data(), 665); // passing rvalue - it_evil is dangling
 ```
 
-* Pozwala na sprawdzenie na etapie kompilacji, czy przekazywany zakres jest *prvalue*, jeśli tak, to zwracany typ staje się *wiszącym iteratorem* i powoduje błąd kompilacji:
+Aby chronić użytkownika przed *wiszącymi iteratorami* (*dangling iterators*) biblioteka wprowadza tzw. *borrowed iterator*.
+
+Używając typu `std::ranges::borrowed_iterator_t<Rng>` algorytmy:
+
+* mogą zadeklarować zwracany iterator jako *pożyczony* (*borrowed*) - taki iterator może być bezpiecznie użyty po wywołaniu funkcji
+* lub zadeklarować zwracany iterator jako *wiszący* (*dangling*) - taki iterator powoduje błąd kompilacji
+
+```c++
+template< std::ranges::range R >
+using borrowed_iterator_t = 
+    std::conditional_t<std::ranges::borrowed_range<R>,
+        std::ranges::iterator_t<R>, 
+        std::ranges::dangling>;
+```
+
+Przykładowa deklaracja algorytmu `find()` w bibliotece Ranges może w uproszczeniu wyglądać następująco:
 
 ``` c++
-std::vector get_data(); // fwd declaration
-
-auto pos = std::ranges::find(get_data(), 665); // returns iterator to temporary vector
-std::cout << *pos << '\n'; // compile-time ERROR
+template<std::ranges::input_range Rng, typename T, typename Proj = identity>
+constexpr std::ranges::borrowed_iterator_t<Rng> find(Rng&& r, const T& value, Proj proj = {});
 ```
 
-* Wersja OK - ale może być problem z iteracją
+Taka deklaracja pozwala na sprawdzenie na etapie kompilacji, czy przekazywany zakres jest *prvalue*, jeśli tak, to zwracany typ staje się *wiszącym iteratorem* i powoduje błąd kompilacji:
+
+``` c++
+std::vector<int> get_data() { return {1, 2, 665, 234}; } 
+
+auto it_evil = find(get_data(), 665); // ERROR! it_evil is std::ranges::dangling
+```
+
+Aby uniknąć wiszącego wskaźnika można przypisać rezultat wywołania funkcji `get_data()` do:
+
+* lokalnej referencji `const auto&`
 
 ``` c++
 const auto& data = get_data();
@@ -581,7 +676,7 @@ auto pos = std::ranges::find(data, 665);
 std::cout << *pos << '\n'; // OK
 ```
 
-* Wersja OK - uniwersalna referencja
+* lub uniwersalna referencji `auto&&`
 
 ``` c++
 auto&& data = get_data();
@@ -591,34 +686,102 @@ std::cout << *pos << '\n'; // OK
 
 ## Borrowed ranges
 
-* Typy zakresów też mogą być *borrowed*, co oznacza, że zwrócone iteratory są wciąż prawidłowe, nawet jeśli sam zakres już nie istnieje
-* W ogólności kontenery oraz większość widoków **nie są** *borrowed*
+Wiszące iteratory są potencjalnym problemem dla wielu zakresów. Iteratory kontenerów standardowych stają się iteratorami wiszącymi, gdy niszczony jest kontener, do którego się odwołują.
 
-### Borrowed views
+```c++
+auto iter = std::vector{1, 2, 3}.begin(); // iter is dangling
+```
 
-* Cała informacja jest przechowywana w iteratorach
-  * `std::ranges::iota_view`
-  * `std::ranges::empty_view`
+Ale nie dotyczy to wszystkich zakresów. Iteratory do `std::string_view` pozostają prawidłowe (odnoszą się do poprawnego bufora znaków) nawet po zniszczeniu samej instancji `std::string_view` (pod warunkiem, że obiekt, do którego odwoływała się instancja `std::string_view` jeszcze istnieje):
 
-* Widoki, które odwołują się do innych zakresów (iteratory bezpośrednio wskazują na zakres)
-  * `std::ranges::subrange`
-  * `std::ranges::ref_view`
-  * `std::span`
-  * `std::string_view`
+```c++
+const char* text = "BORROWED";
+
+auto iter = std::string_view{text}.begin();
+assert(*iter == 'B'); // OK & safe
+```
+
+Typy takie jak `std::string_view` nazywane są **borrowed ranges**. Termin ten oznacza oznacza, że iteratory zwrócone z takiego zakresu są wciąż prawidłowe, nawet jeśli sama instancja zakresu już nie istnieje.
+
+W rezultacie:
+
+* *rvalue* typu `std::vector<T>` - `std::vector<T>&&` - nie jest *borrowed*
+* *rvalue* typu `std::string_view` - `std::string_view<T>` - jest *borrowed*
+
+W bibliotece Ranges istnieje koncept `std::ranges::borrowed_range`, który wygląda następująco:
+
+```c++
+template<class Rng>
+concept borrowed_range =
+    ranges::range<Rng> &&
+    (std::is_lvalue_reference_v<Rng> ||
+     ranges::enable_borrowed_range<std::remove_cvref_t<Rng>>);
+
+template<class Rng>
+inline constexpr bool enable_borrowed_range = false;
+```
+
+W praktyce oznacza to, że zakres jest *borrowed* jeśli:
+
+* jest lvalue
+* lub jest rvalue typu, dla którego specjalizacja `std::ranges::enable_borrowed_range` zwraca `true`
+  * cała informacja jest przechowywana w iteratorach
+    * `std::ranges::iota_view`
+    * `std::ranges::empty_view`
+  * typy "widoków", które odwołują się do innych zakresów
+    * `std::ranges::subrange`
+    * `std::ranges::ref_view`
+    * `std::span`
+    * `std::string_view`
+
+Jeśli w aplikacji zdefiniowany jest typ zakresu, dla którego iteratory mogą bezpiecznie wisieć (np. `StringRef`), to możemy dostarczyć specjalizację, która
+pozwoli bibliotece Ranges traktować ten typ zakresu jako *borrowed*:
+
+```c++
+template <>
+inline constexpr bool std::ranges::enable_borrowed_range<my::StringRef> = true;
+```
+
+## Viewable ranges
+
+Biblioteka Ranges definiuje dwa niezależne koncepty:
+
+* `std::ranges::borrowed_range` - zakres, którego iteratory nie wiszą (zakres lvalue lub zakres rvalue z specjalizacją `enable_borrowed_range`)
+* `std::view` - zakres, dla którego operacje kopiowania/przenoszenia/niszczenia mają złożoności O(1)
+
+Funkcja `std::views::all()` spina obie koncepcje razem - przyjmuje jako parametr *borrowed range* i zwraca widok (`ref_view` lub `subrange`).
+
+Razem, obie kategorie typów są nazywane **viewable ranges** i mogą stać po stronie operatora "pipe" `|`:
+
+```c++
+auto vec = get_vector();
+
+auto v1 = vec | views::transform(func); // OK: vec is an lvalue
+
+auto v2 = get_span() | views::transform(func); // OK: span is borrowed
+
+auto v3 = subrange(vec.begin(), vec.end()) | views::transform(func) // Ok: subrange is borrowed (and a view)
+
+auto v4 = get_vector() | views::transform(func); // ERROR: get_vector() returns an rvalue vector, which is neither
+                                                 // a view nor a borrowed range
+```
+
+
 
 ````{warning}
-Iteratory borrowed mogą zostać iteratorami wiszącymi, jeśli zakres do którego się odwołują przestanie istnieć
-Efektem jest albo błąd kompilacji:
+Iteratory borrowed zostają iteratorami wiszącymi, jeśli zakres do którego się odwołują nie jest *borrowed*
+Efektem jest:
+
+* błąd kompilacji:
 
 ``` c++
 auto pos = std::ranges::find(std::views::take(std::vector {0, 8, 15}, 2), 8);
 std::cout << *pos << '\n'; // COMPILER ERROR         
 ```
 
-lub, niestety, runtime-error:
+* lub, niestety, runtime-error:
 
 ``` c++
 auto pos = std::ranges::find(std::views::counted(std::vector {1, 2, 3, 4}.begin(), 3), 2);
 std::cout << *pos << '\n'; // RUNTIME ERROR
 ```
-````
