@@ -1,0 +1,1163 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Koncepty i ograniczenia szablonów &#8212; Przykładowa książka w Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'concepts';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Biblioteka Ranges" href="ranges.html" />
+    <link rel="prev" title="Funkcje szablonowe z auto" href="generic-functions.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Programowanie w C++20
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="comparisons.html">Porównania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generic-functions.html">Funkcje szablonowe z auto</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Koncepty i ograniczenia szablonów</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ranges.html">Biblioteka Ranges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="span.html">std::span</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core-features.html">Core C++ - nowości</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambdas-20.html">Lambdy w C++20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Non Type Template Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compile-time-programming.html">Programowanie na etapie kompilacji</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coroutines.html">Coroutines in C++20</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20/issues/new?title=Issue%20on%20page%20%2Fconcepts.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/concepts.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Koncepty i ograniczenia szablonów</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koncepty-slownik">Koncepty - słownik</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koncept">Koncept</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uzycie-konceptow">Użycie konceptów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uzycie-konceptow-w-klasach">Użycie konceptów w klasach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koncepty-placeholder-auto">Koncepty + placeholder auto</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-szablonow">Ograniczenia szablonów</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenie">Ograniczenie</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koniunkcja-ograniczen">Koniunkcja ograniczeń</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dysjunkcja-ograniczen">Dysjunkcja ograniczeń</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wyrazenie-requires">Wyrażenie requires</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#requires-requires">requires requires</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parametry-wyrazenia-requires">Parametry wyrażenia requires</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ewaluacja-wyrazenia-requires">Ewaluacja wyrażenia requires</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wymagania-proste">Wymagania proste</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wymagania-typu">Wymagania typu</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wymagania-zlozone-compound-requirements">Wymagania złożone (Compound requirements)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wymagania-zagniezdzone">Wymagania zagnieżdżone</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsumacja-konceptow">Subsumacja konceptów</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#przyklady-subsumacji-konceptow">Przykłady subsumacji konceptów</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koncepty-semantyczne">Koncepty semantyczne</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-skladniowe-syntactic-constraints">Ograniczenia składniowe - syntactic constraints</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-semantyczne-semantic-constraints">Ograniczenia semantyczne - semantic constraints</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#koncepty-semantyczne-wykorzystanie-w-api">Koncepty semantyczne - wykorzystanie w API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="koncepty-i-ograniczenia-szablonow">
+<h1>Koncepty i ograniczenia szablonów<a class="headerlink" href="#koncepty-i-ograniczenia-szablonow" title="Permalink to this heading">#</a></h1>
+<section id="koncepty-slownik">
+<h2>Koncepty - słownik<a class="headerlink" href="#koncepty-slownik" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Requirement / Wymaganie</strong></p>
+<ul>
+<li><p>Wyrażenie definiujące wymaganie dla kodu</p>
+<ul>
+<li><p>operacja musi być prawidłowa składniowo</p></li>
+<li><p>określony typ musi być zdefiniowany (lub zwrócony)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Concept / Koncept</strong></p>
+<ul>
+<li><p>Nazwa dla jednego lub wielu wymagań</p></li>
+</ul>
+</li>
+<li><p><strong>Constraint / Ograniczenie</strong></p>
+<ul>
+<li><p>Ograniczenia dla kodu generycznego (funkcji lub klasy)</p>
+<ul>
+<li><p>definiowane z użyciem konceptów lub wymagań ad-hoc</p></li>
+<li><p>wyrażenie logiczne ewaluowane na etapie kompilacji</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="koncept">
+<h2>Koncept<a class="headerlink" href="#koncept" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>jest szablonem</p></li>
+<li><p>nazwanym zbiorem wymagań zdefiniowanych dla parametrów szablonu</p></li>
+<li><p>id-expression ewaluowane do wartości logicznej <code class="docutils literal notranslate"><span class="pre">bool</span></code></p></li>
+<li><p>musi być zdefiniowany na poziomie przestrzeni nazw</p></li>
+<li><p>nie może być rekursywny</p></li>
+<li><p>nie są dozwolone żadne specjalizacje (oryginalna definicja nie może być zmieniana)</p></li>
+</ul>
+<p>Koncepty najczęściej mogą być definiowane przy pomocy traits’ów:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">Integral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_integral_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">SignedIntegral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_signed_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">UnsignedIntegral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">SignedIntegral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>oraz przy pomocy wyrażenia <code class="docutils literal notranslate"><span class="pre">requires</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">Hashable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">hash</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{}(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">convertible_to</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<section id="uzycie-konceptow">
+<h3>Użycie konceptów<a class="headerlink" href="#uzycie-konceptow" title="Permalink to this heading">#</a></h3>
+<p>Koncepty mogą być używane jako:</p>
+<ul>
+<li><p>nazwane wyrażenia - <em>id-expression</em></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">static_assert</span><span class="p">(</span><span class="n">Hashable</span><span class="o">&lt;</span><span class="n">Gadget</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;type must be hashable&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>deklaracje typów parametrów szablonów</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>ograniczenia dla placeholdera <code class="docutils literal notranslate"><span class="pre">auto</span></code></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">square</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>składnik definicji złożonych wymagań dla typów</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">PrintableRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">range</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">range_value_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="n">PrintableRange</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rng</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">rng</span><span class="p">)</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">});</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;one&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;two&quot;</span><span class="p">}</span><span class="w"> </span><span class="p">});</span><span class="w"> </span><span class="c1">// ERROR! `std::map&lt;int, std::string&gt;` nie spełnia wymagań definiowanych przez koncept</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="uzycie-konceptow-w-klasach">
+<h3>Użycie konceptów w klasach<a class="headerlink" href="#uzycie-konceptow-w-klasach" title="Permalink to this heading">#</a></h3>
+<p>Koncepty mogą być używane w klasach szablonowych:</p>
+<ul class="simple">
+<li><p>jako ograniczenie parametru szablonu</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Integral</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w">    </span>
+<span class="k">class</span><span class="w"> </span><span class="nc">C2</span>
+<span class="p">{};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>jako ograniczenie dla specjalizacji częściowej</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// primary template</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">C3</span>
+<span class="p">{};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Integral</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// partial specialization</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">C3</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+<span class="p">{};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>jako klauzula requires w metodach klasy</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">C4</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="n">Integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">C4</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">c4i</span><span class="p">;</span>
+<span class="n">c4i</span><span class="p">.</span><span class="n">foo</span><span class="p">();</span><span class="w"> </span><span class="c1">// OK</span>
+
+<span class="n">C4</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">c4d</span><span class="p">;</span>
+<span class="n">c4d</span><span class="p">.</span><span class="n">foo</span><span class="p">();</span><span class="w"> </span><span class="c1">// ERROR - double is not integral type</span>
+</pre></div>
+</div>
+</section>
+<section id="koncepty-placeholder-auto">
+<h3>Koncepty + placeholder auto<a class="headerlink" href="#koncepty-placeholder-auto" title="Permalink to this heading">#</a></h3>
+<p>Od C++20 możemy poprzedzić deklarację z placeholderem <code class="docutils literal notranslate"><span class="pre">auto</span></code> lub <code class="docutils literal notranslate"><span class="pre">decltype(auto)</span></code> konceptem ograniczającym:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">get_id</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id_gen</span><span class="p">{};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">++</span><span class="n">id_gen</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">unsigned_integral</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_id</span><span class="p">();</span><span class="w"> </span><span class="c1">// OK</span>
+</pre></div>
+</div>
+<p>Jeśli przed placeholderem <code class="docutils literal notranslate"><span class="pre">auto</span></code> występuje koncept <code class="docutils literal notranslate"><span class="pre">C&lt;A...&gt;</span></code>, to dedukowany typ <code class="docutils literal notranslate"><span class="pre">T</span></code> musi spełniać ograniczenia zdefiniowane wyrażeniem <code class="docutils literal notranslate"><span class="pre">C&lt;T,</span> <span class="pre">A...&gt;</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">unsigned_integral</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">get_id</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">id_gen</span><span class="p">{};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">++</span><span class="n">id_gen</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">convertible_to</span><span class="o">&lt;</span><span class="kt">uint64_t</span><span class="o">&gt;</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">id64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_id</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Możemy także użyć konceptu, aby wprowadzić ograniczenie dla parametru szablonu, który nie jest typem (NTTP):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">N</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Array</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">items</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">};</span>
+
+<span class="n">Array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="n">Array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="o">&gt;</span><span class="w"> </span><span class="n">arr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"> </span><span class="c1">// ERROR</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ograniczenia-szablonow">
+<h2>Ograniczenia szablonów<a class="headerlink" href="#ograniczenia-szablonow" title="Permalink to this heading">#</a></h2>
+<p>Ograniczenie szablonu (<em>template constraint</em>) jest sekwencją logicznych wyrażeń (ewaluowanych do <code class="docutils literal notranslate"><span class="pre">true</span></code> lub <code class="docutils literal notranslate"><span class="pre">false</span></code>), które na etapie kompilacji określają czy szablon jest instancjonowany, czy też nie.</p>
+<p>Ograniczenia:</p>
+<ul class="simple">
+<li><p>Pomagają <strong>zrozumieć</strong> jakie wymagania muszą zostać spełnione przez parametr szablonu (dzięki temu otrzymujemy lepsze komunikaty błędów)</p></li>
+<li><p>Mogą zostać użyte do <strong>zablokowania instancjonowania kodu</strong> w przypadku, gdy nie ma to sensu</p></li>
+<li><p>Mogą zostać użyte do <strong>przeładowania</strong> lub <strong>specjalizacji</strong> kodu - różny kod jest kompilowany w zależności od typu</p></li>
+</ul>
+<section id="ograniczenie">
+<h3>Ograniczenie<a class="headerlink" href="#ograniczenie" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>może być wyrażeniem Boolean (ad-hoc) ewaluowanym na etapie kompilacji</p></li>
+<li><p>wyrażeniem <code class="docutils literal notranslate"><span class="pre">requires</span></code> specyfikującym wymagane operacje i typy</p></li>
+<li><p>konceptem (zdefiniowanym wcześniej z użyciem słowa kluczowego <code class="docutils literal notranslate"><span class="pre">concept</span></code>)</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span>
+<span class="w">        </span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="c1">// ad-hoc Boolean expression</span>
+<span class="w">        </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">value_type</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// requires expression</span>
+<span class="w">        </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">input_iterator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="c1">// concept</span>
+</pre></div>
+</div>
+</section>
+<section id="koniunkcja-ograniczen">
+<h3>Koniunkcja ograniczeń<a class="headerlink" href="#koniunkcja-ograniczen" title="Permalink to this heading">#</a></h3>
+<p>Koniunkcja ograniczeń tworzona jest przy pomocy operatora <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">get_value</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">T</span><span class="o">::</span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">get_value</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">())</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">T</span><span class="p">);</span><span class="w">   </span><span class="c1">// #1</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span><span class="w"> </span><span class="c1">// #2</span>
+</pre></div>
+</div>
+<p>Gdy wywołujemy:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Kompilator sprawdza ograniczenia dla funkcji #1. Lewy operand koniunkcji <code class="docutils literal notranslate"><span class="pre">sizeof(char)</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> nie jest spełniony i w efekcie wyrażenie <code class="docutils literal notranslate"><span class="pre">get_value&lt;T&gt;()</span></code> nie jest sprawdzane (<em>short circuited</em>). Ponieważ szablon #1 nie spełnia ograniczeń ostatecznie wywołana jest funkcja #2.</p>
+</section>
+<section id="dysjunkcja-ograniczen">
+<h3>Dysjunkcja ograniczeń<a class="headerlink" href="#dysjunkcja-ograniczen" title="Permalink to this heading">#</a></h3>
+<p>Dysjunkcja ograniczeń tworzona przy pomocy operatora <code class="docutils literal notranslate"><span class="pre">||</span></code> w wyrażeniu ograniczającym. Jest spełniona, jeśli spełniony jest jeden lub drugi operand ograniczenia (<em>short-circuited</em>)</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_pointer_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">nullptr_t</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="wyrazenie-requires">
+<h3>Wyrażenie requires<a class="headerlink" href="#wyrazenie-requires" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Umożliwia zwięzłe zdefiniowanie wymagań dotyczących argumentów szablonu, które mogą być sprawdzone na etapie kompilacji:</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">PointerLike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">element_type</span><span class="p">;</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">same_as</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">element_type</span><span class="o">&amp;&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>W wyrażeniu <code class="docutils literal notranslate"><span class="pre">requires</span></code> możemy wyspecyfikować:</p>
+<ul>
+<li><p>wymaganą definicje typu</p></li>
+<li><p>wyrażenie, które musi być prawidłowe</p></li>
+<li><p>wymagania dla typów zwracanych jako rezultat ewaluacji wyrażenia</p></li>
+</ul>
+</li>
+</ul>
+<section id="requires-requires">
+<h4>requires requires<a class="headerlink" href="#requires-requires" title="Permalink to this heading">#</a></h4>
+<p>Wyrażenie <code class="docutils literal notranslate"><span class="pre">requires</span></code> często jest używane po klauzuli <code class="docutils literal notranslate"><span class="pre">requires</span></code> w definicji ograniczeń szablonu. Umożliwia to zdefiniowanie ograniczeń ad-hoc:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span>
+<span class="w">        </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">T</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="parametry-wyrazenia-requires">
+<h4>Parametry wyrażenia requires<a class="headerlink" href="#parametry-wyrazenia-requires" title="Permalink to this heading">#</a></h4>
+<p>W wyrażeniu <code class="docutils literal notranslate"><span class="pre">requires</span></code> możemy wprowadzić listę lokalnych parametrów:</p>
+<ul class="simple">
+<li><p>parametry nie mogą mieć wartości domyślnych</p></li>
+<li><p>lista parametrów nie może kończyć się elipsą <code class="docutils literal notranslate"><span class="pre">...</span></code></p></li>
+<li><p>parametry nie są instancjonowane ani linkowane - służą tylko definicji ograniczeń</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">Indexable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">value_type</span><span class="p">;</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">convertible_to</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">value_type</span><span class="o">&amp;&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="ewaluacja-wyrazenia-requires">
+<h4>Ewaluacja wyrażenia requires<a class="headerlink" href="#ewaluacja-wyrazenia-requires" title="Permalink to this heading">#</a></h4>
+<p>Wyrażenie <code class="docutils literal notranslate"><span class="pre">requires</span></code> jest wyrażeniem <em>prvalue</em> typu <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p>
+<ul class="simple">
+<li><p>Jeśli podstawienie argumentów szablonu do wyrażenia <code class="docutils literal notranslate"><span class="pre">requires</span></code> skutkuje:</p>
+<ul>
+<li><p>nieprawidłowymi typami oraz wyrażeniami</p></li>
+<li><p>lub naruszeniem semantycznych ograniczeń</p></li>
+</ul>
+</li>
+<li><p>to wyrażenie <code class="docutils literal notranslate"><span class="pre">requires</span></code> jest ewaluowane do wartości <code class="docutils literal notranslate"><span class="pre">false</span></code> i nie powoduje, że program jest traktowany jako <em>ill-formed</em></p></li>
+<li><p>Jeśli podstawienia typów i weryfikacja semantycznych wymagań przebiegnie pomyślnie wyrażenie jest ewaluowane do wartości <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
+<li><p>Sprawdzanie wymagań dokonywane jest w zadeklarowanej kolejności (leksykalnie)</p></li>
+</ul>
+</section>
+<section id="wymagania-proste">
+<h4>Wymagania proste<a class="headerlink" href="#wymagania-proste" title="Permalink to this heading">#</a></h4>
+<p>Proste wymagania sprawdzają poprawność (<em>well-formed</em>) podanego wyrażenia:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">Addable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="k">requires</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+</pre></div>
+</div>
+<p>Koncept <code class="docutils literal notranslate"><span class="pre">Addable&lt;T&gt;</span></code> jest <code class="docutils literal notranslate"><span class="pre">true</span></code>, jeśli wyrażenie <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> jest poprawnym składniowo
+wyrażeniem.</p>
+<p>Przykład kilku prostych wymagań:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T1</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T2</span><span class="o">&gt;</span>
+<span class="p">...</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">T1</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">T2</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">*</span><span class="n">p</span><span class="p">;</span><span class="w"> </span><span class="c1">// operator* has to be supported for T2</span>
+<span class="w">    </span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"> </span><span class="c1">// operator[] has to be supported for int as an index</span>
+<span class="w">    </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">get</span><span class="p">();</span><span class="w"> </span><span class="c1">// calling a member function get() has to be valid</span>
+<span class="w">    </span><span class="o">*</span><span class="n">p</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="c1">// comparing the result of operator* with a value of T2 type is possible</span>
+<span class="w">    </span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// support that we can compare a T2 with a nullptr</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Należy uważać na traity w wyrażeniach <code class="docutils literal notranslate"><span class="pre">requires</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="p">...</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// OOPS: does not require T to be integral</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">};</span>
+</pre></div>
+</div>
+<p>W powyższym przykładzie sprawdza, czy wyrażenie <code class="docutils literal notranslate"><span class="pre">std::integral&lt;T&gt;</span></code> jest poprawne składnio, zamiast sprawdzić czy typ <code class="docutils literal notranslate"><span class="pre">T</span></code> spełnia wymaganą cechę (<em>trait</em>).</p>
+<p>Aby sprawdzić trait należy użyć konceptu:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="p">...</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">};</span>
+</pre></div>
+</div>
+<p>lub zastosować wyrażenie <code class="docutils literal notranslate"><span class="pre">requires</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="p">...</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">requires</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="wymagania-typu">
+<h4>Wymagania typu<a class="headerlink" href="#wymagania-typu" title="Permalink to this heading">#</a></h4>
+<p>Wymagania typu sprawdzają poprawność typu:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">S</span><span class="p">;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span><span class="k">concept</span><span class="w"> </span><span class="nc">C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">inner</span><span class="p">;</span><span class="w"> </span><span class="c1">// #1 - required nested member name</span>
+<span class="w">    </span><span class="k">typename</span><span class="w"> </span><span class="nc">S</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// #2 - required class template specialization</span>
+<span class="w">    </span><span class="k">typename</span><span class="w"> </span><span class="nc">Ref</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// #3 - required alias template substitution, fails if T is void</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>#1 - wymaganie posiadania przez typ <code class="docutils literal notranslate"><span class="pre">T</span></code> zagnieżdżonego typu <code class="docutils literal notranslate"><span class="pre">inner</span></code></p></li>
+<li><p>#2 - wymaganie istnienia specjalizacji szablonu <code class="docutils literal notranslate"><span class="pre">S&lt;T&gt;</span></code> - nie musi być to typ kompletny</p></li>
+<li><p>#3 - wymaganie możliwości podstawienia typu <code class="docutils literal notranslate"><span class="pre">T</span></code> do aliasu szablonu <code class="docutils literal notranslate"><span class="pre">Ref</span></code></p></li>
+</ul>
+<p>Wymagania typu mogą sprawdzać jedynie nazwy nadane typom (klasom, wyliczeniom, aliasom):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="p">...</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">typename</span><span class="w"> </span><span class="nc">int</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR: invalid type requirement</span>
+<span class="w">    </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&amp;</span><span class="p">;</span><span class="w">  </span><span class="c1">// ERROR: invalid type requirement </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="wymagania-zlozone-compound-requirements">
+<h4>Wymagania złożone (Compound requirements)<a class="headerlink" href="#wymagania-zlozone-compound-requirements" title="Permalink to this heading">#</a></h4>
+<p>Wymagania złożone umożliwiają sprawdzenie określonych właściwości wyrażenia poddanego ewaluacji. Sprawdzane wyrażenie umieszczane jest w bloku <code class="docutils literal notranslate"><span class="pre">{}</span></code> a następnie można dodać:</p>
+<ul class="simple">
+<li><p>klauzulę <code class="docutils literal notranslate"><span class="pre">noexcept</span></code>, aby sprawdzić czy wyrażenie nie rzuci wyjątku</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-&gt;</span> <span class="pre">type_constrained</span></code>, aby sprawdzić czy typ zwracany z wyrażenia spełnia koncept</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">requires</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">Expr1</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">Expr2</span><span class="p">}</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">Expr3</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ConceptA</span><span class="p">;</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">Expr4</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ConceptB</span><span class="o">&lt;</span><span class="n">B1</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">Bn</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Wymagania z określeniem zwracanego typu wykorzystują koncepty i są rozwijane do:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">requires</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">Expr1</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">Expr2</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">Expr3</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ConceptA</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">((</span><span class="n">Expr3</span><span class="p">))</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">Expr4</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ConceptB</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">((</span><span class="n">Expr4</span><span class="p">)),</span><span class="n">B1</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="n">Bn</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Przykłady wymagań złożonych:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">PostFixIncrementable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>W powyższym przykładzie następuje sprawdzenie, czy <code class="docutils literal notranslate"><span class="pre">obj++</span></code> jest poprawnym wyrażeniem. Jest to równoważne prostemu wymaganiu:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">PostFixIncrementable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">obj</span><span class="o">++</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Inny przykład wymagań złożonych:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">Indexable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">same_as</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">reference</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">same_as</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">reference</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">convertible_to</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="o">~</span><span class="n">T</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="wymagania-zagniezdzone">
+<h4>Wymagania zagnieżdżone<a class="headerlink" href="#wymagania-zagniezdzone" title="Permalink to this heading">#</a></h4>
+<p>Wymagania można zagnieżdżać, co ilustruje poniższy przykład:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">AdditiveRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w"> </span>
+<span class="w">    </span><span class="k">typename</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">range_value_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// type requirement</span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">range_value_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// nested requirement</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">AdditiveRange</span><span class="w"> </span><span class="n">Rng</span><span class="o">&gt;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Rng</span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">data</span><span class="p">),</span><span class="w"> </span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">range_value_t</span><span class="o">&lt;</span><span class="n">Rng</span><span class="o">&gt;</span><span class="p">{});</span>
+<span class="p">}</span>
+
+<span class="n">assert</span><span class="p">(</span><span class="n">sum</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">})</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">6</span><span class="p">);</span>
+
+<span class="n">assert</span><span class="p">(</span><span class="n">sum</span><span class="p">({</span><span class="w"> </span><span class="s">&quot;one&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;two&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;three&quot;</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;onetwothree&quot;</span><span class="n">s</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="subsumacja-konceptow">
+<h3>Subsumacja konceptów<a class="headerlink" href="#subsumacja-konceptow" title="Permalink to this heading">#</a></h3>
+<p>Relacja subsumacji zachodzi, gdy dany koncept specyfikuje dodatkowe ograniczenia w stosunku do innego konceptu (lub innych konceptów).</p>
+<p>Przy wyborze funkcji ze zbioru funkcji przeciążonych, funkcja generyczna posiadająca więcej ograniczeń jest preferowana w stosunku do funkcji mniej ograniczonej (jeśli spełnione są ograniczenia w obu przypadkach)</p>
+<p>W poniższym przykładzie <code class="docutils literal notranslate"><span class="pre">ShapeWithColor</span></code> subsumuje koncept <code class="docutils literal notranslate"><span class="pre">Shape</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">Shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">obj</span><span class="p">.</span><span class="n">draw</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">ShapeWithColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Shape</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">Color</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">obj</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="n">get_color</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">convertible_to</span><span class="o">&lt;</span><span class="n">Color</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+</pre></div>
+</div>
+<p>W wyniku subsumacji <code class="docutils literal notranslate"><span class="pre">ShapeWithColor</span></code> konceptu <code class="docutils literal notranslate"><span class="pre">Shape</span></code> nie ma problemu przy wywołaniu funkcji przeciążonych:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Shape</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">render</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">shp</span><span class="p">)</span><span class="w">  </span><span class="c1">// #1</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">shp</span><span class="p">.</span><span class="n">draw</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">ShapeWithColor</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">render</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">shp</span><span class="p">)</span><span class="w">  </span><span class="c1">// #2</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">shp</span><span class="p">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">Color</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">22</span><span class="p">});</span>
+<span class="w">    </span><span class="n">shp</span><span class="p">.</span><span class="n">draw</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Rect</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Color</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">draw</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Drawing Recatangle(width=&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, height=&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">        </span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">Color</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">get_color</span><span class="p">()</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">color</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_color</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Color</span><span class="o">&amp;</span><span class="w"> </span><span class="n">new_color</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_color</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">//...</span>
+
+<span class="n">render</span><span class="p">(</span><span class="n">Rect</span><span class="p">{</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span><span class="p">)});</span><span class="w"> </span><span class="c1">// render#2 called - more constrained function</span>
+</pre></div>
+</div>
+<p>Subsumacja działa tylko <strong>dla konceptów</strong>. Nie działa w sytuacji gdy ograniczenia są definiowane bez użycia konceptów.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
+<span class="p">{}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">requires</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">item</span><span class="p">)</span>
+<span class="p">{}</span>
+
+<span class="n">print</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w"> </span><span class="c1">// ERROR - call to &#39;print&#39; is ambiguous</span>
+</pre></div>
+</div>
+<section id="przyklady-subsumacji-konceptow">
+<h4>Przykłady subsumacji konceptów<a class="headerlink" href="#przyklady-subsumacji-konceptow" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::random_access_range</span></code> subsumuje <code class="docutils literal notranslate"><span class="pre">std::bidirectional_range</span></code></p></li>
+<li><p>oba subsumują <code class="docutils literal notranslate"><span class="pre">std::forward_range</span></code></p></li>
+<li><p>wszystkie trzy subsumują <code class="docutils literal notranslate"><span class="pre">std::input_range</span></code></p></li>
+<li><p>wszystkie subsumują <code class="docutils literal notranslate"><span class="pre">std::range</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::sortable</span></code> subsumuje <code class="docutils literal notranslate"><span class="pre">std::permutable</span></code></p></li>
+<li><p>oba subsumują <code class="docutils literal notranslate"><span class="pre">std::indirectly_swappable</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="koncepty-semantyczne">
+<h3>Koncepty semantyczne<a class="headerlink" href="#koncepty-semantyczne" title="Permalink to this heading">#</a></h3>
+<p>Koncepty mogą sprawdzać ograniczenia <em>składniowe</em> lub <em>semantyczne</em></p>
+<section id="ograniczenia-skladniowe-syntactic-constraints">
+<h4>Ograniczenia składniowe - syntactic constraints<a class="headerlink" href="#ograniczenia-skladniowe-syntactic-constraints" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Umożliwiają sprawdzenie na etapie kompilacji, czy spełnione są określone wymagania</p>
+<ul>
+<li><p>Czy dana operacja jest wspierana przez typ <code class="docutils literal notranslate"><span class="pre">T</span></code>?</p></li>
+<li><p>Czy dana operacja zwraca jako rezultat określony typ?</p></li>
+</ul>
+</li>
+</ul>
+<p>Koncept składniowy <code class="docutils literal notranslate"><span class="pre">std::invocable</span></code> definiuje możliwość wywołania funkcji <code class="docutils literal notranslate"><span class="pre">F</span></code> z argumentami <code class="docutils literal notranslate"><span class="pre">Args...</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">F</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">invocable</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">requires</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="n">std</span><span class="o">::</span><span class="n">invoke</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+<span class="w">    </span><span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="ograniczenia-semantyczne-semantic-constraints">
+<h4>Ograniczenia semantyczne - semantic constraints<a class="headerlink" href="#ograniczenia-semantyczne-semantic-constraints" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Definiują dodatkowo wymagania, które mogą być tylko sprawdzone podczas wykonania programu</p>
+<ul>
+<li><p>Czy dana operacja zwraca zawsze ten sam rezultat dla określonego parametru?</p></li>
+</ul>
+</li>
+</ul>
+<p>Koncept semantyczny <code class="docutils literal notranslate"><span class="pre">std::regular_invocable</span></code></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">F</span><span class="p">,</span><span class="w"> </span><span class="k">class</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">regular_invocable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">invocable</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span><span class="w"> </span><span class="n">Args</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>gwarantuje, że wywołanie funkcji nie zmieni stanu obiektu <code class="docutils literal notranslate"><span class="pre">F</span></code> oraz stanu argumentów <code class="docutils literal notranslate"><span class="pre">Args...</span></code></p>
+</section>
+<section id="koncepty-semantyczne-wykorzystanie-w-api">
+<h4>Koncepty semantyczne - wykorzystanie w API<a class="headerlink" href="#koncepty-semantyczne-wykorzystanie-w-api" title="Permalink to this heading">#</a></h4>
+<p>Koncepty semantyczne służą do lepszego dokumentowania API funkcji generycznych:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">weakly_incrementable</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">my_algorithm_1</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">last</span><span class="p">)</span><span class="w">  </span><span class="c1">// single-pass algorithm</span>
+<span class="p">{}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">incrementable</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">my_algorithm_2</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">last</span><span class="p">)</span><span class="w"> </span><span class="c1">// multi-pass algorithm</span>
+<span class="p">{}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">my_algorithm_1</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">istream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">},</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">istream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{});</span>
+
+<span class="n">my_algorithm_2</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">istream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">},</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">istream_iterator</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{});</span>
+</pre></div>
+</div>
+<p>W powyższym przykładzie przekazanie iteratora strumienia wejścia do funkcji <code class="docutils literal notranslate"><span class="pre">my_algorithm_2</span></code> nie spełnia wymagań związanych z typem iteratora. Wymaganie to nie może być sprawdzone przez kompilator, ponieważ jest to wymaganie stricte semantyczne, związane z możliwością przejścia przez zakres przy pomocy iteratora wiele razy (iterator strumienia nie ma takiej własności).</p>
+<p>Ograniczenia definiowane przy pomocy konceptów semantycznych nie powodują błędów kompilacji.</p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="generic-functions.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Funkcje szablonowe z auto</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ranges.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Biblioteka Ranges</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koncepty-slownik">Koncepty - słownik</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koncept">Koncept</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uzycie-konceptow">Użycie konceptów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uzycie-konceptow-w-klasach">Użycie konceptów w klasach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koncepty-placeholder-auto">Koncepty + placeholder auto</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-szablonow">Ograniczenia szablonów</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenie">Ograniczenie</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koniunkcja-ograniczen">Koniunkcja ograniczeń</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dysjunkcja-ograniczen">Dysjunkcja ograniczeń</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wyrazenie-requires">Wyrażenie requires</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#requires-requires">requires requires</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parametry-wyrazenia-requires">Parametry wyrażenia requires</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ewaluacja-wyrazenia-requires">Ewaluacja wyrażenia requires</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wymagania-proste">Wymagania proste</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wymagania-typu">Wymagania typu</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wymagania-zlozone-compound-requirements">Wymagania złożone (Compound requirements)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#wymagania-zagniezdzone">Wymagania zagnieżdżone</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subsumacja-konceptow">Subsumacja konceptów</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#przyklady-subsumacji-konceptow">Przykłady subsumacji konceptów</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#koncepty-semantyczne">Koncepty semantyczne</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-skladniowe-syntactic-constraints">Ograniczenia składniowe - syntactic constraints</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-semantyczne-semantic-constraints">Ograniczenia semantyczne - semantic constraints</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#koncepty-semantyczne-wykorzystanie-w-api">Koncepty semantyczne - wykorzystanie w API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

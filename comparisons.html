@@ -1,0 +1,1257 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Porównania &#8212; Przykładowa książka w Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'comparisons';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Funkcje szablonowe z auto" href="generic-functions.html" />
+    <link rel="prev" title="Programowanie w C++20" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Programowanie w C++20
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Porównania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generic-functions.html">Funkcje szablonowe z auto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Koncepty i ograniczenia szablonów</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ranges.html">Biblioteka Ranges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="span.html">std::span</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core-features.html">Core C++ - nowości</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambdas-20.html">Lambdy w C++20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Non Type Template Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compile-time-programming.html">Programowanie na etapie kompilacji</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coroutines.html">Coroutines in C++20</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20/issues/new?title=Issue%20on%20page%20%2Fcomparisons.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/comparisons.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Porównania</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bezpieczne-porownania-liczb-calkowitych">Bezpieczne porównania liczb całkowitych</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funkcje-cmp">Funkcje cmp_***</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#porownania-w-c-20">Porównania w C++20</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rownosc-i-porzadek-w-c-20">Równość i porządek w C++20</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sprawdzanie-rownosci">Sprawdzanie równości - <code class="docutils literal notranslate"><span class="pre">==</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiowanie-porzadku">Definiowanie porządku - <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porownania-przed-c-20">Porównania przed C++20</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porownania-po-c-20">Porównania po C++20</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator">Operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domyslne-operatory-porownan">Domyślne operatory porównań</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#uzycie-operatora">Użycie operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reversing-rewriting">Reversing &amp; Rewriting</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kategorie-porownan-dla-typow">Kategorie porównań dla typów</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#typy-zmiennoprzecinkowe-operator">Typy zmiennoprzecinkowe - operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domyslny-operator">Domyślny operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacja-operatora">Implementacja operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#skladowa-floating-point">Składowa floating point</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#przypadek-ogolny">Przypadek ogólny</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#konflikt-kategorii">Konflikt kategorii</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#operator-kod-generyczny">Operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> - kod generyczny</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="porownania">
+<h1>Porównania<a class="headerlink" href="#porownania" title="Permalink to this heading">#</a></h1>
+<section id="bezpieczne-porownania-liczb-calkowitych">
+<h2>Bezpieczne porównania liczb całkowitych<a class="headerlink" href="#bezpieczne-porownania-liczb-calkowitych" title="Permalink to this heading">#</a></h2>
+<p>W efekcie niejawnej konwersji typów porównania liczb całkowitych mogą dawać zaskakujące rezultaty:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-42</span><span class="p">;</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">665</span><span class="p">;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="c1">// Ups!</span>
+<span class="w">    </span><span class="n">do_something</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Od C++20 mamy dostępną rodzinę funkcji umożliwiających bezpieczne porównania:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;utility&gt;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cmp_less</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">))</span><span class="w"> </span><span class="c1">// now OK</span>
+<span class="w">    </span><span class="n">do_something</span><span class="p">();</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">in_range</span><span class="o">&lt;</span><span class="kt">uint16_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="w">   </span><span class="n">do_something</span><span class="p">();</span>
+</pre></div>
+</div>
+<section id="funkcje-cmp">
+<h3>Funkcje cmp_***<a class="headerlink" href="#funkcje-cmp" title="Permalink to this heading">#</a></h3>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Funkcja</p></th>
+<th class="head text-center"><p>Efekt</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">std::cmp_equal(x,</span> <span class="pre">y)</span></code></p></td>
+<td class="text-center"><p>Yields whether x is equal to y</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">std::cmp_not_equal(x,</span> <span class="pre">y)</span></code></p></td>
+<td class="text-center"><p>Yields whether x is not equal to y</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">std::cmp_less(x,</span> <span class="pre">y)</span></code></p></td>
+<td class="text-center"><p>Yields whether x is less than y</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">std::cmp_less_equal(x,</span> <span class="pre">y)</span></code></p></td>
+<td class="text-center"><p>Yields whether x is less than or equal to y</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">std::cmp_greater(x,</span> <span class="pre">y)</span></code></p></td>
+<td class="text-center"><p>Yields whether x is greater than y</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">std::cmp_greater_equal(x,</span> <span class="pre">y)</span></code></p></td>
+<td class="text-center"><p>Yields whether x is greater than or equal to y</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">std::in_range&lt;T&gt;(x)</span></code></p></td>
+<td class="text-center"><p>Yields whether x is a valid value for type T</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="porownania-w-c-20">
+<h2>Porównania w C++20<a class="headerlink" href="#porownania-w-c-20" title="Permalink to this heading">#</a></h2>
+<p>C++20 zmienia sposób pisania operatorów porównań w klasach/strukturach</p>
+<ul class="simple">
+<li><p>Mamy nowy dwuargumentowy <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&lt;=&gt;</span></code> umożliwiający przeprowadzenie porównań porządkujących (<code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>)</p></li>
+<li><p>Kompilator jest w stanie przepisać wyrażenia z operatorami porównań - <em>rewriting expressions</em></p></li>
+<li><p>Dodatkowo <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">==</span></code> oraz <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&lt;=&gt;</span></code> można zdefiniować jako <code class="docutils literal notranslate"><span class="pre">default</span></code></p></li>
+</ul>
+<section id="rownosc-i-porzadek-w-c-20">
+<h3>Równość i porządek w C++20<a class="headerlink" href="#rownosc-i-porzadek-w-c-20" title="Permalink to this heading">#</a></h3>
+<p>C++20 do ustalania równości używa operatora <code class="docutils literal notranslate"><span class="pre">==</span></code>. Jest on używany w operacjach <code class="docutils literal notranslate"><span class="pre">==</span></code> i <code class="docutils literal notranslate"><span class="pre">!=</span></code>.</p>
+<p>Nowy <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&lt;=&gt;</span></code> pozwala zdefiniować porządek obiektów - tzw. <em>ordering</em>. Zdefiniowany operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> może być wykorzystany w operacjach: <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></p>
+</section>
+</section>
+<section id="sprawdzanie-rownosci">
+<h2>Sprawdzanie równości - <code class="docutils literal notranslate"><span class="pre">==</span></code><a class="headerlink" href="#sprawdzanie-rownosci" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Aby sprawdzić równość (lub nierówność) dwóch obiektów <strong>wystarczy</strong> zaimplementować <code class="docutils literal notranslate"><span class="pre">operator==</span></code>.</p></li>
+<li><p>Jeśli kompilator nie znajdzie pasującej deklaracji dla wyrażenia <code class="docutils literal notranslate"><span class="pre">a!=b</span></code>, to spróbuje przepisać wyrażenie:</p>
+<ul>
+<li><p>do postaci <code class="docutils literal notranslate"><span class="pre">!(a==b)</span></code></p></li>
+<li><p>lub <code class="docutils literal notranslate"><span class="pre">!(b==a)</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Type</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="n">a</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="c1">// compiler tries: a != b, !(a == b), !(b == a)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Przepisywanie działa też w sytuacji gdy operandy są różnych typów</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TypeA</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">TypeB</span><span class="o">&amp;</span><span class="p">);</span>
+
+<span class="c1">// lub</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TypeA</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">   </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">TypeB</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">//...</span>
+
+<span class="n">TypeA</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="n">TypeB</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK - perfect match</span>
+<span class="n">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK - rewritten as: a == b</span>
+<span class="n">a</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK - rewritten as: !(a == b)</span>
+<span class="n">b</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK - rewritten as: !(a == b) </span>
+</pre></div>
+</div>
+</section>
+<section id="definiowanie-porzadku">
+<h2>Definiowanie porządku - <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code><a class="headerlink" href="#definiowanie-porzadku" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&lt;=&gt;</span></code> jest nowym dwuargumentowym operatorem umożliwiającym wszystkie porównania między obiektami</p></li>
+<li><p>Może zostać zdefiniowany jako <code class="docutils literal notranslate"><span class="pre">default</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;compare&gt;</span><span class="c1"> </span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Value</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value_</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="n">Value</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">value_</span><span class="p">{</span><span class="n">v</span><span class="p">}</span>
+<span class="w">    </span><span class="p">{</span><span class="w">      </span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Value</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<section id="porownania-przed-c-20">
+<h3>Porównania przed C++20<a class="headerlink" href="#porownania-przed-c-20" title="Permalink to this heading">#</a></h3>
+<p>Przed C++20 aby zdefiniować wszystkie operatory porównań dla klasy, należało zaimplementować 6 funkcji:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Name</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">last_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// API...</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">last</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">last</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">first</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">last</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">last</span><span class="w"> </span>
+<span class="w">            </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">last</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">last</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">first</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&gt;=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="porownania-po-c-20">
+<h3>Porównania po C++20<a class="headerlink" href="#porownania-po-c-20" title="Permalink to this heading">#</a></h3>
+<p>Od C++20 wystarczy zdefiniować jedną:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Name</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">last_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// API...</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Name</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="operator">
+<h3>Operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code><a class="headerlink" href="#operator" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Three-way comparison operator !!!</strong></p></li>
+<li><p>Nowy dwuargumentowy operator umożliwiający wszystkie porównania między obiektami</p></li>
+<li><p>Może zostać zdefiniowany jako <code class="docutils literal notranslate"><span class="pre">default</span></code></p></li>
+<li><p>Wykonuje tzw. <em>three-way comparison</em>, które zwraca wartość, która może być porównana do wartości <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<ul>
+<li><p>jeśli <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=&gt;</span> <span class="pre">y</span> <span class="pre">==</span> <span class="pre">0</span></code>, to <code class="docutils literal notranslate"><span class="pre">x</span></code> i <code class="docutils literal notranslate"><span class="pre">y</span></code> są równe lub równoważne</p></li>
+<li><p>jeśli <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=&gt;</span> <span class="pre">y</span> <span class="pre">&lt;</span> <span class="pre">0</span></code>, to <code class="docutils literal notranslate"><span class="pre">x</span></code> jest mniejsze od <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
+<li><p>jeśli <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=&gt;</span> <span class="pre">y</span> <span class="pre">&gt;</span> <span class="pre">0</span></code>, to <code class="docutils literal notranslate"><span class="pre">x</span></code> jest większe od <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
+</ul>
+</li>
+<li><p>Wynik działania wyrażenia <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=&gt;</span> <span class="pre">y</span></code> nie jest wartością całkowitą!!!</p>
+<ul>
+<li><p>Typ zwracany reprezentuje tzw. <strong>kategorię porównań</strong> - <em>comparison category</em></p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;compare&gt;</span><span class="c1"> </span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Value</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value_</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="n">Value</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">value_</span><span class="p">{</span><span class="n">v</span><span class="p">}</span>
+<span class="w">    </span><span class="p">{</span><span class="w">      </span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Value</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/***************************************************************************</span>
+<span class="cm">    auto operator==(const Value&amp; other) const = default; // implicitly generated</span>
+<span class="cm">    ***************************************************************************/</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<section id="domyslne-operatory-porownan">
+<h4>Domyślne operatory porównań<a class="headerlink" href="#domyslne-operatory-porownan" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Aby zdefiniować <code class="docutils literal notranslate"><span class="pre">operator&lt;=&gt;</span></code> jako <code class="docutils literal notranslate"><span class="pre">default</span></code> należy dodać nagłówek <code class="docutils literal notranslate"><span class="pre">&lt;compare&gt;</span></code></p></li>
+<li><p>Domyślna implementacja deleguje wywołanie operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> dla wszystkich klas bazowych i pól składowych</p></li>
+<li><p>Są <code class="docutils literal notranslate"><span class="pre">noexcept</span></code> jeśli porównanie składowych nie rzuca wyjątków</p></li>
+<li><p>Są <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> jeśli porównanie może odbyć się na etapie kompilacji</p></li>
+<li><p>W rezultacie <em>rewritingu</em>, dostępne są niejawne konwersje dla pierwszego operandu</p></li>
+</ul>
+</section>
+<section id="uzycie-operatora">
+<h4>Użycie operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code><a class="headerlink" href="#uzycie-operatora" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> służy do implementacji typów</p></li>
+<li><p>Programista nigdy nie powinien wywoływać operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> bezpośrednio</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;compare&gt;</span>
+
+<span class="n">Value</span><span class="w"> </span><span class="n">v1</span><span class="p">{</span><span class="mi">3</span><span class="p">};</span>
+<span class="n">Value</span><span class="w"> </span><span class="n">v2</span><span class="p">{</span><span class="mi">4</span><span class="p">};</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">v2</span><span class="p">;</span><span class="w"> </span><span class="c1">// avoid direct call</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">v2</span><span class="p">;</span><span class="w">   </span><span class="c1">// prefer standard comparisons</span>
+</pre></div>
+</div>
+</section>
+<section id="reversing-rewriting">
+<h4>Reversing &amp; Rewriting<a class="headerlink" href="#reversing-rewriting" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Reguły odwracania i przepisywania operatorów zapewniają symetrię i heterogeniczność przy porównaniach</p></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Source</p></th>
+<th class="head text-center"><p>Alt 1</p></th>
+<th class="head text-center"><p>Alt 2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">b</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">==</span> <span class="pre">a</span></code></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">!=</span> <span class="pre">b</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">!(a</span> <span class="pre">==</span> <span class="pre">b)</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">!(b</span> <span class="pre">==</span> <span class="pre">a)</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;=&gt;</span> <span class="pre">(b</span> <span class="pre">&lt;=&gt;</span> <span class="pre">a)</span></code></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b)</span> <span class="pre">&lt;</span> <span class="pre">0</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">(b</span> <span class="pre">&lt;=&gt;</span> <span class="pre">a)</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=</span> <span class="pre">b</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b)</span> <span class="pre">&lt;=</span> <span class="pre">0</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">(b</span> <span class="pre">&lt;=&gt;</span> <span class="pre">a)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">b</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b)</span> <span class="pre">&gt;</span> <span class="pre">0</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&gt;</span> <span class="pre">(b</span> <span class="pre">&lt;=&gt;</span> <span class="pre">a)</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;=</span> <span class="pre">b</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">(a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b)</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code></p></td>
+<td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&gt;=</span> <span class="pre">(b</span> <span class="pre">&lt;=&gt;</span> <span class="pre">a)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="kategorie-porownan-dla-typow">
+<h4>Kategorie porównań dla typów<a class="headerlink" href="#kategorie-porownan-dla-typow" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>strong ordering</strong> (aka <em>total ordering</em>)</p>
+<ul>
+<li><p>dowolna wartość danego typu jest <em>mniejsza</em>, <em>równa</em> lub <em>większa</em> od innej wartości tego typu (uwzględniając samą siebie)</p></li>
+<li><p>wartości:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::strong_ordering::less</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::strong_ordering::equal</span></code> (<code class="docutils literal notranslate"><span class="pre">std::strong_ordering::equivalent</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::strong_ordering::greater</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>weak ordering</strong></p>
+<ul>
+<li><p>dowolna wartość danego typu jest <em>mniejsza</em>, <strong>równoważna</strong> lub <em>większa</em> od innej wartości tego typu (uwzględniając samą siebie)</p></li>
+<li><p>np. <code class="docutils literal notranslate"><span class="pre">case-insensitive</span> <span class="pre">strings</span></code></p></li>
+<li><p>wartości:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::weak_ordering::less</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::weak_ordering::equivalent</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::weak_ordering::greater</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>partial ordering</strong></p>
+<ul>
+<li><p>dowolna wartość danego typu może być <em>mniejsza</em>, <em>równoważna</em> lub <em>większa</em> od innej wartości tego typu (uwzględniając samą siebie)</p></li>
+<li><p>ale możliwa jest też sytuacja, że dla dwóch wartości <strong>nie można określić porządku</strong></p></li>
+<li><p>np. typy zmiennoprzecinkowe (każde porównanie z <code class="docutils literal notranslate"><span class="pre">NaN</span></code> zwraca <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
+<li><p>sortowanie obiektów może być niemożliwe (jeśli w zbiorze wartości jest <code class="docutils literal notranslate"><span class="pre">NaN</span></code>)</p></li>
+<li><p>wartości:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::partial_ordering::less</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::partial_ordering::equivalent</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::partial_ordering::greater</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::partial_ordering::unordered</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">665</span><span class="p">;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w">    </span><span class="c1">// yields std::strong_ordering::less </span>
+<span class="n">x</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="mf">42.0</span><span class="w"> </span><span class="c1">// yields std::partial_ordering::equivalent</span>
+<span class="o">&amp;</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="w">  </span><span class="c1">// yields std::strong_ordering::equal</span>
+<span class="o">&amp;</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="k">nullptr</span><span class="w"> </span><span class="c1">// ERROR - three-way comparison with nullptr not supported</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">{</span><span class="s">&quot;hi&quot;</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="s">&quot;hi&quot;</span><span class="w"> </span><span class="c1">// yields std::strong_ordering::equal</span>
+<span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="p">{</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="p">{</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mf">7.7</span><span class="p">}</span><span class="w"> </span><span class="c1">// yields std::partial_ordering::less</span>
+</pre></div>
+</div>
+<p>Dozwolona jest niejawna konwersja do typu słabszej kategorii:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::strong_ordering</span> <span class="pre">-&gt;</span> <span class="pre">std::weak_ordering</span> <span class="pre">-&gt;</span> <span class="pre">std::partial_ordering</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">partial_ordering</span><span class="o">::</span><span class="n">equivalent</span><span class="p">)</span><span class="w"> </span><span class="c1">// always OK</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">::</span><span class="n">equal</span><span class="p">)</span><span class="w"> </span><span class="c1">// might not compile</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//</span>
+<span class="p">}</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// always OK</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="typy-zmiennoprzecinkowe-operator">
+<h4>Typy zmiennoprzecinkowe - operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code><a class="headerlink" href="#typy-zmiennoprzecinkowe-operator" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Gdy <code class="docutils literal notranslate"><span class="pre">a</span></code> i <code class="docutils literal notranslate"><span class="pre">b</span></code> są <code class="docutils literal notranslate"><span class="pre">float</span></code> lub <code class="docutils literal notranslate"><span class="pre">double</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b</span></code> daje w wyniku <code class="docutils literal notranslate"><span class="pre">std::partial_ordering</span></code></p>
+<ul>
+<li><p>“normalne” liczby są całkowicie uporządkowane (<em>totally ordered</em>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+0/-0</span></code> są traktowane jako równoważne</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> są nieuporządkowane</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Częściowe uporządkowanie zwykle nie wystarcza - STL wymaga mocniejszej kategorii</p></li>
+<li><p>Pomocne są wtedy szablony:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::strong_order(a,</span> <span class="pre">b)</span></code></p>
+<ul>
+<li><p>wywołuje <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b</span></code> i zwraca <code class="docutils literal notranslate"><span class="pre">std::strong_ordering</span></code></p></li>
+<li><p>dla <code class="docutils literal notranslate"><span class="pre">float</span></code> lub <code class="docutils literal notranslate"><span class="pre">double</span></code> - promocja do <code class="docutils literal notranslate"><span class="pre">std::strong_ordering</span></code></p>
+<ul>
+<li><p>“normalne” liczby są całkowicie uporządkowane (<em>totally ordered</em>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+0/-0</span></code> są traktowane jako nie równe</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> są całkowicie uporządkowane</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::weak_order(a,</span> <span class="pre">b)</span></code></p>
+<ul>
+<li><p>wywołuje <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b</span></code> zwraca <code class="docutils literal notranslate"><span class="pre">std::weak_ordering</span></code></p></li>
+<li><p>dla <code class="docutils literal notranslate"><span class="pre">float</span></code> lub <code class="docutils literal notranslate"><span class="pre">double</span></code> - promocja do <code class="docutils literal notranslate"><span class="pre">std::weak_ordering</span></code></p>
+<ul>
+<li><p>“normalne” liczby są całkowicie uporządkowane (<em>totally ordered</em>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+0/-0</span></code> są traktowane jako równe</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> są traktowane jako równe, całkowicie uporządkowane względem innych wartości</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compare_XXX_order_fallback()</span></code> - gdy <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> nie jest zdefiniowany ustalają porządek za pomocą operatorów <code class="docutils literal notranslate"><span class="pre">==</span></code> i <code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="domyslny-operator">
+<h4>Domyślny operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code><a class="headerlink" href="#domyslny-operator" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Leksykograficznie porównuje klasy bazowe oraz składowe</p></li>
+<li><p>Jeżeli <code class="docutils literal notranslate"><span class="pre">operator&lt;=&gt;</span></code> został zdefiniowany jako domyślny i wywołany został jeden z operatorów porównań, to:</p>
+<ul>
+<li><p>jeżeli istnieje zdefiniowany <code class="docutils literal notranslate"><span class="pre">operator&lt;=&gt;</span></code> dla danej składowej lub klasy pochodnej, jest on wywołany</p></li>
+<li><p>w przeciwnym razie wywołane są <code class="docutils literal notranslate"><span class="pre">operator==</span></code> i <code class="docutils literal notranslate"><span class="pre">operator&lt;</span></code> w celu sprawdzenia, czy:</p>
+<ul>
+<li><p>obiekty są <em>równe/równoważne</em> (<code class="docutils literal notranslate"><span class="pre">operator==</span></code> zwraca wtedy <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></li>
+<li><p>obiekty są mniejsze (<code class="docutils literal notranslate"><span class="pre">less</span></code>) lub większe (<code class="docutils literal notranslate"><span class="pre">greater</span></code>)</p></li>
+<li><p>obiekty są nieuprządkowane (<code class="docutils literal notranslate"><span class="pre">unordered</span></code>) - tylko w przypadku gdy sprawdzane jest częściowe uporządkowanie (<em>partial_ordering</em>)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Base</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Derived</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Derived</span><span class="w"> </span><span class="n">d1</span><span class="p">{</span><span class="s">&quot;compare&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">}};</span>
+<span class="w">    </span><span class="n">Derived</span><span class="w"> </span><span class="n">d2</span><span class="p">{</span><span class="s">&quot;compare&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">}};</span>
+
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">d2</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">d1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">d1</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">d2</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">&gt;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>W przypadku gdy klasa bazowa nie implementuje operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> (ale posiada operatory <code class="docutils literal notranslate"><span class="pre">==</span></code> i <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>) i klasa pochodna deklaruje domyślną wersję <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> z automatyczną dedukcją typu <code class="docutils literal notranslate"><span class="pre">auto</span></code>, kompilator zgłosi błąd, ponieważ nie jest w stanie określić kategorii porównania:</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Base</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Derived</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Derived</span><span class="w"> </span><span class="n">d1</span><span class="p">{</span><span class="s">&quot;compare&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">}};</span>
+<span class="w">    </span><span class="n">Derived</span><span class="w"> </span><span class="n">d2</span><span class="p">{</span><span class="s">&quot;compare&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">}};</span>
+
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">d2</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">d1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">d1</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">d2</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">&gt;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Pomocne w takim wypadku jest jawne określenie kategorii operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> w klasie pochodnej:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Base</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Derived</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Derived</span><span class="w"> </span><span class="n">d1</span><span class="p">{</span><span class="s">&quot;compare&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">}};</span>
+<span class="w">    </span><span class="n">Derived</span><span class="w"> </span><span class="n">d2</span><span class="p">{</span><span class="s">&quot;compare&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">}};</span>
+
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">d2</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">d1</span><span class="p">);</span>
+<span class="w">    </span><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">d1</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">d2</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">&gt;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="implementacja-operatora">
+<h4>Implementacja operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code><a class="headerlink" href="#implementacja-operatora" title="Permalink to this heading">#</a></h4>
+<section id="skladowa-floating-point">
+<h5>Składowa floating point<a class="headerlink" href="#skladowa-floating-point" title="Permalink to this heading">#</a></h5>
+<p>W przypadku, gdy jako typ zwracany deklarujemy <code class="docutils literal notranslate"><span class="pre">auto</span></code>, dedukowaną kategorią porównania jest <code class="docutils literal notranslate"><span class="pre">std::partial_ordering</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Temperature</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Temperature</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">//...</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">cmp_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Temperature</span><span class="p">{</span><span class="mf">10.0</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">Temperature</span><span class="p">{</span><span class="mf">20.0</span><span class="p">};</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">cmp_result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">partial_ordering</span><span class="o">::</span><span class="n">less</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">cmp_result</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">partial_ordering</span><span class="o">&gt;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Możliwa jest jawna promocja do kategorii <code class="docutils literal notranslate"><span class="pre">std::strong_ordering</span></code> przy pomocy funkcji <code class="docutils literal notranslate"><span class="pre">std::strong_order()</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Temperature</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Temperature</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_order</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">value</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Temperature</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">//...</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">cmp_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Temperature</span><span class="p">{</span><span class="mf">10.0</span><span class="p">}</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">Temperature</span><span class="p">{</span><span class="mf">20.0</span><span class="p">};</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">cmp_result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">::</span><span class="n">less</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">cmp_result</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">&gt;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="przypadek-ogolny">
+<h5>Przypadek ogólny<a class="headerlink" href="#przypadek-ogolny" title="Permalink to this heading">#</a></h5>
+<p>Aby zaimplementować operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> dla typu, który posiada wiele składowych musimy zwykle zaimplementować ciąg porównań z wykorzystaniem <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Person</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">id_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Person</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="c1">// yields std::strong_ordering</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">cmp_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">id_</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmp_id</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">cmp_id</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">name_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">name_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="konflikt-kategorii">
+<h5>Konflikt kategorii<a class="headerlink" href="#konflikt-kategorii" title="Permalink to this heading">#</a></h5>
+<p>Jeśli atrybuty należą do innych kategorii porównań zgłaszany jest konflikt.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">price_</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Gadget</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="c1">// ERROR - different types deduced</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">cmp_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">name_</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmp_name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">cmp_name</span><span class="p">;</span><span class="w"> </span><span class="c1">// returns strong_ordering for string</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">price_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">price_</span><span class="p">;</span><span class="w"> </span><span class="c1">// returns partial_ordering for double</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Rozwiązaniem konfliktu jest:</p>
+<ul class="simple">
+<li><p>konwersja do najsłabszego kryterium porównania:</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">price_</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">partial_ordering</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Gadget</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">cmp_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">name_</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmp_name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">cmp_name</span><span class="p">;</span><span class="w"> </span><span class="c1">// strong_ordering converted to partial_ordering</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">price_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">price_</span><span class="p">;</span><span class="w"> </span><span class="c1">// returns partial_ordering for double</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>wykorzystanie cechy <code class="docutils literal notranslate"><span class="pre">std::common_comparison_category&lt;&gt;</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">price_</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Gadget</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">        </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">common_comparison_category_t</span><span class="o">&lt;</span>
+<span class="w">                </span><span class="k">decltype</span><span class="p">(</span><span class="n">name_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">name_</span><span class="p">),</span>
+<span class="w">                </span><span class="k">decltype</span><span class="p">(</span><span class="n">price_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">price_</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">cmp_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">name_</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmp_name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">cmp_name</span><span class="p">;</span><span class="w"> </span><span class="c1">// converted to common_comparison_category_t</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">price_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">price_</span><span class="p">;</span><span class="w"> </span><span class="c1">// converted to common_comparison_category_t</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>lub jeśli chcemy dostarczyć silniejszej kategorii porównania, to <strong>zmapowanie</strong> zwracanych kategorii z porównań składowych na <strong>kategorię docelową</strong> (z uwzględnieniem obsługi błędów w runtimie)</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">price_</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Gadget</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">cmp_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">name_</span><span class="p">;</span><span class="w"> </span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmp_name</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">cmp_name</span><span class="p">;</span><span class="w"> </span><span class="c1">// return strong_ordering</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">cmp_price</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">price_</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">price_</span><span class="p">;</span><span class="w"> </span><span class="c1">// std::partial_ordering</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c1">// map partial_ordering -&gt; strong_ordering</span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="n">cmp_price</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">partial_ordering_unordered</span><span class="p">);</span><span class="w"> </span><span class="c1">// RUNTIME ERROR</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cmp_price</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">::</span><span class="n">equal</span><span class="w"> </span><span class="o">:</span><span class="w"> </span>
+<span class="w">                                </span><span class="n">cmp_price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">::</span><span class="n">greater</span>
+<span class="w">                                              </span><span class="o">:</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_ordering</span><span class="o">::</span><span class="n">less</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="operator-kod-generyczny">
+<h4>Operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> - kod generyczny<a class="headerlink" href="#operator-kod-generyczny" title="Permalink to this heading">#</a></h4>
+<p>W kodzie szablonowym <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&lt;=&gt;</span></code> wymaga szczególnej uwagi. Zamiast bezpośrednio wywoływać operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> lepiej użyć:</p>
+<ul class="simple">
+<li><p>obiektu funkcyjnego <code class="docutils literal notranslate"><span class="pre">std::compare_three_way</span></code>, który wywołuje <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&lt;=&gt;</span></code> dla podanych argumentów, ale dla typów wskaźnikowych gwarantuje silne uporządkowanie (<em>strict total order</em>)</p></li>
+<li><p>lub <code class="docutils literal notranslate"><span class="pre">std::strong_order</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Wrapper</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">T</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Wrapper</span><span class="o">&amp;</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">(</span><span class="k">noexcept</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">compare_three_way</span><span class="p">{}(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w"> </span>
+<span class="w">               </span><span class="c1">// defines a total order for raw pointers </span>
+<span class="w">               </span><span class="c1">// (which is not the case for operators &lt;=&gt; or &lt;)        </span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Wrapper</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Gdy elementy, które chcemy porównać są przechowywane w iterowalnym obiekcie (np. kontenerze lub liście inicjalizacyjnej), to należy użyć algorytmu <code class="docutils literal notranslate"><span class="pre">std::lexicographical_compare_three_way()</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"> </span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Data</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">Data</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">il</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">values</span><span class="p">{</span><span class="n">il</span><span class="p">}</span>
+<span class="w">    </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Data</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">lexicographical_compare_three_way</span><span class="p">(</span>
+<span class="w">            </span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span>
+<span class="w">            </span><span class="n">other</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">strong_order</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Programowanie w C++20</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="generic-functions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Funkcje szablonowe z auto</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bezpieczne-porownania-liczb-calkowitych">Bezpieczne porównania liczb całkowitych</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funkcje-cmp">Funkcje cmp_***</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#porownania-w-c-20">Porównania w C++20</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rownosc-i-porzadek-w-c-20">Równość i porządek w C++20</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sprawdzanie-rownosci">Sprawdzanie równości - <code class="docutils literal notranslate"><span class="pre">==</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definiowanie-porzadku">Definiowanie porządku - <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porownania-przed-c-20">Porównania przed C++20</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#porownania-po-c-20">Porównania po C++20</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator">Operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domyslne-operatory-porownan">Domyślne operatory porównań</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#uzycie-operatora">Użycie operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reversing-rewriting">Reversing &amp; Rewriting</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kategorie-porownan-dla-typow">Kategorie porównań dla typów</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#typy-zmiennoprzecinkowe-operator">Typy zmiennoprzecinkowe - operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#domyslny-operator">Domyślny operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacja-operatora">Implementacja operatora <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#skladowa-floating-point">Składowa floating point</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#przypadek-ogolny">Przypadek ogólny</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#konflikt-kategorii">Konflikt kategorii</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#operator-kod-generyczny">Operator <code class="docutils literal notranslate"><span class="pre">&lt;=&gt;</span></code> - kod generyczny</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

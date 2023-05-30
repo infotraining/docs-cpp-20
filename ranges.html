@@ -1,0 +1,1499 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Biblioteka Ranges &#8212; Przykładowa książka w Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ranges';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="std::span" href="span.html" />
+    <link rel="prev" title="Koncepty i ograniczenia szablonów" href="concepts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Programowanie w C++20
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="comparisons.html">Porównania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generic-functions.html">Funkcje szablonowe z auto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Koncepty i ograniczenia szablonów</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Biblioteka Ranges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="span.html">std::span</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core-features.html">Core C++ - nowości</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambdas-20.html">Lambdy w C++20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Non Type Template Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compile-time-programming.html">Programowanie na etapie kompilacji</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coroutines.html">Coroutines in C++20</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20/issues/new?title=Issue%20on%20page%20%2Franges.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/ranges.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Biblioteka Ranges</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicja-zakresu-koncept-std-range">Definicja zakresu - koncept std::range</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#komponenty-biblioteki-ranges">Komponenty biblioteki Ranges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranges-koncepty">Ranges - koncepty</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranges-narzedzia">Ranges - narzędzia</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typy-pomocnicze-dla-zakresow">Typy pomocnicze dla zakresów</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#std-ranges-range-value-t"><code class="docutils literal notranslate"><span class="pre">std::ranges::range_value_t&lt;&gt;</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customization-point-objects">Customization Point Objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranges-algorytmy">Ranges - algorytmy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projekcje">Projekcje</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorytmy-z-wartownikiem">Algorytmy z wartownikiem</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#algorytmy-przed-c-20">Algorytmy - przed C++20</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#algorytmy-od-c-20">Algorytmy - od C++20</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#podzakresy">Podzakresy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-views">Widoki - Views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-adaptory-fabryki">Widoki / Adaptory / Fabryki</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tworzenie-widokow">Tworzenie widoków</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-i-semantyka-referencji">Widoki i semantyka referencji</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-i-modyfikacje-elementow">Widoki i modyfikacje elementów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-i-leniwa-ewaluacja">Widoki i leniwa ewaluacja</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-caching">Widoki - caching</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fiasko-const">Fiasko const&amp;</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-const-iterator-cbegin">Widoki - const_iterator &amp; cbegin()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#podstawowe-widoki">Podstawowe widoki</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uzycie-widokow">Użycie widoków</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-pipelines">Widoki - pipelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranges-nowe-typy-iteratorow">Ranges - nowe typy iteratorów</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#std-counted-iterator">std::counted_iterator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#std-default-sentinel">std::default_sentinel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#std-unreachable-sentinel">std::unreachable_sentinel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#std-common-iterator">std::common_iterator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#borrowed-iterator">Borrowed iterator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#borrowed-ranges">Borrowed ranges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewable-ranges">Viewable ranges</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="biblioteka-ranges">
+<h1>Biblioteka Ranges<a class="headerlink" href="#biblioteka-ranges" title="Permalink to this heading">#</a></h1>
+<p>Biblioteka Ranges wprowadza nowy sposób transformacji kolekcji danych. Zaletą nowego podejścia jest łatwa możliwość kompozycji elementów transformujących.</p>
+<p>Klasyczne algorytmy STL nie były łatwe w kompozycji:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">intermediate</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">copy_if</span><span class="p">(</span><span class="n">input</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">back_inserter</span><span class="p">(</span><span class="n">intermediate</span><span class="p">),</span>
+<span class="w">             </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">intermediate</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">intermediate</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span>
+<span class="w">               </span><span class="n">std</span><span class="o">::</span><span class="n">back_inserter</span><span class="p">(</span><span class="n">output</span><span class="p">),</span><span class="w"> </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+</pre></div>
+</div>
+<p>Od C++20 możemy otrzymać ten sam wynik w dużo prostszy sposób:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">};</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">filter</span><span class="p">([](</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">})</span><span class="w"> </span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">([](</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="p">});</span><span class="w">  </span>
+</pre></div>
+</div>
+<section id="definicja-zakresu-koncept-std-range">
+<h2>Definicja zakresu - koncept std::range<a class="headerlink" href="#definicja-zakresu-koncept-std-range" title="Permalink to this heading">#</a></h2>
+<p>W ogólności zakres jest “czymś”, po czym można iterować.</p>
+<p>Zakres jest reprezentowany przez:</p>
+<ul class="simple">
+<li><p><strong>iterator</strong>, który określa początek zakresu</p></li>
+<li><p>i <strong>wartownika</strong> (<em>sentinel</em>), który pozwala określić koniec zakresu</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Iterator i wartownik mogą (ale nie muszą) być obiektami różnych typów !!!</p>
+</div>
+<p>Biblioteka Ranges definiuje koncept <code class="docutils literal notranslate"><span class="pre">range</span></code> w następujący sposób:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">ranges</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">concept</span><span class="w"> </span><span class="nc">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rg</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ranges</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">rg</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ranges</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">rg</span><span class="p">);</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="komponenty-biblioteki-ranges">
+<h2>Komponenty biblioteki Ranges<a class="headerlink" href="#komponenty-biblioteki-ranges" title="Permalink to this heading">#</a></h2>
+<p>W skład biblioteki Ranges wchodzą:</p>
+<ul class="simple">
+<li><p>Algorytmy</p></li>
+<li><p>Koncepty</p></li>
+<li><p>Narzędzia pomocnicze</p>
+<ul>
+<li><p>funkcje, punkty kastomizacji (<em>customization points</em>), typy, cechy typów</p></li>
+</ul>
+</li>
+<li><p>Widoki - <em>Views</em></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">lightweight</span> <span class="pre">ranges</span></code></p></li>
+<li><p>Potoki - <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">|</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="ranges-koncepty">
+<h2>Ranges - koncepty<a class="headerlink" href="#ranges-koncepty" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concept</p></th>
+<th class="head"><p>(in std::ranges) Requires</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">range</span></code></p></td>
+<td><p>Iterable from begin to end</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">output_range</span></code></p></td>
+<td><p>Range to write to element values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">input_range</span></code></p></td>
+<td><p>Range to read element values from</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">forward_range</span></code></p></td>
+<td><p>Range you can iterate over multiple times to read values</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bidirectional_range</span></code></p></td>
+<td><p>Range you can iterate over backwards</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">random_access_range</span></code></p></td>
+<td><p>Range with random access (jump back and forth between elements)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">contiguous_range</span></code></p></td>
+<td><p>Range with all elements in contiguous memory</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sized_range</span></code></p></td>
+<td><p>Range with constant-time size()</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">view</span></code></p></td>
+<td><p>Range that is cheap to copy or move and assign</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewable_range</span></code></p></td>
+<td><p>Range that is convertible to a view (with <code class="docutils literal notranslate"><span class="pre">std::ranges::all()</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">borrowed_range</span></code></p></td>
+<td><p>Range with iterators that are not tied to the lifetime of the range</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">common_range</span></code></p></td>
+<td><p>Ranges where begin and end (sentinel) have the same type</p></td>
+</tr>
+</tbody>
+</table>
+<p>Użycie konceptów z biblioteki Ranges:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="c1">// #1</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">input_range</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">coll</span><span class="p">)</span><span class="w"> </span><span class="c1">// #2</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">coll</span><span class="p">)</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">print</span><span class="p">(</span><span class="mi">665</span><span class="p">);</span><span class="w"> </span><span class="c1">// calls #1</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">vec</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span><span class="w"> </span><span class="c1">// calls #2 - more constrained with std::ranges::input_range</span>
+
+<span class="n">print</span><span class="p">(</span><span class="s">&quot;ranges&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">665</span>
+<span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span>
+r<span class="w"> </span>a<span class="w"> </span>n<span class="w"> </span>g<span class="w"> </span>e<span class="w"> </span>s
+</pre></div>
+</div>
+</section>
+<section id="ranges-narzedzia">
+<h2>Ranges - narzędzia<a class="headerlink" href="#ranges-narzedzia" title="Permalink to this heading">#</a></h2>
+<section id="typy-pomocnicze-dla-zakresow">
+<h3>Typy pomocnicze dla zakresów<a class="headerlink" href="#typy-pomocnicze-dla-zakresow" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::iterator_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::sentinel_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::range_difference_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::range_size_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::range_value_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::range_reference_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::range_rvalue_reference_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::borrowed_iterator_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::borrowed_subrange_t&lt;&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::views::all_t&lt;&gt;</span></code></p></li>
+</ul>
+<section id="std-ranges-range-value-t">
+<h4><code class="docutils literal notranslate"><span class="pre">std::ranges::range_value_t&lt;&gt;</span></code><a class="headerlink" href="#std-ranges-range-value-t" title="Permalink to this heading">#</a></h4>
+<p>Do najczęściej wykorzystywanych typów pomocniczych należy trait <code class="docutils literal notranslate"><span class="pre">std::ranges::range_value_t&lt;&gt;</span></code>, który umożliwia określenie typu elementów zakresu:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+<span class="n">ranges</span><span class="o">::</span><span class="n">range_value_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">&gt;</span><span class="w"> </span><span class="n">elementType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"> </span><span class="c1">// elementType is an int </span>
+
+<span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">elementType</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="c1">// outputs 3</span>
+<span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">typeid</span><span class="p">(</span><span class="n">elementType</span><span class="p">).</span><span class="n">name</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="c1">// outputs int</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="customization-point-objects">
+<h3>Customization Point Objects<a class="headerlink" href="#customization-point-objects" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::begin()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::end()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::cbegin()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::cend()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::empty()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::size()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::ssize()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::data()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::cdata()</span></code></p></li>
+</ul>
+<p><em>Customization point object</em> jest obiektem funkcyjnym typu literalnego, który wykonując operacje na obiekcie typu zdefiniowanego w programie (lub w bibliotece) sprawdza wymagania składniowe lub semantyczne określone dla tych operacji.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">range</span><span class="w"> </span><span class="n">Rng</span><span class="o">&gt;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">only_unique</span><span class="p">(</span><span class="n">Rng</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">rng</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// copy a range to a vector</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">rng</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">rng</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// sort</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">// unique-erase idiom with ranges</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">unique_items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">unique</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">data</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">unique_items</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">unique_items</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ranges-algorytmy">
+<h2>Ranges - algorytmy<a class="headerlink" href="#ranges-algorytmy" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Odpowiedniki standardowych algorytmów</p>
+<ul>
+<li><p>zakresy zamiast par iteratorów jako argumenty</p></li>
+<li><p>ograniczenia parametrów szablonów (użyte koncepty)</p></li>
+</ul>
+</li>
+<li><p>Brak wsparcia:</p>
+<ul>
+<li><p>dla algorytmów numerycznych (np. <code class="docutils literal notranslate"><span class="pre">accumulate()</span></code>)</p></li>
+<li><p>dla współbieżności</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">vec</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-4</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">};</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span><span class="w"> </span><span class="c1">// sorting vec (all range)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="p">{});</span><span class="w"> </span><span class="c1">// sorting range with comparer</span>
+</pre></div>
+</div>
+<section id="projekcje">
+<h3>Projekcje<a class="headerlink" href="#projekcje" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Algorytmy <code class="docutils literal notranslate"><span class="pre">Range</span></code> akceptują jako jeden z argumentów <strong>projekcję</strong></p>
+<ul>
+<li><p>transformację elementu kolekcji w trakcie wykonania algorytmu</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">words</span><span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;c++&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;c++20&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;template&quot;</span><span class="p">};</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">words</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">()}</span>
+<span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">words</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="p">{},</span><span class="w"> </span>
+<span class="w">    </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="n">size</span><span class="p">();}</span>
+<span class="p">);</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">words</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="n">size</span><span class="p">();});</span>
+
+<span class="n">assert</span><span class="p">(</span><span class="o">*</span><span class="n">pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;c++20&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="algorytmy-z-wartownikiem">
+<h3>Algorytmy z wartownikiem<a class="headerlink" href="#algorytmy-z-wartownikiem" title="Permalink to this heading">#</a></h3>
+<p><strong>Wartownik</strong> (<em>sentinel</em>) - specjalna wartość, która oznacza koniec zakresu (lub przerwanie iteracji)</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">auto</span><span class="w"> </span><span class="n">Value_</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">EndValue</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">pos</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Value_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Algorytmy z wartownikiem nie wymagają aby para argumentów przekazanych w celu określenia zakresu była tego samego typu.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">last</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;[ &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">first</span><span class="p">;</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">last</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">it</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">it</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">2345</span><span class="p">,</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">};</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"> </span><span class="c1">// using iterators - classic approach</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">EndValue</span><span class="o">&lt;</span><span class="mi">665</span><span class="o">&gt;</span><span class="p">{});</span><span class="w"> </span><span class="c1">// using iterator + sentinel</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">EndValue</span><span class="o">&lt;</span><span class="mi">13</span><span class="o">&gt;</span><span class="p">{});</span>
+</pre></div>
+</div>
+<section id="algorytmy-przed-c-20">
+<h4>Algorytmy - przed C++20<a class="headerlink" href="#algorytmy-przed-c-20" title="Permalink to this heading">#</a></h4>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="c1">// source - pair of iterators</span>
+<span class="w">               </span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="c1">// destination</span>
+<span class="w">               </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;});</span><span class="w"> </span><span class="c1">// transformation</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">execution</span><span class="o">::</span><span class="n">par</span><span class="p">,</span><span class="w"> </span><span class="c1">// since C++17 - parallel version</span>
+<span class="w">               </span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="c1">// source - pair of iterators</span>
+<span class="w">               </span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="c1">// destination</span>
+<span class="w">               </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;});</span><span class="w"> </span><span class="c1">// transformation</span>
+</pre></div>
+</div>
+</section>
+<section id="algorytmy-od-c-20">
+<h4>Algorytmy - od C++20<a class="headerlink" href="#algorytmy-od-c-20" title="Permalink to this heading">#</a></h4>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">EndValue</span><span class="o">&lt;</span><span class="mi">42</span><span class="o">&gt;</span><span class="p">{},</span><span class="w"> </span><span class="c1">// supporting sentinels</span>
+<span class="w">                       </span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="c1">// destination</span>
+<span class="w">                       </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;});</span><span class="w"> </span><span class="c1">// transformation</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">EndValue</span><span class="o">&lt;</span><span class="mi">42</span><span class="o">&gt;</span><span class="p">{},</span><span class="w"> </span><span class="c1">// supporting sentinels</span>
+<span class="w">                       </span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="c1">// destination</span>
+<span class="w">                       </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="c1">// projection</span>
+<span class="w">                       </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;});</span><span class="w"> </span><span class="c1">// transformation</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="c1">// range</span>
+<span class="w">                       </span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="c1">// destination</span>
+<span class="w">                       </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;});</span><span class="w"> </span><span class="c1">// transformation</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="c1">// range</span>
+<span class="w">                       </span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="c1">// destination</span>
+<span class="w">                       </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="c1">// projection</span>
+<span class="w">                       </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;});</span><span class="w"> </span><span class="c1">// transformation</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="podzakresy">
+<h2>Podzakresy<a class="headerlink" href="#podzakresy" title="Permalink to this heading">#</a></h2>
+<p>Klasa <code class="docutils literal notranslate"><span class="pre">std::ranges::subrange</span></code> łączy iterator z wartownikiem tworząc podzakres (widok - <em>view</em>)</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">input_range</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">rng</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">print</span><span class="p">(</span><span class="n">rng</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">rng</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">partial_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">subrange</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">EndValue</span><span class="o">&lt;</span><span class="mi">665</span><span class="o">&gt;</span><span class="p">{});</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">partial_data</span><span class="p">);</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">subrange</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">EndValue</span><span class="o">&lt;</span><span class="mi">665</span><span class="o">&gt;</span><span class="p">{}));</span>
+</pre></div>
+</div>
+</section>
+<section id="widoki-views">
+<h2>Widoki - Views<a class="headerlink" href="#widoki-views" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Widok (View)</p>
+<ul>
+<li><p>lekki (tani w kopiowaniu/przenoszeniu, przypisywaniu i niszczeniu)</p></li>
+<li><p>zwykle z semantyką referencyjną</p></li>
+<li><p>może być nieskończony (generuje sekwencję elementów)</p></li>
+</ul>
+</li>
+<li><p>Ograniczenia dla widoków (<em>requirements</em>)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::range&lt;T&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::moveable&lt;T&gt;</span></code></p></li>
+<li><p>operacje kopiowania i przenoszenia oraz destruktor są <em>O(1)</em></p></li>
+</ul>
+</li>
+</ul>
+<section id="widoki-adaptory-fabryki">
+<h3>Widoki / Adaptory / Fabryki<a class="headerlink" href="#widoki-adaptory-fabryki" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Adaptor</strong> (<em>range adaptor</em>)</p>
+<ul>
+<li><p>odpowiedni obiekt funkcyjny, który umożliwia utworzenie widoku z zakresu poprzez wywołanie funkcji</p></li>
+<li><p>dostępny dla (prawie) każdego widoku</p></li>
+</ul>
+</li>
+<li><p><strong>Fabryka zakresu</strong> (<em>range factory</em>)</p>
+<ul>
+<li><p>funkcja, która tworzy widok generujący wartości</p></li>
+</ul>
+</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Adaptor / Factory</p></th>
+<th class="head"><p>Typ</p></th>
+<th class="head"><p>Efekt</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">all(rng)</span></code></p></td>
+<td><p>wariant: <br/> + typ <code class="docutils literal notranslate"><span class="pre">rng</span></code><br/> + <code class="docutils literal notranslate"><span class="pre">ref_view</span></code><br/> + <code class="docutils literal notranslate"><span class="pre">owning_view</span></code></p></td>
+<td><p>Zwraca zakres jako widok:<br/> + <code class="docutils literal notranslate"><span class="pre">rng</span></code> jeśli jest to widok<br/> + <code class="docutils literal notranslate"><span class="pre">ref_view</span></code> jeśli <code class="docutils literal notranslate"><span class="pre">rng</span></code> jest lvalue<br/> + zwraca <code class="docutils literal notranslate"><span class="pre">owning_view</span></code> jeśli <code class="docutils literal notranslate"><span class="pre">rng</span></code> jest rvalue</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">counted(rng)</span></code></p></td>
+<td><p>wariant: <br/> + <code class="docutils literal notranslate"><span class="pre">std::span</span></code><br/> + <code class="docutils literal notranslate"><span class="pre">subrange</span></code></p></td>
+<td><p>Tworzy widok z iteratora i licznika elementów<br/> + zwraca <code class="docutils literal notranslate"><span class="pre">std::span</span></code> jeśli <code class="docutils literal notranslate"><span class="pre">rng</span></code> jest ciągłym i wspólnym zakresem<br/> + lub zwraca <code class="docutils literal notranslate"><span class="pre">subrange</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iota(fst)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">iota_view</span></code></p></td>
+<td><p>Tworzy widok z nieskończoną sekwencją liczb całkowitych [fst, infinity)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">iota(fst,</span> <span class="pre">lst)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">iota_view</span></code></p></td>
+<td><p>Tworzy widok ze skończoną sekwencją liczb całkowitych [fst, lst)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">single(val)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">single_view</span></code></p></td>
+<td><p>Tworzy widok z tylko jednym elementem <code class="docutils literal notranslate"><span class="pre">val</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">empty&lt;T&gt;</span></code></p></td>
+<td><p>empty_view</p></td>
+<td><p>Tworzy pusty widok elementów typu <code class="docutils literal notranslate"><span class="pre">T</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">take(num)</span></code></p></td>
+<td><p>varies</p></td>
+<td><p>The first <code class="docutils literal notranslate"><span class="pre">num</span></code> elements</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">take_while(pred)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">take_while_view</span></code></p></td>
+<td><p>All leading elements that match a predicate</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">drop(num)</span></code></p></td>
+<td><p>varies</p></td>
+<td><p>All except the first <code class="docutils literal notranslate"><span class="pre">num</span></code> elements</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">drop_while(pred)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">drop_while_view</span></code></p></td>
+<td><p>All except leading elements that match a predicate</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">filter(pred)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">filter_view</span></code></p></td>
+<td><p>All elements that match a predicate</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">transform(func)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">transform_view</span></code></p></td>
+<td><p>The transformed values of all elements</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">elements&lt;idx&gt;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">elements_view</span></code></p></td>
+<td><p>The idxth member/attribute of all elements</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">keys</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">elements_view</span></code></p></td>
+<td><p>The first member of all elements</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">values</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">elements_view</span></code></p></td>
+<td><p>The second member of all elements</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reverse</span></code></p></td>
+<td><p>varies</p></td>
+<td><p>All elements in reversed order</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">join</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">join_view</span></code></p></td>
+<td><p>All elements of multiple ranges</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">split(sep)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">split_view</span></code></p></td>
+<td><p>All elements of a range split into sub-ranges</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lazy_split(sep)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lazy_split_view</span></code></p></td>
+<td><p>All elements of an input/const range split into subranges</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">common</span></code></p></td>
+<td><p>varies</p></td>
+<td><p>All elements with same type for iterator and sentinel</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tworzenie-widokow">
+<h3>Tworzenie widoków<a class="headerlink" href="#tworzenie-widokow" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Przekazanie zakresu jako parametru do adaptora |</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">first_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Pipe zakresu z adaptorem |</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">first_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coll</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Przekazanie zakresu jako parametru do typu widoku |</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">take_view</span><span class="w"> </span><span class="n">first_3</span><span class="p">{</span><span class="n">coll</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="widoki-i-semantyka-referencji">
+<h3>Widoki i semantyka referencji<a class="headerlink" href="#widoki-i-semantyka-referencji" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Widoki mają semantykę referencji - odnoszą się do zakresów przechowujących dane</p></li>
+<li><p>Użycie widoku jest bezpieczne tylko wtedy, gdy referencje do nich są prawidłowe</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">get_values</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">coll</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">coll</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">rng</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_values</span><span class="p">();</span><span class="w"> </span><span class="c1">// !!!ERROR!!!: returning reference to local range</span>
+</pre></div>
+</div>
+<p>Przykłady widoków ilustrujące zachowanie referencyjne:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3, 2, 1, 5, 4, 7, 6, -1, 9, 10</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">subrange</span><span class="w"> </span><span class="n">rng</span><span class="p">{</span><span class="n">coll</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">EndValue</span><span class="o">&lt;</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">&gt;</span><span class="p">{}};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3, 2, 1, 5, 4, 7, 6, -1, 9, 10</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">rng</span><span class="p">);</span><span class="w"> </span><span class="c1">// sorts elements up to -1</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1, 2, 3, 4, 5, 6, 7, -1, 9, 10</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="n">rng</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1, 2, 5, 4, 5, 6, 7, -1, 9, 10</span>
+</pre></div>
+</div>
+</section>
+<section id="widoki-i-modyfikacje-elementow">
+<h3>Widoki i modyfikacje elementów<a class="headerlink" href="#widoki-i-modyfikacje-elementow" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Widoki są obiektami <em>read-only</em>, <em>stateless</em> i <em>equality preserving</em></p></li>
+<li><p>Nigdy nie powinny modyfikować przekazanego argumentu</p></li>
+<li><p>Funkcje pomocnicze (predykaty lub funkcje transformujące) <strong>nigdy</strong> nie powinny modyfikować argumentów</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">([]</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">val</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// better declare val as const&amp;</span>
+<span class="w">    </span><span class="o">++</span><span class="n">val</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR: undefined behavior</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Jest dozwolone użycie widoków w celu ograniczenia zakresu elementów, które chcemy modyfikować</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">rng</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="widoki-i-leniwa-ewaluacja">
+<h3>Widoki i leniwa ewaluacja<a class="headerlink" href="#widoki-i-leniwa-ewaluacja" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Widoki wykorzystują model <em>pull</em></p></li>
+<li><p>Przetwarzanie (filtrowanie) jest wykonywane dopiero w momencie, kiedy iterujemy po elementach widoku (<em>lazy evaluation</em>)</p></li>
+<li><p>W rezultacie widoki mogą operować na nieskończonych sekwencjach</p></li>
+</ul>
+</section>
+<section id="widoki-caching">
+<h3>Widoki - caching<a class="headerlink" href="#widoki-caching" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>W celu optymalizacji wydajności widoki częściowo cache’ują rezultat swojego działania (np. wywołania <code class="docutils literal notranslate"><span class="pre">begin()</span></code>)</p></li>
+<li><p>Po wywołaniu <code class="docutils literal notranslate"><span class="pre">begin()</span></code> modyfikacja początkowych elementów zakresu może unieważnić widok</p></li>
+<li><p>Odczyt widoku może mieć wpływ na to czy widok jest prawidłowy, jeśli odwołuje się do modyfikowanego zakresu</p></li>
+<li><p>Caching może wymagać aby widok, po którym iterujemy nie był <code class="docutils literal notranslate"><span class="pre">const</span></code></p>
+<ul>
+<li><p>w rezultacie nie można iterować po widoku, który jest przekazany do funkcji jako <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto&amp;</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="w"> </span><span class="n">coll</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coll</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">print</span><span class="p">(</span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="c1">// init begin() with 3</span>
+
+<span class="n">coll</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// coll now is: 0 1 2 3 4 5</span>
+<span class="n">print</span><span class="p">(</span><span class="n">v</span><span class="p">);</span><span class="w"> </span><span class="c1">// begin() is still 3, so prints: 3 4 5</span>
+</pre></div>
+</div>
+</section>
+<section id="fiasko-const">
+<h3>Fiasko const&amp;<a class="headerlink" href="#fiasko-const" title="Permalink to this heading">#</a></h3>
+<p>Funkcje szablonowe, które używają jako parametru <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T&amp;</span></code> lub <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto&amp;</span></code> nie są kompatybilne z niektórymi widokami:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">coll</span><span class="p">);</span><span class="w"> </span><span class="c1">// not callable for all views</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">input_range</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">coll</span><span class="p">);</span><span class="w"> </span><span class="c1">// not callable for all views</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">random_access_range</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">coll</span><span class="p">);</span><span class="w"> </span><span class="c1">// not callable for all views</span>
+</pre></div>
+</div>
+<p>Dla wszystkich widoków działa <code class="docutils literal notranslate"><span class="pre">auto&amp;&amp;</span></code> - <em>uniwersalna referencja</em></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">rng</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">rng</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">vec</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// OK </span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// OK </span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="w"> </span><span class="n">lst</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">lst</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// OK </span>
+<span class="n">print</span><span class="p">(</span><span class="n">lst</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// OK </span>
+</pre></div>
+</div>
+</section>
+<section id="widoki-const-iterator-cbegin">
+<h3>Widoki - const_iterator &amp; cbegin()<a class="headerlink" href="#widoki-const-iterator-cbegin" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Widoki nie dostarczają typu <code class="docutils literal notranslate"><span class="pre">const_iterator</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">vw</span><span class="p">)</span><span class="o">::</span><span class="n">const_iterator</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vw</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="c1">// ERROR for a view</span>
+<span class="w">    </span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">vw</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">it</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">do_something</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Nie posiadają metod <code class="docutils literal notranslate"><span class="pre">cbegin()</span></code> i <code class="docutils literal notranslate"><span class="pre">cend()</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">some_algorithm</span><span class="p">(</span><span class="n">vw</span><span class="p">.</span><span class="n">cbegin</span><span class="p">(),</span><span class="w"> </span><span class="n">vw</span><span class="p">.</span><span class="n">cend</span><span class="p">());</span><span class="w"> </span><span class="c1">// ERROR for a view</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Funkcje <code class="docutils literal notranslate"><span class="pre">std::cbegin()</span></code> i <code class="docutils literal notranslate"><span class="pre">std::cend()</span></code> nie działają prawidłowo dla widoków!!!</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cbegin</span><span class="p">(</span><span class="n">rng</span><span class="p">);</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cend</span><span class="p">(</span><span class="n">rng</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">it</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">some_function</span><span class="p">(</span><span class="o">*</span><span class="n">it</span><span class="p">);</span><span class="w"> </span><span class="c1">// it does not respect the constness</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="podstawowe-widoki">
+<h3>Podstawowe widoki<a class="headerlink" href="#podstawowe-widoki" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::views::all(rng)</span></code> - jeśli mamy pojedynczy obiekt range</p>
+<ul>
+<li><p>zwraca <code class="docutils literal notranslate"><span class="pre">rng</span></code></p>
+<ul>
+<li><p>lub <code class="docutils literal notranslate"><span class="pre">std::ranges::ref_view{rg}</span></code></p></li>
+<li><p>lub <code class="docutils literal notranslate"><span class="pre">std::ranges::owning_view{rg}</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::views::counted(it,</span> <span class="pre">count)</span></code> - jeśli mamy iterator i liczbę elementów</p>
+<ul>
+<li><p>zwraca <code class="docutils literal notranslate"><span class="pre">std::span{rg}</span></code></p></li>
+<li><p>lub <code class="docutils literal notranslate"><span class="pre">std::ranges::subrange{rg}</span></code></p></li>
+</ul>
+</li>
+<li><p>Jeśli mamy parę iteratorów</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::subrange{begin,</span> <span class="pre">end}</span></code></p></li>
+<li><p>lub <code class="docutils literal notranslate"><span class="pre">std::span{begin,</span> <span class="pre">end}</span></code> - w przypadku, gdy pamięć jest ciągła</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="uzycie-widokow">
+<h3>Użycie widoków<a class="headerlink" href="#uzycie-widokow" title="Permalink to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">vec</span><span class="p">{</span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="mi">345</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">55</span><span class="p">,</span><span class="w"> </span><span class="mi">69</span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">));</span><span class="w"> </span><span class="c1">// sort first 4 elements </span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// sort elements starting from 4th</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">counted</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="p">{});</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;}));</span><span class="w"> </span><span class="c1">// sort middle items</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">));</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="widoki-pipelines">
+<h2>Widoki - pipelines<a class="headerlink" href="#widoki-pipelines" title="Permalink to this heading">#</a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">vec</span><span class="p">{</span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="mi">345</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">55</span><span class="p">,</span><span class="w"> </span><span class="mi">69</span><span class="p">};</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">vec</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">));</span><span class="w"> </span><span class="c1">// sort first 4 elements </span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">vec</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// sort elements starting from 4th</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">counted</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">greater</span><span class="p">{});</span>
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="p">);</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">vec</span><span class="w"> </span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">([](</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">;})</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">drop</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">                              </span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w">                            </span>
+</pre></div>
+</div>
+</section>
+<section id="ranges-nowe-typy-iteratorow">
+<h2>Ranges - nowe typy iteratorów<a class="headerlink" href="#ranges-nowe-typy-iteratorow" title="Permalink to this heading">#</a></h2>
+<section id="std-counted-iterator">
+<h3>std::counted_iterator<a class="headerlink" href="#std-counted-iterator" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Iterator umożliwiający iterację po maksymalnej liczbie elementów:</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">counted_iterator</span><span class="w"> </span><span class="n">pos</span><span class="p">{</span><span class="n">coll</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span><span class="w"> </span><span class="n">pos</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">pos</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">pos</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="std-default-sentinel">
+<h3>std::default_sentinel<a class="headerlink" href="#std-default-sentinel" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Iterator, który nie implementuje żadnych operacji</p></li>
+<li><p>Typ: <code class="docutils literal notranslate"><span class="pre">std::default_sentinel_t</span></code></p></li>
+<li><p>Pełni rolę <code class="docutils literal notranslate"><span class="pre">dummy</span> <span class="pre">sentinel</span></code> - jest wykorzystywany przez inne iteratory (np. <code class="docutils literal notranslate"><span class="pre">counted_iterator</span></code>) do implementacji sprawdzenia, czy jest już koniec sekwencji</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">counted_iterator</span><span class="w"> </span><span class="n">pos</span><span class="p">{</span><span class="n">coll</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">default_sentinel</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">pos</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">pos</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="std-unreachable-sentinel">
+<h3>std::unreachable_sentinel<a class="headerlink" href="#std-unreachable-sentinel" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Wartownik, który nie może zostać osiągnięty</p></li>
+<li><p>Używany do implementacji nieskończonych zakresów</p></li>
+<li><p>Lub w sytuacji, gdy jesteśmy pewni, że nigdy nie dojdziemy do końca zakresu</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">55</span><span class="p">,</span><span class="w"> </span><span class="mi">667</span><span class="p">};</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">pos_42</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unreachable_sentinel</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="std-common-iterator">
+<h3>std::common_iterator<a class="headerlink" href="#std-common-iterator" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Używany, aby zharmonizować typ dwóch iteratorów</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">TBegin</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">TEnd</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">some_algorithm</span><span class="p">(</span><span class="n">TBegin</span><span class="w"> </span><span class="n">bgn</span><span class="p">,</span><span class="w"> </span><span class="n">TEnd</span><span class="w"> </span><span class="n">end</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">same_as</span><span class="o">&lt;</span><span class="n">TBegin</span><span class="p">,</span><span class="w"> </span><span class="n">TEnd</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">algorithm</span><span class="p">(</span><span class="n">bgn</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">using</span><span class="w"> </span><span class="n">TIterator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">common_iterator</span><span class="o">&lt;</span><span class="n">TBegin</span><span class="p">,</span><span class="w"> </span><span class="n">TEnd</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">algorithm</span><span class="p">(</span><span class="n">TIterator</span><span class="p">{</span><span class="n">bgn</span><span class="p">},</span><span class="w"> </span><span class="n">TIterator</span><span class="p">{</span><span class="n">end</span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="borrowed-iterator">
+<h2>Borrowed iterator<a class="headerlink" href="#borrowed-iterator" title="Permalink to this heading">#</a></h2>
+<p>Wiele algorytmów zwraca iterator wskazujący na element(y) zakresu:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="mi">234</span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="mi">234</span><span class="p">};</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">it_ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">);</span><span class="w"> </span><span class="c1">// passing lvalue - ok</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">it_evil</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find</span><span class="p">(</span><span class="n">get_data</span><span class="p">(),</span><span class="w"> </span><span class="mi">665</span><span class="p">);</span><span class="w"> </span><span class="c1">// passing rvalue - it_evil is dangling</span>
+</pre></div>
+</div>
+<p>Aby chronić użytkownika przed <em>wiszącymi iteratorami</em> (<em>dangling iterators</em>) biblioteka wprowadza tzw. <em>borrowed iterator</em>.</p>
+<p>Używając typu <code class="docutils literal notranslate"><span class="pre">std::ranges::borrowed_iterator_t&lt;Rng&gt;</span></code> algorytmy:</p>
+<ul class="simple">
+<li><p>mogą zadeklarować zwracany iterator jako <em>pożyczony</em> (<em>borrowed</em>) - taki iterator może być bezpiecznie użyty po wywołaniu funkcji</p></li>
+<li><p>lub zadeklarować zwracany iterator jako <em>wiszący</em> (<em>dangling</em>) - taki iterator powoduje błąd kompilacji</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">range</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">borrowed_iterator_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">conditional_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">borrowed_range</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">iterator_t</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">dangling</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Przykładowa deklaracja algorytmu <code class="docutils literal notranslate"><span class="pre">find()</span></code> w bibliotece Ranges może w uproszczeniu wyglądać następująco:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">input_range</span><span class="w"> </span><span class="n">Rng</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">Proj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">identity</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">borrowed_iterator_t</span><span class="o">&lt;</span><span class="n">Rng</span><span class="o">&gt;</span><span class="w"> </span><span class="n">find</span><span class="p">(</span><span class="n">Rng</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">Proj</span><span class="w"> </span><span class="n">proj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{});</span>
+</pre></div>
+</div>
+<p>Taka deklaracja pozwala na sprawdzenie na etapie kompilacji, czy przekazywany zakres jest <em>prvalue</em>, jeśli tak, to zwracany typ staje się <em>wiszącym iteratorem</em> i powoduje błąd kompilacji:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="mi">234</span><span class="p">};</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">it_evil</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">find</span><span class="p">(</span><span class="n">get_data</span><span class="p">(),</span><span class="w"> </span><span class="mi">665</span><span class="p">);</span><span class="w"> </span><span class="c1">// ERROR! it_evil is std::ranges::dangling</span>
+</pre></div>
+</div>
+<p>Aby uniknąć wiszącego wskaźnika można przypisać rezultat wywołania funkcji <code class="docutils literal notranslate"><span class="pre">get_data()</span></code> do:</p>
+<ul class="simple">
+<li><p>lokalnej referencji <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">auto&amp;</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_data</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">pos</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>lub uniwersalna referencji <code class="docutils literal notranslate"><span class="pre">auto&amp;&amp;</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_data</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="mi">665</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">pos</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
+</pre></div>
+</div>
+</section>
+<section id="borrowed-ranges">
+<h2>Borrowed ranges<a class="headerlink" href="#borrowed-ranges" title="Permalink to this heading">#</a></h2>
+<p>Wiszące iteratory są potencjalnym problemem dla wielu zakresów. Iteratory kontenerów standardowych stają się iteratorami wiszącymi, gdy niszczony jest kontener, do którego się odwołują.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">}.</span><span class="n">begin</span><span class="p">();</span><span class="w"> </span><span class="c1">// iter is dangling</span>
+</pre></div>
+</div>
+<p>Ale nie dotyczy to wszystkich zakresów. Iteratory do <code class="docutils literal notranslate"><span class="pre">std::string_view</span></code> pozostają prawidłowe (odnoszą się do poprawnego bufora znaków) nawet po zniszczeniu samej instancji <code class="docutils literal notranslate"><span class="pre">std::string_view</span></code> (pod warunkiem, że obiekt, do którego odwoływała się instancja <code class="docutils literal notranslate"><span class="pre">std::string_view</span></code> jeszcze istnieje):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;BORROWED&quot;</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="p">{</span><span class="n">text</span><span class="p">}.</span><span class="n">begin</span><span class="p">();</span>
+<span class="n">assert</span><span class="p">(</span><span class="o">*</span><span class="n">iter</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;B&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK &amp; safe</span>
+</pre></div>
+</div>
+<p>Typy takie jak <code class="docutils literal notranslate"><span class="pre">std::string_view</span></code> nazywane są <strong>borrowed ranges</strong>. Termin ten oznacza oznacza, że iteratory zwrócone z takiego zakresu są wciąż prawidłowe, nawet jeśli sama instancja zakresu już nie istnieje.</p>
+<p>W rezultacie:</p>
+<ul class="simple">
+<li><p><em>rvalue</em> typu <code class="docutils literal notranslate"><span class="pre">std::vector&lt;T&gt;</span></code> - <code class="docutils literal notranslate"><span class="pre">std::vector&lt;T&gt;&amp;&amp;</span></code> - nie jest <em>borrowed</em></p></li>
+<li><p><em>rvalue</em> typu <code class="docutils literal notranslate"><span class="pre">std::string_view</span></code> - <code class="docutils literal notranslate"><span class="pre">std::string_view&lt;T&gt;</span></code> - jest <em>borrowed</em></p></li>
+</ul>
+<p>W bibliotece Ranges istnieje koncept <code class="docutils literal notranslate"><span class="pre">std::ranges::borrowed_range</span></code>, który wygląda następująco:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Rng</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">borrowed_range</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">ranges</span><span class="o">::</span><span class="n">range</span><span class="o">&lt;</span><span class="n">Rng</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">    </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference_v</span><span class="o">&lt;</span><span class="n">Rng</span><span class="o">&gt;</span><span class="w"> </span><span class="o">||</span>
+<span class="w">     </span><span class="n">ranges</span><span class="o">::</span><span class="n">enable_borrowed_range</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cvref_t</span><span class="o">&lt;</span><span class="n">Rng</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">Rng</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">enable_borrowed_range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>W praktyce oznacza to, że zakres jest <em>borrowed</em> jeśli:</p>
+<ul class="simple">
+<li><p>jest lvalue</p></li>
+<li><p>lub jest rvalue typu, dla którego specjalizacja <code class="docutils literal notranslate"><span class="pre">std::ranges::enable_borrowed_range</span></code> zwraca <code class="docutils literal notranslate"><span class="pre">true</span></code></p>
+<ul>
+<li><p>cała informacja jest przechowywana w iteratorach</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::iota_view</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::empty_view</span></code></p></li>
+</ul>
+</li>
+<li><p>typy “widoków”, które odwołują się do innych zakresów</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::subrange</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::ref_view</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::span</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::string_view</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Jeśli w aplikacji zdefiniowany jest typ zakresu, dla którego iteratory mogą bezpiecznie wisieć (np. <code class="docutils literal notranslate"><span class="pre">StringRef</span></code>), to możemy dostarczyć specjalizację, która
+pozwoli bibliotece Ranges traktować ten typ zakresu jako <em>borrowed</em>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">enable_borrowed_range</span><span class="o">&lt;</span><span class="n">my</span><span class="o">::</span><span class="n">StringRef</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="viewable-ranges">
+<h2>Viewable ranges<a class="headerlink" href="#viewable-ranges" title="Permalink to this heading">#</a></h2>
+<p>Biblioteka Ranges definiuje dwa niezależne koncepty:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::ranges::borrowed_range</span></code> - zakres, którego iteratory nie wiszą (zakres lvalue lub zakres rvalue z specjalizacją <code class="docutils literal notranslate"><span class="pre">enable_borrowed_range</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::view</span></code> - zakres, dla którego operacje kopiowania/przenoszenia/niszczenia mają złożoności O(1)</p></li>
+</ul>
+<p>Funkcja <code class="docutils literal notranslate"><span class="pre">std::views::all()</span></code> spina obie koncepcje razem - przyjmuje jako parametr <em>borrowed range</em> i zwraca widok (<code class="docutils literal notranslate"><span class="pre">ref_view</span></code> lub <code class="docutils literal notranslate"><span class="pre">subrange</span></code>).</p>
+<p>Razem, obie kategorie typów są nazywane <strong>viewable ranges</strong> i mogą stać po stronie operatora “pipe” <code class="docutils literal notranslate"><span class="pre">|</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_vector</span><span class="p">();</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">func</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK: vec is an lvalue</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_span</span><span class="p">()</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">func</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK: span is borrowed</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">v3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subrange</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">end</span><span class="p">())</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="w"> </span><span class="c1">// Ok: subrange is borrowed (and a view)</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">v4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_vector</span><span class="p">()</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">(</span><span class="n">func</span><span class="p">);</span><span class="w"> </span><span class="c1">// ERROR: get_vector() returns an rvalue vector, which is neither</span>
+<span class="w">                                                 </span><span class="c1">// a view nor a borrowed range</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Iteratory borrowed zostają iteratorami wiszącymi, jeśli zakres do którego się odwołują nie jest <em>borrowed</em>
+Efektem jest:</p>
+<ul class="simple">
+<li><p>błąd kompilacji:</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">take</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">},</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">pos</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// COMPILER ERROR         </span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>lub, niestety, runtime-error:</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ranges</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">counted</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">}.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">pos</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// RUNTIME ERROR</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="concepts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Koncepty i ograniczenia szablonów</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="span.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">std::span</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicja-zakresu-koncept-std-range">Definicja zakresu - koncept std::range</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#komponenty-biblioteki-ranges">Komponenty biblioteki Ranges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranges-koncepty">Ranges - koncepty</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranges-narzedzia">Ranges - narzędzia</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typy-pomocnicze-dla-zakresow">Typy pomocnicze dla zakresów</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#std-ranges-range-value-t"><code class="docutils literal notranslate"><span class="pre">std::ranges::range_value_t&lt;&gt;</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customization-point-objects">Customization Point Objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranges-algorytmy">Ranges - algorytmy</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projekcje">Projekcje</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorytmy-z-wartownikiem">Algorytmy z wartownikiem</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#algorytmy-przed-c-20">Algorytmy - przed C++20</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#algorytmy-od-c-20">Algorytmy - od C++20</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#podzakresy">Podzakresy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-views">Widoki - Views</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-adaptory-fabryki">Widoki / Adaptory / Fabryki</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tworzenie-widokow">Tworzenie widoków</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-i-semantyka-referencji">Widoki i semantyka referencji</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-i-modyfikacje-elementow">Widoki i modyfikacje elementów</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-i-leniwa-ewaluacja">Widoki i leniwa ewaluacja</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-caching">Widoki - caching</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fiasko-const">Fiasko const&amp;</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-const-iterator-cbegin">Widoki - const_iterator &amp; cbegin()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#podstawowe-widoki">Podstawowe widoki</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uzycie-widokow">Użycie widoków</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#widoki-pipelines">Widoki - pipelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ranges-nowe-typy-iteratorow">Ranges - nowe typy iteratorów</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#std-counted-iterator">std::counted_iterator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#std-default-sentinel">std::default_sentinel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#std-unreachable-sentinel">std::unreachable_sentinel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#std-common-iterator">std::common_iterator</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#borrowed-iterator">Borrowed iterator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#borrowed-ranges">Borrowed ranges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewable-ranges">Viewable ranges</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

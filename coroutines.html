@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Coroutines in C++20 &#8212; Przykładowa książka w Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'coroutines';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Programowanie na etapie kompilacji" href="compile-time-programming.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Programowanie w C++20
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="comparisons.html">Porównania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generic-functions.html">Funkcje szablonowe z auto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Koncepty i ograniczenia szablonów</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ranges.html">Biblioteka Ranges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="span.html">std::span</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core-features.html">Core C++ - nowości</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambdas-20.html">Lambdy w C++20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Non Type Template Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compile-time-programming.html">Programowanie na etapie kompilacji</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Coroutines in C++20</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20/issues/new?title=Issue%20on%20page%20%2Fcoroutines.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/coroutines.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Coroutines in C++20</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subroutine-vs-coroutine">Subroutine vs. Coroutine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mechanics-of-coroutines">Mechanics of coroutines</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-call">Function call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coroutine-call">Coroutine call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#destruction-of-a-coroutine-state">Destruction of a coroutine state</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handle-of-the-coroutine">Handle of the coroutine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifying-a-specific-coroutine-activation-frame">Identifying a specific coroutine activation frame</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#promise-object">Promise object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#co-await">co_await</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#awaitable-object">Awaitable object</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-simplest-awaitables">The simplest awaitables</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#suspend-always">suspend_always</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#suspend-never">suspend_never</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#co-return">co_return</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yielding-a-value-co-yield">Yielding a value - co_yield</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customization-points-for-a-coroutine">Customization points for a coroutine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#allocating-a-coroutine-frame">Allocating a coroutine frame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtaining-the-return-object">Obtaining the return object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-initial-suspend-point">The initial-suspend point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-to-the-caller">Returning to the caller</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-from-the-coroutine-using-co-return">Returning from the coroutine using <code class="docutils literal notranslate"><span class="pre">co_return</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-exceptions-for-the-coroutine-body">Handling exceptions for the coroutine body</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-final-suspend-point">The final-suspend point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-the-behavior-of-co-await">Customizing the behavior of co_await</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-the-behavior-of-co-yield">Customizing the behavior of co_yield</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="coroutines-in-c-20">
+<h1>Coroutines in C++20<a class="headerlink" href="#coroutines-in-c-20" title="Permalink to this heading">#</a></h1>
+<section id="subroutine-vs-coroutine">
+<h2>Subroutine vs. Coroutine<a class="headerlink" href="#subroutine-vs-coroutine" title="Permalink to this heading">#</a></h2>
+<p>Coroutine is a generalization of a subroutine:</p>
+<p>A <strong>subroutine</strong>:</p>
+<ul class="simple">
+<li><p>can be invoked by its caller</p></li>
+<li><p>can return control back to its caller</p></li>
+</ul>
+<p>A <strong>coroutine</strong> has both properties, but also:</p>
+<ul class="simple">
+<li><p>can suspend its execution and return control to its caller</p></li>
+<li><p>can resume execution after being suspended</p></li>
+</ul>
+<p>In C++ function can be either a subroutine or a coroutine:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Subroutine</p></th>
+<th class="head"><p>Coroutine</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Invoke</p></td>
+<td><p>Function call <code class="docutils literal notranslate"><span class="pre">f()</span></code></p></td>
+<td><p>Function call <code class="docutils literal notranslate"><span class="pre">f()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Return</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">statement;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">statement;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Suspend</p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">expression;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Resume</p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">coroutine_handle&lt;&gt;::resume()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Since C++20 a function is a coroutine it its body contains:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">co_return</span></code> statement</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">lazy</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">f</span><span class="p">()</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">co_return</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>or <code class="docutils literal notranslate"><span class="pre">co_await</span></code> expression</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cppcoro</span><span class="o">::</span><span class="n">task</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">tcp_echo_server</span><span class="p">(</span><span class="n">socket_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">socket</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">buffer_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">uint8_t</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">buffer_t</span><span class="w"> </span><span class="n">buffer</span><span class="p">{};</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(;;)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">size_t</span><span class="w"> </span><span class="n">bytes_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">co_await</span><span class="w"> </span><span class="n">socket</span><span class="p">.</span><span class="n">async_read_some</span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="n">data</span><span class="p">());</span>
+<span class="w">        </span><span class="k">co_await</span><span class="w"> </span><span class="n">async_write</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span><span class="w"> </span><span class="n">buffer</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">bytes_read</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p>or <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> expression</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">cppcoro</span><span class="o">::</span><span class="n">generator</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">iota</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+<span class="w">      </span><span class="k">co_yield</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Compiler transforms a coroutine function into a state machine.</p>
+<p>Coroutine behaves as if its body were replaced by:</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">await-expression</span></code> containing the call to <code class="docutils literal notranslate"><span class="pre">initial_suspend</span></code> is the <em>initial suspend point</em></p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">await-expression</span></code> containing the call to <code class="docutils literal notranslate"><span class="pre">final_suspend</span></code> is the <em>final suspend point</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">initial-await-resume-called</span></code> is initially <code class="docutils literal notranslate"><span class="pre">false</span></code> and is set to <code class="docutils literal notranslate"><span class="pre">true</span></code> immediately before the evaluation of the await-resume expression of the initial suspend point</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">promise-type</span></code> denotes the <em>promise type</em></p></li>
+</ul>
+</section>
+<section id="mechanics-of-coroutines">
+<h2>Mechanics of coroutines<a class="headerlink" href="#mechanics-of-coroutines" title="Permalink to this heading">#</a></h2>
+<section id="function-call">
+<h3>Function call<a class="headerlink" href="#function-call" title="Permalink to this heading">#</a></h3>
+<p>When a function is being called, the compiler constructs a <em>stack frame</em>. The stack frame includes space for:</p>
+<ul class="simple">
+<li><p>arguments of the function call</p></li>
+<li><p>local variables</p></li>
+<li><p>return value</p></li>
+<li><p>temporary storage for registers</p></li>
+</ul>
+</section>
+<section id="coroutine-call">
+<h3>Coroutine call<a class="headerlink" href="#coroutine-call" title="Permalink to this heading">#</a></h3>
+<p>Invoking a coroutine forces the compiler to construct a <em>coroutine stack frame</em> that contains space for:</p>
+<ul class="simple">
+<li><p>formal parameters</p></li>
+<li><p>local variables</p></li>
+<li><p>selected temporaries</p></li>
+<li><p>execution state for when the coroutine is suspended (registers, instruction pointers, etc.)</p></li>
+<li><p>the <em>promise</em> that is used to return a value or values to the caller</p></li>
+</ul>
+<p>In general <em>coroutine stack</em> must be dynamically allocated:</p>
+<ul class="simple">
+<li><p>when the coroutine is suspended it loses its local stack - dynamic allocation allows to preserve the local state</p></li>
+<li><p>operator new is used by default</p>
+<ul>
+<li><p>it can be overloaded for specific coroutines, to allow customization</p></li>
+</ul>
+</li>
+<li><p>dynamic allocation can sometimes be elided by the compiler</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Creation of the coroutine frame occurs before the coroutine starts running</p>
+</div>
+<p>The compiler passes a handle to this coroutine frame to the caller of the coroutine.</p>
+</section>
+<section id="destruction-of-a-coroutine-state">
+<h3>Destruction of a coroutine state<a class="headerlink" href="#destruction-of-a-coroutine-state" title="Permalink to this heading">#</a></h3>
+<p>The coroutine state is destroyed when control flows off the end of the coroutine or the <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> member function of a coroutine handle that refers to the coroutine is invoked.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> is called for a coroutine that is not suspended, the program has undefined behavior.</p>
+</div>
+</section>
+</section>
+<section id="handle-of-the-coroutine">
+<h2>Handle of the coroutine<a class="headerlink" href="#handle-of-the-coroutine" title="Permalink to this heading">#</a></h2>
+<p>A <em>coroutine handle</em> is an object that wraps up a pointer to a coroutine frame. A coroutine frame is allocated on a heap.</p>
+<p>We can distinguish two general cases for a coroutine handle.</p>
+<ul class="simple">
+<li><p>The first is a coroutine handle to a coroutine that returns <code class="docutils literal notranslate"><span class="pre">void</span></code>:</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">_PromiseT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">coroutine_handle</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">coroutine_handle</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span><span class="w"> </span><span class="c1">// no promise access</span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="n">coroutine_handle</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span><span class="w"> </span><span class="c1">// it allows to construct empty coroutine_handle</span>
+<span class="w">    </span><span class="n">coroutine_handle</span><span class="p">(</span><span class="n">nullptr_t</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+<span class="w">    </span><span class="n">coroutine_handle</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">nullptr_t</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span>
+<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="kt">bool</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span><span class="w"> </span><span class="c1">// conversion - if handle is empty</span>
+<span class="w">        </span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">coroutine_handle</span><span class="w"> </span><span class="nf">from_address</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">_Addr</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span><span class="w"> </span><span class="c1">// conversion function - allows to convert a pointer to handle</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="nf">address</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span><span class="w"> </span><span class="c1">// returns pointer to coroutine handle</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">operator</span><span class="p">()()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"> </span><span class="c1">// it allows to resume the execution</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">resume</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"> </span><span class="c1">// the same as operator()() - resumes the execution</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">destroy</span><span class="p">();</span><span class="w"> </span><span class="c1">// allows to manually destroy the coroutine</span>
+<span class="w">        </span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">done</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="p">;</span><span class="w"> </span><span class="c1">// tests whether the coroutine has completed execution</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">ptr_</span><span class="p">;</span><span class="w"> </span><span class="c1">// a pointer to a coroutine stack frame</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The second is a couroutine handle to a coroutine that returns some value. For this this handle we can provide a specialization of a <code class="docutils literal notranslate"><span class="pre">coroutine_handle</span></code> template:</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Promise</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">coroutine_handle</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">coroutine_handle</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Promise</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">promise</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span><span class="w"> </span><span class="c1">// gets the promise back</span>
+
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">coroutine_handle</span><span class="w"> </span><span class="nf">from_promise</span><span class="p">(</span><span class="n">Promise</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span><span class="w"> </span><span class="c1">// returns a handle from the promise object </span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because a promise object is constructed somewhere in a coroutine frame, knowing the promise object, we can obtain the proper <code class="docutils literal notranslate"><span class="pre">coroutine_handle</span></code>.</p>
+</div>
+<section id="identifying-a-specific-coroutine-activation-frame">
+<h3>Identifying a specific coroutine activation frame<a class="headerlink" href="#identifying-a-specific-coroutine-activation-frame" title="Permalink to this heading">#</a></h3>
+<p>You can obtain a <code class="docutils literal notranslate"><span class="pre">coroutine_handle</span></code> for a coroutine in two ways:</p>
+<ul class="simple">
+<li><p>It is passed to the <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> method during a <code class="docutils literal notranslate"><span class="pre">co_await</span></code> expression.</p></li>
+<li><p>If you have a reference to the coroutine’s promise object, you can reconstruct its coroutine_handle using <code class="docutils literal notranslate"><span class="pre">coroutine_handle&lt;Promise&gt;::from_promise()</span></code></p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">coroutine_handle</span></code> of the awaiting coroutine will be passed into the <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> method of the awaiter after the coroutine has suspended at the <code class="docutils literal notranslate"><span class="pre">&lt;suspend-point&gt;</span></code> of a <code class="docutils literal notranslate"><span class="pre">co_await</span></code> expression. You can think of this <code class="docutils literal notranslate"><span class="pre">coroutine_handle</span></code> as representing the continuation of the coroutine in a <a class="reference external" href="https://en.wikipedia.org/wiki/Continuation-passing_style">continuation-passing</a> style call.</p>
+<p>Note that the coroutine_handle is NOT and RAII object. You must manually call <code class="docutils literal notranslate"><span class="pre">.destroy()</span></code> to destroy the coroutine frame and free its resources. Think of it as the equivalent of a void* used to manage memory. This is for performance reasons: making it an RAII object would add additional overhead to coroutine, such as the need for reference counting.</p>
+</section>
+</section>
+<section id="promise-object">
+<h2>Promise object<a class="headerlink" href="#promise-object" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Promise object is an object that allows to pass values from a coroutine to the caller</p></li>
+<li><p>Allows compile time checks using the <code class="docutils literal notranslate"><span class="pre">std::coroutine_traits&lt;T...&gt;</span></code> trait class</p></li>
+<li><p>Is allocated on a coroutine frame that is allocated on a heap using operators <code class="docutils literal notranslate"><span class="pre">new</span></code>/<code class="docutils literal notranslate"><span class="pre">delete</span></code> by default</p></li>
+<li><p>The interface of a promise object contains:</p>
+<ul>
+<li><p>constructor/destructor (RAII)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_return_object()</span></code> - this function is used to initialize the result of a call to a coroutine</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_return_object_on_allocation_failure()</span></code></p></li>
+<li><p>functions that allow to pass values from the coroutine to a caller</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">co_return</span></code>: <code class="docutils literal notranslate"><span class="pre">return_value()</span></code>, <code class="docutils literal notranslate"><span class="pre">return_void()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">co_yield</span></code>: <code class="docutils literal notranslate"><span class="pre">yield_value()</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="co-await">
+<h2>co_await<a class="headerlink" href="#co-await" title="Permalink to this heading">#</a></h2>
+<p>The unary operator <code class="docutils literal notranslate"><span class="pre">co_await</span></code> suspends a coroutine and returns control to the caller.</p>
+<p><code class="docutils literal notranslate"><span class="pre">co_await</span></code> expression is unrolled by a compiler to the following code:</p>
+<p>The expression that follows the <code class="docutils literal notranslate"><span class="pre">co_await</span></code> operator is converted to an <em>awaitable object</em>.</p>
+<p>If the coroutine was suspended in the <code class="docutils literal notranslate"><span class="pre">co_await</span></code> expression, and is later resumed, the resume point is immediately before the call to <code class="docutils literal notranslate"><span class="pre">awaiter.await_resume()</span></code></p>
+<section id="awaitable-object">
+<h3>Awaitable object<a class="headerlink" href="#awaitable-object" title="Permalink to this heading">#</a></h3>
+<p>In order to await for something awaitable type must obey the <code class="docutils literal notranslate"><span class="pre">awaitable</span></code> concept:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">awaitable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">obj</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="n">await_ready</span><span class="p">();</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">convertible_to</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="n">await_suspend</span><span class="p">(</span><span class="n">coroutine_handle</span><span class="o">&lt;&gt;</span><span class="p">);</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">obj</span><span class="p">.</span><span class="n">await_resume</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>When the awaiter object is created, then the <code class="docutils literal notranslate"><span class="pre">awaiter.await_ready()</span></code> is called. This is a short-cut to avoid the cost of suspension if the result is ready or can be completed synchronously.</p>
+<p>If the returned result is <code class="docutils literal notranslate"><span class="pre">false</span></code>, then the coroutine is suspended and <code class="docutils literal notranslate"><span class="pre">awaiter.await_suspend(coroutine_handle&lt;P&gt;)</span></code> is called. Inside this function the suspended coroutine state is observable via coroutine handle. The responsibility of this function it to schedule the coroutine to resume on some executor (or to be destroyed).</p>
+<ul class="simple">
+<li><p>if <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> returns <code class="docutils literal notranslate"><span class="pre">void</span></code>, control is immediately returned to the caller/resumer of the current coroutine (this coroutine remains suspended), otherwise</p></li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> returns <code class="docutils literal notranslate"><span class="pre">bool</span></code>,</p>
+<ul>
+<li><p>the value <code class="docutils literal notranslate"><span class="pre">true</span></code> returns control to the caller/resumer of the current coroutine</p></li>
+<li><p>the value <code class="docutils literal notranslate"><span class="pre">false</span></code> resumes the current coroutine</p></li>
+</ul>
+</li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> returns a coroutine handle for some other coroutine, that handle is resumed (by a call to <code class="docutils literal notranslate"><span class="pre">handle.resume()</span></code>) (this may chain to eventually cause the current coroutine to resume)</p></li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> throws an exception, the exception is caught, the coroutine is resumed, and the exception is immediately re-thrown</p></li>
+</ul>
+<p>Finally, <code class="docutils literal notranslate"><span class="pre">awaiter.await_resume()</span></code> is called, and its result is the result of the whole <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">expr</span></code> expression.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because the coroutine is fully suspended before entering <code class="docutils literal notranslate"><span class="pre">awaiter.await_suspend()</span></code>, that function is free to transfer the coroutine handle across threads, with no additional synchronization.
+For example, it can put it inside a callback, scheduled to run on a <code class="docutils literal notranslate"><span class="pre">threadpool</span></code> when async I/O operation completes. In that case, since the current coroutine may have been resumed and thus executed the awaiter object’s destructor, all concurrently as <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> continues its execution on the current thread, <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> should treat <code class="docutils literal notranslate"><span class="pre">*this</span></code> as destroyed and not access it after the handle was published to other threads.</p>
+</div>
+<section id="the-simplest-awaitables">
+<h4>The simplest awaitables<a class="headerlink" href="#the-simplest-awaitables" title="Permalink to this heading">#</a></h4>
+<section id="suspend-always">
+<h5>suspend_always<a class="headerlink" href="#suspend-always" title="Permalink to this heading">#</a></h5>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">suspend_always</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">await_ready</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// I don&#39;t have a value yet</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_suspend</span><span class="p">(</span><span class="n">coroutine_handle</span><span class="o">&lt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_resume</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="suspend-never">
+<h5>suspend_never<a class="headerlink" href="#suspend-never" title="Permalink to this heading">#</a></h5>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">suspend_never</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">await_ready</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_suspend</span><span class="p">(</span><span class="n">coroutine_handle</span><span class="o">&lt;&gt;</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">await_resume</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="co-return">
+<span id="id1"></span><h2>co_return<a class="headerlink" href="#co-return" title="Permalink to this heading">#</a></h2>
+<p>Returning a value from the coroutine can be done using <code class="docutils literal notranslate"><span class="pre">co_return</span></code> statement.</p>
+<p>When a coroutine reaches the <code class="docutils literal notranslate"><span class="pre">co_return</span></code> statement, it performs the following:</p>
+<ul class="simple">
+<li><p>calls <code class="docutils literal notranslate"><span class="pre">promise.return_void()</span></code> for</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">co_return;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">expr;</span></code> where <code class="docutils literal notranslate"><span class="pre">expr</span></code> has type <code class="docutils literal notranslate"><span class="pre">void</span></code></p></li>
+<li><p>falling off the end of a void-returning coroutine. If the <em>promise type</em> has no <code class="docutils literal notranslate"><span class="pre">Promise::return_void()</span></code> the behavior of the program is undefined</p></li>
+</ul>
+</li>
+<li><p>or calls <code class="docutils literal notranslate"><span class="pre">promise.return_value(expr)</span></code> for <code class="docutils literal notranslate"><span class="pre">co_return</span> <span class="pre">expr;</span></code> where <code class="docutils literal notranslate"><span class="pre">expr</span></code> has non-void type</p></li>
+<li><p>destroys all variables with automatic storage duration in reverse order they were created</p></li>
+<li><p>calls <code class="docutils literal notranslate"><span class="pre">promise.final_suspend()</span></code> and <code class="docutils literal notranslate"><span class="pre">co_await</span></code>s the result</p></li>
+</ul>
+</section>
+<section id="yielding-a-value-co-yield">
+<h2>Yielding a value - co_yield<a class="headerlink" href="#yielding-a-value-co-yield" title="Permalink to this heading">#</a></h2>
+<p>A <em>yield expression</em> has a following form:</p>
+</section>
+<section id="customization-points-for-a-coroutine">
+<h2>Customization points for a coroutine<a class="headerlink" href="#customization-points-for-a-coroutine" title="Permalink to this heading">#</a></h2>
+<p>The interface of <strong>promise</strong> object specifies methods for customizing the behavior of the coroutine. The library writer is able to customize:</p>
+<ul class="simple">
+<li><p>what happens when the coroutine is called</p></li>
+<li><p>what happens when the coroutine returns (either by normal return or via unhandled exception)</p></li>
+<li><p>behavior of any <code class="docutils literal notranslate"><span class="pre">co_await</span></code> or <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> expression within the coroutine body</p></li>
+</ul>
+<section id="allocating-a-coroutine-frame">
+<h3>Allocating a coroutine frame<a class="headerlink" href="#allocating-a-coroutine-frame" title="Permalink to this heading">#</a></h3>
+<p>The compiler needs to allocate memory for a coroutine frame. To achieve this it generates a call to <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new</span></code>.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">promise_type</span></code>  defines a custom <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new</span></code> then that is called, otherwise global <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new</span></code> is called.</p>
+<p>The size passed to operator new is not <code class="docutils literal notranslate"><span class="pre">sizeof(Promise)</span></code> but is rather the size of the entire coroutine frame and is determined automatically by the compiler based on the number and sizes of parameters, size of the promise object, number and sizes of local variables and other compiler-specific storage needed for management of coroutine state.</p>
+<p>The compiler is free to elide the call to operator new as an optimization if:</p>
+<ul class="simple">
+<li><p>it is able to determine that the lifetime of the coroutine frame is strictly nested within the lifetime of the caller; and</p></li>
+<li><p>the compiler can see the size of coroutine frame required at the call-site.</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">MyPromise</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">raw_mem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_custom_allocate</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">raw_mem</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">{};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">raw_mem</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">raw_mem</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">my_custom_free</span><span class="p">(</span><span class="n">raw_mem</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="obtaining-the-return-object">
+<h3>Obtaining the return object<a class="headerlink" href="#obtaining-the-return-object" title="Permalink to this heading">#</a></h3>
+<p>The first thing a coroutine does with a promise object is obtain the <code class="docutils literal notranslate"><span class="pre">return-object</span></code> by calling <code class="docutils literal notranslate"><span class="pre">promise.get_return_object()</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">return-object</span></code> is the value that is returned to the caller of the coroutine function then the coroutine first suspends or after it runs to completion and execution returns to the caller.</p>
+</section>
+<section id="the-initial-suspend-point">
+<h3>The initial-suspend point<a class="headerlink" href="#the-initial-suspend-point" title="Permalink to this heading">#</a></h3>
+<p>The next thing the coroutine executes once the coroutine frame has been initialized and the return object has been obtained is execute the statement <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">promise.initial_suspend();</span></code>.</p>
+<p>This allows the author of the <code class="docutils literal notranslate"><span class="pre">promise_type</span></code> to control whether the coroutine should suspend before executing the coroutine body that appears in the source code or start executing the coroutine body immediately.</p>
+<p>If the coroutine suspends at the initial suspend point then it can be later resumed or destroyed at a time of your choosing by calling <code class="docutils literal notranslate"><span class="pre">resume()</span></code> or <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> on the coroutine’s coroutine_handle.</p>
+<p>The result of the <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">promise.initial_suspend()</span></code> expression is discarded so implementations should generally return void from the <code class="docutils literal notranslate"><span class="pre">await_resume()</span></code> method of the awaiter.</p>
+<p>For many types of coroutines, the <code class="docutils literal notranslate"><span class="pre">initial_suspend()</span></code> method either returns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">std::suspend_always</span></code> (if the operation is lazily started) or</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std::suspend_never</span></code> (if the operation is eagerly started)</p></li>
+</ul>
+</section>
+<section id="returning-to-the-caller">
+<h3>Returning to the caller<a class="headerlink" href="#returning-to-the-caller" title="Permalink to this heading">#</a></h3>
+<p>When the coroutine function reaches its first <code class="docutils literal notranslate"><span class="pre">&lt;return-to-caller-or-resumer&gt;</span></code> point (or if no such point is reached then when execution of the coroutine runs to completion) then the return-object returned from the <code class="docutils literal notranslate"><span class="pre">get_return_object()</span></code> call is returned to the caller of the coroutine.</p>
+<p>The type of the <code class="docutils literal notranslate"><span class="pre">return-object</span></code> doesn’t need to be the same type as the <code class="docutils literal notranslate"><span class="pre">ReturnType</span></code> of the coroutine function. An implicit conversion from the <code class="docutils literal notranslate"><span class="pre">return-object</span></code> to the <code class="docutils literal notranslate"><span class="pre">ReturnType</span></code> of the coroutine is performed if necessary.</p>
+</section>
+<section id="returning-from-the-coroutine-using-co-return">
+<h3>Returning from the coroutine using <code class="docutils literal notranslate"><span class="pre">co_return</span></code><a class="headerlink" href="#returning-from-the-coroutine-using-co-return" title="Permalink to this heading">#</a></h3>
+<p><a class="reference internal" href="#co-return"><span class="std std-ref">See co_return behavior</span></a></p>
+</section>
+<section id="handling-exceptions-for-the-coroutine-body">
+<h3>Handling exceptions for the coroutine body<a class="headerlink" href="#handling-exceptions-for-the-coroutine-body" title="Permalink to this heading">#</a></h3>
+<p>If an exception propagates out of the coroutine body then the exception is caught and the <code class="docutils literal notranslate"><span class="pre">promise.unhandled_exception()</span></code> method is called inside the <code class="docutils literal notranslate"><span class="pre">catch</span></code> block.</p>
+<p>Implementations of this method typically call <code class="docutils literal notranslate"><span class="pre">std::current_exception()</span></code> to capture a copy of the exception to store it away to be later re-thrown in a different context.</p>
+</section>
+<section id="the-final-suspend-point">
+<h3>The final-suspend point<a class="headerlink" href="#the-final-suspend-point" title="Permalink to this heading">#</a></h3>
+<p>Once execution exits the user-defined part of the coroutine body and the result has been captured via a call to <code class="docutils literal notranslate"><span class="pre">return_void()</span></code>, <code class="docutils literal notranslate"><span class="pre">return_value()</span></code> or <code class="docutils literal notranslate"><span class="pre">unhandled_exception()</span></code> and any local variables have been destructed, the coroutine has an opportunity to execute some additional logic before execution is returned back to the caller/resumer.</p>
+<p>The coroutine executes the <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">promise.final_suspend();</span></code> statement.</p>
+<p>This allows the coroutine to execute some logic, such as publishing a result, signalling completion or resuming a continuation. It also allows the coroutine to optionally suspend immediately before execution of the coroutine runs to completion and the coroutine frame is destroyed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is undefined behavior to <code class="docutils literal notranslate"><span class="pre">resume()</span></code> a coroutine that is suspended at the <code class="docutils literal notranslate"><span class="pre">final_suspend</span></code> point. The only thing you can do with a coroutine suspended here is <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> it.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is recommended that you structure your coroutines so that they do suspend at <code class="docutils literal notranslate"><span class="pre">final_suspend</span></code> where possible.</p>
+<p>This is because this forces you to call <code class="docutils literal notranslate"><span class="pre">.destroy()</span></code> on the coroutine from outside of the coroutine (typically from some RAII object destructor) and this makes it much easier for the compiler to determine when the scope of the lifetime of the coroutine-frame is nested inside the caller. This in turn makes it much more likely that the compiler can elide the memory allocation of the coroutine frame.</p>
+</div>
+</section>
+<section id="customizing-the-behavior-of-co-await">
+<h3>Customizing the behavior of co_await<a class="headerlink" href="#customizing-the-behavior-of-co-await" title="Permalink to this heading">#</a></h3>
+<p>The promise type can optionally customize the behavior of every <code class="docutils literal notranslate"><span class="pre">co_await</span></code> expression that appears in the body of the coroutine.</p>
+<p>By simply defining a method named <code class="docutils literal notranslate"><span class="pre">await_transform()</span></code> on the promise type, the compiler will then transform every <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">&lt;expr&gt;</span></code> appearing in the body of the coroutine into <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">promise.await_transform(&lt;expr&gt;)</span></code>.</p>
+<p>This has a number of important and powerful uses:</p>
+<ul>
+<li><p>It lets you enable awaiting types that would not normally be awaitable.</p></li>
+<li><p>It lets you disallow awaiting on certain types by declaring <code class="docutils literal notranslate"><span class="pre">await_transform</span></code> overloads as <code class="docutils literal notranslate"> <span class="pre">=</span> <span class="pre">delete</span></code>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">generator_promise</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="p">...</span>
+
+<span class="w">  </span><span class="c1">// Disable any use of co_await within this type of coroutine.</span>
+<span class="w">  </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">suspend_never</span><span class="w"> </span><span class="n">await_transform</span><span class="p">(</span><span class="n">U</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+
+<span class="p">};</span>
+</pre></div>
+</div>
+</li>
+<li><p>It lets you adapt and change the behavior of normally awaitable values</p></li>
+</ul>
+</section>
+<section id="customizing-the-behavior-of-co-yield">
+<h3>Customizing the behavior of co_yield<a class="headerlink" href="#customizing-the-behavior-of-co-yield" title="Permalink to this heading">#</a></h3>
+<p>The final thing you can customize through the promise type is the behavior of the <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> keyword.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> keyword appears in a coroutine then the compiler translates the expression <code class="docutils literal notranslate"><span class="pre">co_yield</span> <span class="pre">&lt;expr&gt;</span></code> into the expression <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">promise.yield_value(&lt;expr&gt;)</span></code>.</p>
+<p>The promise type can therefore customize the behavior of the <code class="docutils literal notranslate"><span class="pre">co_yield</span></code> keyword by defining one or more <code class="docutils literal notranslate"><span class="pre">yield_value()</span></code> methods on the promise object.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="compile-time-programming.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Programowanie na etapie kompilacji</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subroutine-vs-coroutine">Subroutine vs. Coroutine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mechanics-of-coroutines">Mechanics of coroutines</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-call">Function call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coroutine-call">Coroutine call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#destruction-of-a-coroutine-state">Destruction of a coroutine state</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handle-of-the-coroutine">Handle of the coroutine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifying-a-specific-coroutine-activation-frame">Identifying a specific coroutine activation frame</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#promise-object">Promise object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#co-await">co_await</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#awaitable-object">Awaitable object</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-simplest-awaitables">The simplest awaitables</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#suspend-always">suspend_always</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#suspend-never">suspend_never</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#co-return">co_return</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#yielding-a-value-co-yield">Yielding a value - co_yield</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#customization-points-for-a-coroutine">Customization points for a coroutine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#allocating-a-coroutine-frame">Allocating a coroutine frame</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtaining-the-return-object">Obtaining the return object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-initial-suspend-point">The initial-suspend point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-to-the-caller">Returning to the caller</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#returning-from-the-coroutine-using-co-return">Returning from the coroutine using <code class="docutils literal notranslate"><span class="pre">co_return</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-exceptions-for-the-coroutine-body">Handling exceptions for the coroutine body</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-final-suspend-point">The final-suspend point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-the-behavior-of-co-await">Customizing the behavior of co_await</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#customizing-the-behavior-of-co-yield">Customizing the behavior of co_yield</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

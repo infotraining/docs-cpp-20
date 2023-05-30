@@ -1,0 +1,978 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Core C++ - nowości &#8212; Przykładowa książka w Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'core-features';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lambdy w C++20" href="lambdas-20.html" />
+    <link rel="prev" title="std::span" href="span.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Programowanie w C++20
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="comparisons.html">Porównania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generic-functions.html">Funkcje szablonowe z auto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Koncepty i ograniczenia szablonów</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ranges.html">Biblioteka Ranges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="span.html">std::span</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Core C++ - nowości</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambdas-20.html">Lambdy w C++20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Non Type Template Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compile-time-programming.html">Programowanie na etapie kompilacji</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coroutines.html">Coroutines in C++20</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20/issues/new?title=Issue%20on%20page%20%2Fcore-features.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/core-features.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Core C++ - nowości</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#range-based-for-z-sekcja-inicjujaca">Range-Based For z sekcją inicjującą</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deklaracja-using-scoped-enumeration">Deklaracja using + scoped enumeration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atrybuty-w-c-20">Atrybuty w C++20</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nodiscard-z-uzasadnieniem">nodiscard z uzasadnieniem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likely-vs-unlikely">likely vs. unlikely</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-unique-address">no_unique_address</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typ-char8-t-dla-utf-8">Typ char8_t dla UTF-8</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agregaty-w-c-20">Agregaty w C++20</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregaty-designated-initializers">Agregaty - designated initializers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregaty-inicjalizacja">Agregaty - inicjalizacja ()</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#agregaty-inicjalizacja-i-tablice">Agregaty - inicjalizacja () i tablice</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ctad-dla-agregatow">CTAD dla agregatów</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-test-macros">Feature Test Macros</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-source-location">std::source_location</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operacje-bitowe">Operacje bitowe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-endian">std::endian</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="core-c-nowosci">
+<h1>Core C++ - nowości<a class="headerlink" href="#core-c-nowosci" title="Permalink to this heading">#</a></h1>
+<section id="range-based-for-z-sekcja-inicjujaca">
+<h2>Range-Based For z sekcją inicjującą<a class="headerlink" href="#range-based-for-z-sekcja-inicjujaca" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Przed C++20 użycie obiektów tymczasowych w pętli <em>range-based for</em> mogło prowadzić do UB</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">load_data</span><span class="p">();</span>
+
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">load_data</span><span class="p">().</span><span class="n">value</span><span class="p">())</span><span class="w"> </span><span class="c1">// UB!!!</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Od C++20 możemy użyć sekcji inicjującej</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">load_data</span><span class="p">();</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">value</span><span class="p">())</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="deklaracja-using-scoped-enumeration">
+<h2>Deklaracja using + scoped enumeration<a class="headerlink" href="#deklaracja-using-scoped-enumeration" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Deklaracja <code class="docutils literal notranslate"><span class="pre">using</span></code> może zostać użyta dla typów wyliczeniowych (<em>scoped enums</em>)</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">DownloadStatus</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">not_started</span><span class="p">,</span><span class="w"> </span><span class="n">pending</span><span class="p">,</span><span class="w"> </span><span class="n">done</span><span class="w"> </span><span class="p">};</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">DownloadStatus</span><span class="p">;</span>
+
+<span class="n">DownloadStatus</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">not_started</span><span class="p">;</span>
+
+<span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">case</span><span class="w"> </span><span class="no">not_started</span><span class="p">:</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;not started!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="k">case</span><span class="w"> </span><span class="no">pending</span><span class="p">:</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;in progress</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="k">case</span><span class="w"> </span><span class="no">done</span><span class="p">:</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;done</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="atrybuty-w-c-20">
+<h2>Atrybuty w C++20<a class="headerlink" href="#atrybuty-w-c-20" title="Permalink to this heading">#</a></h2>
+<section id="nodiscard-z-uzasadnieniem">
+<h3>nodiscard z uzasadnieniem<a class="headerlink" href="#nodiscard-z-uzasadnieniem" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Atrybut <code class="docutils literal notranslate"><span class="pre">nodiscard</span></code> może przyjąć parametr, podający uzasadnienie ostrzeżenia</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">(</span><span class="s">&quot;Always check the status&quot;</span><span class="p">)]]</span><span class="w"> </span><span class="n">DownloadStatus</span><span class="w"> </span><span class="n">download_file</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">url</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">DownloadStatus</span><span class="o">::</span><span class="n">done</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">//...</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">done</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="likely-vs-unlikely">
+<h3>likely vs. unlikely<a class="headerlink" href="#likely-vs-unlikely" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>W określonych sytuacjach możemy podpowiedzieć kompilatorowi, który branch w instrukcji warunkowej powinien preferować</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">[[</span><span class="n">likely</span><span class="p">]]</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">[[</span><span class="n">unlikely</span><span class="p">]]</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="no-unique-address">
+<h3>no_unique_address<a class="headerlink" href="#no-unique-address" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Ulepszenie tzw. <em>Empty base class optimization</em></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Empty</span><span class="w">  </span><span class="c1">// sizof(Empty) == 1</span>
+<span class="p">{};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Value</span><span class="w"> </span><span class="c1">// sizeof(Valueue) == 4</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">EmptyAndValue</span><span class="w"> </span><span class="c1">// sizeof(EmptyAndValue) == 8</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Empty</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">EmptyWithAttrAndValue</span><span class="w"> </span><span class="c1">// sizeof(EmptyWithAttrAndValue) == 4</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="p">[[</span><span class="n">no_unique_address</span><span class="p">]]</span><span class="w"> </span><span class="n">Empty</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">ValueAndEmptyWithAttr</span><span class="w"> </span><span class="c1">// sizeof(ValueueAndEmptyWithAttr) == 4</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">    </span><span class="p">[[</span><span class="n">no_unique_address</span><span class="p">]]</span><span class="w"> </span><span class="n">Empty</span><span class="w"> </span><span class="n">e</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="typ-char8-t-dla-utf-8">
+<h2>Typ char8_t dla UTF-8<a class="headerlink" href="#typ-char8-t-dla-utf-8" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Do obsługi UTF-8 dostępne są:</p>
+<ul>
+<li><p>nowy typ znakowy - <code class="docutils literal notranslate"><span class="pre">char8_t</span></code> - litearał: <code class="docutils literal notranslate"><span class="pre">u8'a'</span></code></p></li>
+<li><p>nowy typ tekstowy - <code class="docutils literal notranslate"><span class="pre">std::u8string</span></code> - literał: <code class="docutils literal notranslate"><span class="pre">u8&quot;text&quot;s</span></code></p></li>
+<li><p>nowy widok tekstu - <code class="docutils literal notranslate"><span class="pre">std::u8string_view</span></code> - literał <code class="docutils literal notranslate"><span class="pre">u8&quot;text&quot;sv</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-code-noblend notranslate"><div class="highlight"><pre><span></span>char8_t c = u8&#39;$&#39;;
+std::u8string str1 = u8&quot;Krak\u00F3w&quot;;
+
+const char8_t* str_utf8 = u8&quot;Krak\u00F3w&quot;; // &quot;Kraków&quot; w UTF-8
+
+std::cout &lt;&lt; str_utf8 &lt;&lt; &quot;\n&quot;; // ERROR - &lt;&lt; jest usunięty dla UTF-8
+std::cout &lt;&lt; reinterpret_cast&lt;const char*&gt;(str_utf8) &lt;&lt; &quot;\n&quot;; // OK
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">literals</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">str2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u8</span><span class="s">&quot;Krak</span><span class="se">\u00F3</span><span class="s">w&quot;</span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="c1">// std::u8string</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">sv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u8</span><span class="s">&quot;Gda</span><span class="se">\u0144</span><span class="s">sk&quot;</span><span class="n">sv</span><span class="p">;</span><span class="w">   </span><span class="c1">// std::u8string_view</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">sv</span><span class="p">.</span><span class="n">data</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-code-noblend notranslate"><div class="highlight"><pre><span></span>const char8_t cEuro = u8&#39;€&#39;; // ERROR - multibyte character
+const char8_t* sEuro = u8&quot;\u20AC&quot;; // OK
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Mając nowy typ możemy przeciążać funkcje</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">store_in_file</span><span class="p">(</span><span class="n">convert_to_utf8</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char8_t</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">store_in_file</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="p">};</span><span class="w">  </span>
+
+<span class="c1">//...</span>
+
+<span class="n">save</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">);</span>
+<span class="n">save</span><span class="p">(</span><span class="sa">u8</span><span class="s">&quot;text&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Nowy typ może spowodować błędy kompilacji w starszym kodzie:</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// iterate over directory entries:</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">directory_iterator</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">().</span><span class="n">u8string</span><span class="p">();</span><span class="w"> </span><span class="c1">// OK in C++17, ERROR since C++20</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Rozwiązanie problemy z wykorzystaniem <em>feature test macro</em></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// iterate over directory entries (C++17 and C++20):</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">fs</span><span class="o">::</span><span class="n">directory_iterator</span><span class="p">(</span><span class="n">path</span><span class="p">))</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="cp">#ifdef __cpp_char8_t</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">u8string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">().</span><span class="n">u8string</span><span class="p">();</span><span class="w"> </span><span class="c1">// OK since C++20</span>
+<span class="cp">#else</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">path</span><span class="p">().</span><span class="n">u8string</span><span class="p">();</span><span class="w"> </span><span class="c1">// OK in C++17</span>
+<span class="cp">#endif</span>
+<span class="w">    </span><span class="c1">//...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="agregaty-w-c-20">
+<h2>Agregaty w C++20<a class="headerlink" href="#agregaty-w-c-20" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Designated initializers</p></li>
+<li><p>Inicjalizacja z użyciem <code class="docutils literal notranslate"><span class="pre">()</span></code></p></li>
+<li><p>Domyślne reguły CTAD</p></li>
+<li><p>Agregaty jako NTTP</p></li>
+</ul>
+<section id="agregaty-designated-initializers">
+<h3>Agregaty - designated initializers<a class="headerlink" href="#agregaty-designated-initializers" title="Permalink to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Person</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">{</span><span class="s">&quot;unknown&quot;</span><span class="p">};</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">salary</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">Person</span><span class="w"> </span><span class="n">p1</span><span class="p">{</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;John&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">6650.2</span><span class="p">};</span><span class="w"> </span><span class="c1">// classic initialization</span>
+
+<span class="n">Person</span><span class="w"> </span><span class="n">p2</span><span class="p">{.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">123</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5666.1</span><span class="p">};</span><span class="w"> </span><span class="c1">// new syntax with designated initializers</span>
+
+<span class="n">Person</span><span class="w"> </span><span class="n">p3</span><span class="p">{.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Adam&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">10&#39;000.1</span><span class="p">};</span><span class="w"> </span>
+
+<span class="n">Person</span><span class="w"> </span><span class="n">p4</span><span class="p">{.</span><span class="n">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100.1</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Adam&quot;</span><span class="p">};</span><span class="w"> </span><span class="c1">// ERROR - wrong order</span>
+
+<span class="n">Person</span><span class="w"> </span><span class="n">p5</span><span class="p">{</span><span class="mi">665</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">12&#39;000.0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// ERROR - mixed style of initialization</span>
+</pre></div>
+</div>
+</section>
+<section id="agregaty-inicjalizacja">
+<h3>Agregaty - inicjalizacja ()<a class="headerlink" href="#agregaty-inicjalizacja" title="Permalink to this heading">#</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Person</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">{</span><span class="s">&quot;unknown&quot;</span><span class="p">};</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">salary</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">Person</span><span class="w"> </span><span class="n">p1</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;John&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">667.5</span><span class="p">};</span>
+<span class="n">Person</span><span class="w"> </span><span class="n">p2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;John&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">667.5</span><span class="p">);</span><span class="w"> </span><span class="c1">//OK - since C++20</span>
+
+<span class="c1">// since C++20 std::make_unique&lt;T&gt; works with aggregates</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">ptr_p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;John&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">667.5</span><span class="p">);</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">ptr_p</span><span class="o">-&gt;</span><span class="n">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="n">Person</span><span class="w"> </span><span class="n">p3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Adam&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// ERROR </span>
+<span class="n">Person</span><span class="w"> </span><span class="n">p3</span><span class="p">(.</span><span class="n">salary</span><span class="o">=</span><span class="mf">10&#39;000.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// ERROR - no designated initializers with ()</span>
+</pre></div>
+</div>
+<section id="agregaty-inicjalizacja-i-tablice">
+<h4>Agregaty - inicjalizacja () i tablice<a class="headerlink" href="#agregaty-inicjalizacja-i-tablice" title="Permalink to this heading">#</a></h4>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">arr1</span><span class="p">[]{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span><span class="w"> </span><span class="c1">// OK since C++11</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arr2</span><span class="p">[](</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"> </span><span class="c1">// OK since C++20</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arr3</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span><span class="w">  </span><span class="n">OK</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">arr4</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"> </span><span class="c1">// ERROR</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a1</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span><span class="w"> </span><span class="c1">// OK</span>
+<span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span><span class="w"> </span><span class="c1">// ERROR</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ctad-dla-agregatow">
+<h3>CTAD dla agregatów<a class="headerlink" href="#ctad-dla-agregatow" title="Permalink to this heading">#</a></h3>
+<p>W C++17 aby zastosować dla agregatów Class Template Argument Deduction (CTAD) należało napisać podpowiedź dedukcyjną:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T1</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T2</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Pair</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">T1</span><span class="w"> </span><span class="n">fst</span><span class="p">;</span>
+<span class="w">    </span><span class="n">T2</span><span class="w"> </span><span class="n">snd</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// deduction guide required for CTAD in C++17</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T1</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T2</span><span class="o">&gt;</span>
+<span class="n">Pair</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span><span class="w"> </span><span class="n">T2</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Pair</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span><span class="w"> </span><span class="n">T2</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Pair</span><span class="w"> </span><span class="n">p1</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;text&quot;</span><span class="p">};</span><span class="w"> </span><span class="c1">// Pair&lt;int, const char*&gt;</span>
+</pre></div>
+</div>
+<p>Od C++20 nie jest to wymagane. Odpowiednie (domyślne) podpowiedzi dedukcyjne wygeneruje kompilator:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T1</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T2</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Pair</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">T1</span><span class="w"> </span><span class="n">fst</span><span class="p">;</span>
+<span class="w">    </span><span class="n">T2</span><span class="w"> </span><span class="n">snd</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// no need for custom deduction guide</span>
+<span class="c1">// compiler provide</span>
+<span class="c1">// appropriate version</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Pair</span><span class="w"> </span><span class="n">p1</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;text&quot;</span><span class="p">};</span><span class="w"> </span><span class="c1">// Pair&lt;int, const char*&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="feature-test-macros">
+<h2>Feature Test Macros<a class="headerlink" href="#feature-test-macros" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Nagłówek <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code></p></li>
+<li><p>Ułatwiają pisanie kodu, który ma być kompilowany w wielu standardach:</p>
+<ul>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/feature_test">lista feature’ów</a>:</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef __cpp_lib_as_const</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">FutureStd</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">as_const</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef __cpp_lib_as_const</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">coll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">as_const</span><span class="p">(</span><span class="n">coll</span><span class="p">)]</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">coll</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FutureStd</span><span class="o">::</span><span class="n">as_const</span><span class="p">(</span><span class="n">coll</span><span class="p">)]</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#endif</span>
+<span class="w">  </span><span class="c1">//... rest of implementation</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="std-source-location">
+<h2>std::source_location<a class="headerlink" href="#std-source-location" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Zastępstwo dla makr typu <code class="docutils literal notranslate"><span class="pre">__FILE__</span></code>, <code class="docutils literal notranslate"><span class="pre">__LINE__</span></code> i <code class="docutils literal notranslate"><span class="pre">__func__</span></code></p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;source_location&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">foo_location</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">sl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">source_location</span><span class="o">::</span><span class="n">current</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;file: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">sl</span><span class="p">.</span><span class="n">file_name</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;function: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">sl</span><span class="p">.</span><span class="n">function_name</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;line/col: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">sl</span><span class="p">.</span><span class="n">line</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>&#64;[1,6,8-10]</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span><span class="p">:</span> <span class="o">/</span><span class="n">workspaces</span><span class="o">/</span><span class="n">cpp</span><span class="o">-</span><span class="mi">20</span><span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">core</span><span class="o">-</span><span class="n">features</span><span class="o">/</span><span class="n">core_features_cpp20</span><span class="o">.</span><span class="n">cpp</span>
+<span class="n">function</span><span class="p">:</span> <span class="n">void</span> <span class="n">foo_location</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="p">[</span><span class="k">with</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="p">::</span><span class="n">__cxx11</span><span class="p">::</span><span class="n">basic_string</span><span class="o">&lt;</span><span class="n">char</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="n">line</span><span class="o">/</span><span class="n">col</span><span class="p">:</span> <span class="mi">301</span>
+</pre></div>
+</div>
+</section>
+<section id="operacje-bitowe">
+<h2>Operacje bitowe<a class="headerlink" href="#operacje-bitowe" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Nowe API dla operacji bitowych</p></li>
+<li><p>Nagłówek <code class="docutils literal notranslate"><span class="pre">&lt;bit&gt;</span></code></p></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>Operation</p></th>
+<th class="head text-center"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">rotl(value,</span> <span class="pre">n)</span></code></p></td>
+<td class="text-center"><p>Yields val with n bits rotated to the left</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">rotr(value,</span> <span class="pre">n)</span></code></p></td>
+<td class="text-center"><p>Yields val with n bits rotated to the right</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">countl_zero(value)</span></code></p></td>
+<td class="text-center"><p>Yields number of leading (most significant) 0 bits</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">countl_one(value)</span></code></p></td>
+<td class="text-center"><p>Yields number of leading (most significant) 1 bits</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">countr_zero(value)</span></code></p></td>
+<td class="text-center"><p>Yields number of trailing (least significant) 0 bits</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">countr_one(value)</span></code></p></td>
+<td class="text-center"><p>Yields number of trailing (least significant) 1 bits</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">popcount(value)</span></code></p></td>
+<td class="text-center"><p>Yields number of 1 bits in the value</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">has_single_bit(value)</span></code></p></td>
+<td class="text-center"><p>Yields whether val is a power of 2 (one bit set)</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">bit_floor(value)</span></code></p></td>
+<td class="text-center"><p>Yields previous power-of-two value</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">bit_ceil(value)</span></code></p></td>
+<td class="text-center"><p>Yields next power-of-two value</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><code class="docutils literal notranslate"><span class="pre">bit_width(value)</span></code></p></td>
+<td class="text-center"><p>Yields number of bits necessary to store the value</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="std-endian">
+<h2>std::endian<a class="headerlink" href="#std-endian" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Pozwala na sprawdzenie rodzaju kolejności bajtów (<em>endianness</em>) w trakcie kompilacji</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bit&gt;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">endian</span><span class="o">::</span><span class="n">native</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endian</span><span class="o">::</span><span class="n">big</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// handle big-endian</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">endian</span><span class="o">::</span><span class="n">native</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endian</span><span class="o">::</span><span class="n">little</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// handle little-endian</span>
+<span class="p">}</span>
+<span class="k">else</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// handle mixed endian</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="span.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">std::span</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lambdas-20.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lambdy w C++20</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#range-based-for-z-sekcja-inicjujaca">Range-Based For z sekcją inicjującą</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deklaracja-using-scoped-enumeration">Deklaracja using + scoped enumeration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#atrybuty-w-c-20">Atrybuty w C++20</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nodiscard-z-uzasadnieniem">nodiscard z uzasadnieniem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likely-vs-unlikely">likely vs. unlikely</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-unique-address">no_unique_address</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typ-char8-t-dla-utf-8">Typ char8_t dla UTF-8</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agregaty-w-c-20">Agregaty w C++20</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregaty-designated-initializers">Agregaty - designated initializers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agregaty-inicjalizacja">Agregaty - inicjalizacja ()</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#agregaty-inicjalizacja-i-tablice">Agregaty - inicjalizacja () i tablice</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ctad-dla-agregatow">CTAD dla agregatów</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-test-macros">Feature Test Macros</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-source-location">std::source_location</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operacje-bitowe">Operacje bitowe</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-endian">std::endian</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
