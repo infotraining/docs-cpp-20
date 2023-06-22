@@ -323,8 +323,7 @@ if (x <=> y == 0) // always OK
   * w przeciwnym razie wywołane są `operator==` i `operator<` w celu sprawdzenia, czy:
     * obiekty są *równe/równoważne* (`operator==` zwraca wtedy `true`)
     * obiekty są mniejsze (`less`) lub większe (`greater`)
-    * obiekty są nieuprządkowane (`unordered`) - tylko w przypadku gdy sprawdzane jest częściowe uporządkowanie (*partial_ordering*)
-
+    * obiekty są nieuporządkowane (`unordered`) - tylko w przypadku gdy sprawdzane jest częściowe uporządkowanie (*partial_ordering*)
 
 
 ``` c++
