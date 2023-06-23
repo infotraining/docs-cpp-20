@@ -136,7 +136,7 @@ struct ValueAndEmptyWithAttr // sizeof(ValueueAndEmptyWithAttr) == 4
   * nowy typ tekstowy - `std::u8string` - literał: `u8"text"s`
   * nowy widok tekstu - `std::u8string_view` - literał `u8"text"sv`
 
-```code-noblend
+```c++
 char8_t c = u8'$';
 std::u8string str1 = u8"Krak\u00F3w";
 
@@ -154,7 +154,7 @@ auto sv = u8"Gda\u0144sk"sv;   // std::u8string_view
 std::cout << reinterpret_cast<const char*>(sv.data()) << "\n";
 ```
 
-```code-noblend
+```c++
 const char8_t cEuro = u8'€'; // ERROR - multibyte character
 const char8_t* sEuro = u8"\u20AC"; // OK
 ```
