@@ -8,18 +8,11 @@
   * szybsze czasy kompilacji
   * możliwość lepszej hermetyzacji kodu
 
-## Moduły - schemat
-
 ![](img/modules.png)
 
-## Nazwy modułów
+## Binary Module Interface (BMI)
 
-* Nazwa modułu może być dowolnym identyfikatorem 
-  * dozwolone jest użycie wielu symboli `.` (np. `boost.asio.async_completion`)
-  * symbol  `.` ma tylko znaczenie wizualne
-  * nazwa modułu może być wykorzystana później do czegoś innego (np. przestrzeni nazw, definicji klasy, funkcji, itp.)
-
-* Moduły C++ *nie* wprowadzają automatycznie przestrzeni nazw
+Plik **Binary Module Interface** zawiera pre-kompilowaną zawartość modułu (wszystkie eksportowane z danego modułu symbole).
 
 ## Module unit (jednostka modułowa)
 
@@ -57,24 +50,52 @@ Moduł C++ może składać się z kilku jednostek modułowych (*module units*)
   * zawiera w deklaracji zarówno słowo `export` jak i nazwę partycji
 
     ``` c++
-    export module Name:Partname;
+    export module Name:Part1;
     ```
 
 * **module implementation partition** - jednostka implementacji, która jednocześnie jest partycją modułu
   * zawiera komponent partycji, ale bez słowa `export`
 
     ``` c++
-    module Name:Partname;
+    module Name:Part1;
     ```
+
+Aby mieć dostęp do deklaracji umieszczonej w innej partycji, partycja musi zaimportować żądaną partycję (nie wystarczy import modułu jako całości):
+
+```c++
+module Name:Part2;
+import :Part1;
+```
+
+Podstawowa jednostka modułu (*primary interface unit*) musi importować i re-eksportować partycję w następujący sposób:
+
+```c++
+export import :Part1;
+export import :Part2;
+```
+
+Podstawowa jednostka modułu (*primary interface unit*) może zaimportować *module implementation partition*, ale nie może jej eksportować. Jednostki implementacji nie mogą być eksportowane.
 
 #### Podstawowa jednostka interfejsu
 
-* **primary module interface** - jednostka interfejsu, która nie jest partycją modułu
+* **primary module interface** - jednostka interfejsu, która eksportuje nazwę modułu
+  * nie jest partycją modułu
   * może być tylko jedna w module - wszystkie inne jednostki interfejsu muszą być partycjami modułu
 
   ``` c++
   export module Name;
   ```
+
+## Nazwy modułów
+
+* Nazwa modułu może być dowolnym identyfikatorem 
+  * dozwolone jest użycie wielu symboli `.` (np. `boost.asio.async_completion`)
+  * symbol  `.` ma tylko znaczenie wizualne
+  * nazwa modułu może być wykorzystana później do czegoś innego (np. przestrzeni nazw, definicji klasy, funkcji, itp.)
+
+```{attention}
+Moduły C++ *nie* wprowadzają automatycznie przestrzeni nazw
+```
 
 ## Eksport z modułów
 
@@ -100,7 +121,7 @@ export void bar(export std::string name) { // Illegal
     // ...
 }
 
-template <export typename T>  // Please NO
+template <export typename T>  // Error
 export class my_container {};
 ```
 
@@ -151,7 +172,7 @@ export class my_container {};
 
 ### Eksport i przestrzenie nazw
 
-* Deklaracja `using` może być eksportowana. Wyjątkiem są sytuacje gdy alias odnosi się elementu, który jest *internal linkage* lub *module linkage*
+* Deklaracja `using` może być eksportowana. Wyjątkiem są sytuacje gdy alias odnosi się elementu, który wewnętrznie linkowany (*internal linkage* lub *module linkage*)
 * Deklaracja `using namespace` nie może być eksportowana
 
 ``` c++
@@ -170,9 +191,11 @@ namespace Stuff {
 
 export using Stuff::Widget; // OK
 
-export using Stuff::Gadget; // Not OK
-export using Stuff::Gizmo; // Bad
-export using namespace Stuff; // Not OK
+export using Stuff::Gadget; // Error
+
+export using Stuff::Gizmo; // Illegal
+
+export using namespace Stuff; // Error
 ```
 
 * Definicja przestrzeni nazw może być eksportowana, ale wszystkie symbole definiowane w tej przestrzeni muszą spełniać wymagania opisane wcześniej
@@ -186,17 +209,15 @@ export namespace Foo {
 
    namespace {
 
-      void do_stuff() { // Stop! You have violated the law.
+      void do_stuff() { // Error!
           //...
       }
 
-   }
-}
+   } // namespace
+} // namespace Foo
 ```
 
 #### Niejawny eksport przestrzeni nazw
-
-## Niejawny eksport
 
 * Eksport przestrzeni nazw skutkuje tym, że każda deklaracja umieszczone w tej przestrzeni jest niejawnie eksportowana jako symbol należący do tej przestrzeni
 
@@ -295,7 +316,13 @@ export import Widgets; // users who import MyModule
                        // will “implicitly” import Widgets
 ```
 
-## import - reguły
+## Import modułów
+
+* Deklaracja importu partycji modułu może odnosić się tylko do partycji należących do tego modułu, który dokonuje importu
+* Moduł nie może importować samego siebie
+* Importy nie mogą tworzyć cykli
+
+### Reguły importu
 
 * W jednostce modułu (*module unit*), wszystkie importy muszą poprzedzać jakąkolwiek deklarację
 
@@ -309,11 +336,7 @@ void pet(Dog& d);
 import Cats; // Not allowed! Move this import above `pet`
 ```
 
-+++
-
-## import - reguły
-
-* `import` specjalnym identyfikatorem, ale wciąż można używać tej nazwy do definiowania np. typów
+* `import` jest specjalnym identyfikatorem, ale wciąż można używać tej nazwy do definiowania np. typów
 
 ``` c++
 export module Pets;
@@ -329,14 +352,6 @@ class Widget {
     import member; // Okay. No scope-resolution needed.
 };
 ```
-
-+++
-
-## Import modułów
-
-* Deklaracja importu partycji modułu może odnosić się tylko do partycji należących do tego modułu, który dokonuje importu
-* Moduł nie może importować samego siebie
-* Importy nie mogą tworzyć cykli
 
 ### Zależności interfejsów (interface dependency)
 
@@ -496,7 +511,11 @@ void call_foo() {
 }
 ```
 
-## The private module fragment
+## Import plików nagłówkowych
+
+Plik nagłówkowy może być wciągnięty do modułu z użyciem słowa `import`. Główna różnica między importowanym nagłówkiem, a importowanym modułem jest taka, że definicje dyrektyw preprocesora w nagłówku są widoczne natychmiast po instrukcji `import`.
+
+## Prywatny fragment modułu - *private module fragment*
 
 * Wprowadza separację interfejsu od implementacji
 * Możemy umieścić implementację w tym samym pliku, ale bez niebezpieczeństwa ekspozycji szczegółów implementacji dla klientów modułu
@@ -505,6 +524,7 @@ void call_foo() {
 ``` c++
 // [The global module fragment - optional]
 module;
+
 #include <stuff.hpp>
 
 // [The module preamble]
