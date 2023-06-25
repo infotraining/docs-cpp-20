@@ -167,7 +167,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="lambdas-20.html">Lambdy w C++20</a></li>
 <li class="toctree-l1"><a class="reference internal" href="templates.html">Non Type Template Parameters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compile-time-programming.html">Programowanie na etapie kompilacji</a></li>
-<li class="toctree-l1"><a class="reference internal" href="coroutines.html">Coroutines in C++20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coroutines.html">Korutyny</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Moduły</a></li>
 </ul>
 
     </div>
@@ -541,13 +542,13 @@ document.write(`
 </ul>
 </li>
 </ul>
-<div class="highlight-code-noblend notranslate"><div class="highlight"><pre><span></span>char8_t c = u8&#39;$&#39;;
-std::u8string str1 = u8&quot;Krak\u00F3w&quot;;
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">char8_t</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u8</span><span class="sc">&#39;$&#39;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">u8string</span><span class="w"> </span><span class="n">str1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u8</span><span class="s">&quot;Krak</span><span class="se">\u00F3</span><span class="s">w&quot;</span><span class="p">;</span>
 
-const char8_t* str_utf8 = u8&quot;Krak\u00F3w&quot;; // &quot;Kraków&quot; w UTF-8
+<span class="k">const</span><span class="w"> </span><span class="kt">char8_t</span><span class="o">*</span><span class="w"> </span><span class="n">str_utf8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u8</span><span class="s">&quot;Krak</span><span class="se">\u00F3</span><span class="s">w&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// &quot;Kraków&quot; w UTF-8</span>
 
-std::cout &lt;&lt; str_utf8 &lt;&lt; &quot;\n&quot;; // ERROR - &lt;&lt; jest usunięty dla UTF-8
-std::cout &lt;&lt; reinterpret_cast&lt;const char*&gt;(str_utf8) &lt;&lt; &quot;\n&quot;; // OK
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str_utf8</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR - &lt;&lt; jest usunięty dla UTF-8</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">str_utf8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
 </pre></div>
 </div>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">literals</span><span class="p">;</span>
@@ -557,8 +558,8 @@ std::cout &lt;&lt; reinterpret_cast&lt;const char*&gt;(str_utf8) &lt;&lt; &quot;
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">sv</span><span class="p">.</span><span class="n">data</span><span class="p">())</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
 </pre></div>
 </div>
-<div class="highlight-code-noblend notranslate"><div class="highlight"><pre><span></span>const char8_t cEuro = u8&#39;€&#39;; // ERROR - multibyte character
-const char8_t* sEuro = u8&quot;\u20AC&quot;; // OK
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="kt">char8_t</span><span class="w"> </span><span class="n">cEuro</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u8</span><span class="sc">&#39;€&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ERROR - multibyte character</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">char8_t</span><span class="o">*</span><span class="w"> </span><span class="n">sEuro</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">u8</span><span class="s">&quot;</span><span class="se">\u20AC</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
 </pre></div>
 </div>
 <ul class="simple">

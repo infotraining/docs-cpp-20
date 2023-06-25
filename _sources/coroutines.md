@@ -1,20 +1,22 @@
-# Coroutines in C++20
+# Korutyny
 
-## Subroutine vs. Coroutine
+> "Subroutines are special cases of ... coroutines." –Donald Knuth"
 
-Coroutine is a generalization of a subroutine:
+## Funkcja vs. Korutyna
 
-A **subroutine**:
+Korutyna jest uogólnieniem funkcji (*subroutine*):
 
-* can be invoked by its caller
-* can return control back to its caller
+**Funkcja / Subroutine**:
 
-A **coroutine** has both properties, but also:
+* może być wywołana przez wywołującego
+* może zwrócić przebieg sterowania do wywołującego instrukcją `return`
 
-* can suspend its execution and return control to its caller
-* can resume execution after being suspended
+**Korutyna / Coroutine** posiada obie powyższe właściwości, ale także:
 
-In C++ function can be either a subroutine or a coroutine:
+* może zawiesić swoje wykonanie i przekazać kontrolę do wywołującego
+* zawieszona, może wznowić swoje wykonanie
+
+W C++ funkcja może być **subrutyną** lub **korutyną**:
 
 |         |     Subroutine      |           Coroutine            |
 | ------- | ------------------- | ------------------------------ |
@@ -23,21 +25,23 @@ In C++ function can be either a subroutine or a coroutine:
 | Suspend |                     | `co_await expression;`         |
 | Resume  |                     | `coroutine_handle<>::resume()` |
 
-Since C++20 a function is a coroutine it its body contains:
+![](img/function-coroutine.png)
 
-* `co_return` statement
+Korutyną w C++20 jest funkcja, której ciało zawiera przynajmniej jedną z instrukcji:
+
+* `co_return`
 
   ```cpp
-  lazy<int> f() 
+  Lib::Lazy<int> f() 
   {
       co_return 7;
   }
   ```
 
-* or `co_await` expression
+* lub `co_await`
 
   ```cpp
-  cppcoro::task<> tcp_echo_server(socket_t& socket) 
+  Lib::Task<> tcp_echo_server(socket_t& socket) 
   {
       using buffer_t = std::array<uint8_t, 1024>;
       buffer_t buffer{};
@@ -49,113 +53,117 @@ Since C++20 a function is a coroutine it its body contains:
   }
   ```
 
-* or `co_yield` expression
+* lub `co_yield`
 
   ```cpp
-  cppcoro::generator<int> iota(int n = 0) 
+  Lib::Generator<int> iota(int n = 0) 
   {
     while(true)
         co_yield n++;
   }
   ```
 
-Compiler transforms a coroutine function into a state machine.
+### Transformacja kodu
 
-Coroutine behaves as if its body were replaced by:
+Kompilator transformuje kod korutyny do opisanej standardem maszyny stanów:
 
-````{panels}
-Coroutine
-^^^
+`````{tab-set}
+````{tab-item} Kod korutyny
+
 ```cpp
 ReturnType coroutine_f(Params)
 {
     function_body();
 }
 ```
----
-Unrolled code
-^^^
+
+````
+
+````{tab-item} Kod po transformacji
+
 ```cpp
 ReturnType coroutine_f(Params)
 {
-    using promise_type = std::coroutine_traits<ReturnType, Params>::promise_type
+    using promise_type = std::coroutine_traits<ReturnType, Params>::promise_type // [1]
 
     promise_type promise(promise_constructor_arguments);
 
     try
     {
-        co_await promise.initial_suspend(); // initial suspend point
+        co_await promise.initial_suspend(); // [2] initial suspend point
         function_body();  
     }
     catch(...)
     {
-        if (!initial_await_resume_called)
+        if (!initial_await_resume_called) // [3]
             throw;
         promise.unhandled_exception();
     }
 
 final-suspend: // final suspend point
-    co_await promise.final_suspend();
+    co_await promise.final_suspend(); // [4]
 }
 ```
 ````
+`````
 
-where:
+gdzie:
 
-* the `await-expression` containing the call to `initial_suspend` is the *initial suspend point*
-* the `await-expression` containing the call to `final_suspend` is the *final suspend point*
-* `initial-await-resume-called` is initially `false` and is set to `true` immediately before the evaluation of the await-resume expression of the initial suspend point
-* `promise-type` denotes the *promise type*
+* [1] `promise-type` oznacza tzw. typ **promise**
+* [2] wyrażenie `co_await` zawierające wywołanie `promise.initial_suspend()` to tzw. **initial suspend point**
+* [3] flaga `initial_await_resume_called` jest początkowo ustawiona na `false` i przestawiona na `true` bezpośrednio przed ewaluacją wyrażenia `await-resume` w tzw. *initial suspend point*
+* [4] wyrażenie `co-await` zawierające wywołanie `promise.final_suspend()` to tzw.**final suspend point**
 
-## Mechanics of coroutines
+## Korutyny- czas życia
 
-### Function call
+### Wywołanie funkcji
 
-When a function is being called, the compiler constructs a *stack frame*. The stack frame includes space for:
+W trakcie, gdy wywoływana jest funkcja, kompilator konstruuje tzw. *ramkę stosu* (*stack frame*), która zawiera:
 
-* arguments of the function call
-* local variables
-* return value
+* argumenty wywołania funkcji
+* lokalne zmienne
+* zwracaną wartość
 * temporary storage for registers
 
-### Coroutine call
+### Wywołanie korutyny
 
-Invoking a coroutine forces the compiler to construct a *coroutine stack frame* that contains space for:
+Wywołanie korutyny zmusza kompilator do konstrukcji tzw. *coroutine stack frame*, która zawiera:
 
-* formal parameters
-* local variables
-* selected temporaries
-* execution state for when the coroutine is suspended (registers, instruction pointers, etc.)
-* the *promise* that is used to return a value or values to the caller
+* parametru formalne
+* zmienne lokalne
+* stan wykonania w przypadku, gdy korutyna jest wstrzymana (rejestry, wskaźniki instrukcji, itd.)
+* obiekt *promise*, który jest użyty do zwrócenia wartości (jednej lub kilku) do wywołującego
 
-In general *coroutine stack* must be dynamically allocated:
+W ogólności ramka stosu korutyny *coroutine stack frame* musi być alokowana dynamicznie na stercie. Alokacja na stercie pozwala uniknąć utraty lokalnego stanu w momencie zawieszenia działania korutyny. 
 
-* when the coroutine is suspended it loses its local stack - dynamic allocation allows to preserve the local state
-* operator new is used by default
-  - it can be overloaded for specific coroutines, to allow customization
-* dynamic allocation can sometimes be elided by the compiler
+Do alokacji używany jest domyślnie `operator new`.
+
+W niektórych sytuacjach kompilator może zrezygnować (zoptymalizować wykonanie) z dynamicznej alokacji pamięci.
 
 ```{note}
-Creation of the coroutine frame occurs before the coroutine starts running
+Utworzenie ramki korutyny następuje przed rozpoczęciem jej wykonania.
+
+Kompilator przekazuje uchwyt (wskaźnik) do ramki korutyny do wywołującego korutynę.
 ```
 
-The compiler passes a handle to this coroutine frame to the caller of the coroutine.
+### Destrukcja stanu korutyny
 
-### Destruction of a coroutine state
+Stan korutyny jest niszczony, kiedy:
 
-The coroutine state is destroyed when control flows off the end of the coroutine or the `destroy()` member function of a coroutine handle that refers to the coroutine is invoked.
+* następuje wyjście z korutyny - przebieg programu opuszcza korutynę
+* lub, gdy wywołana jest metoda `destroy()` uchwytu korutyny, który odwołuje się do uruchomionej korutyny
 
 ```{note}
-If `destroy()` is called for a coroutine that is not suspended, the program has undefined behavior.
+Jeśli `destroy()` zostało wywołane dla korutyny, która nie jest w stanie zawieszenia (*suspended*), to program jest w stanie *undefined behavior (UB)*!
 ```
 
-## Handle of the coroutine
+## Uchwyt korutyny (*coroutine handle*)
 
-A *coroutine handle* is an object that wraps up a pointer to a coroutine frame. A coroutine frame is allocated on a heap.
+Uchwyt korutyny (tzw. *coroutine handle*) jest obiektem, który opakowuje wskaźnik do ramki korutyny, która jest alokowana stercie. Uchwyt pozwala na manipulację z zewnątrz korutyny. Dzięki niemu możemy wznawiać wykonanie zawieszonej korutyny lub ją zniszczyć operacją `destroy()`.
 
-We can distinguish two general cases for a coroutine handle.
+Możemy wyróżnić dwa ogólne przypadki uchwytów korutyn:
 
-* The first is a coroutine handle to a coroutine that returns `void`:
+1. Uchwyt do korutyn, które zwracają `void`:
 
 ```cpp
 template <typename _PromiseT = void>
@@ -183,7 +191,7 @@ private:
 };
 ```
 
-* The second is a couroutine handle to a coroutine that returns some value. For this this handle we can provide a specialization of a `coroutine_handle` template:
+2. Uchwyt do korutyn, które zwracają jakąś wartość. W tym przypadku dostarczana jest specjalizacja szablonu `coroutine_handle`:
 
 ```cpp
 template <typename Promise>
@@ -196,48 +204,58 @@ struct coroutine_handle : coroutine_handle<void>
 ```
 
 ```{note}
-Because a promise object is constructed somewhere in a coroutine frame, knowing the promise object, we can obtain the proper `coroutine_handle`.
+Ponieważ obiekt *promise* jest konstruowany w ramce korutyny, znając obiekt `promise<T>`, możemy otrzymać odpowiedni uchwyt typu `coroutine_handle<T>`.
 ```
 
-### Identifying a specific coroutine activation frame
+### Otrzymywanie uchwytu do korutyny (dostęp do ramki korutyny)
 
-You can obtain a `coroutine_handle` for a coroutine in two ways:
+Uchwyt korutyny `coroutine_handle` możemy otrzymać na dwa sposoby:
 
-* It is passed to the `await_suspend()` method during a `co_await` expression.
-* If you have a reference to the coroutine’s promise object, you can reconstruct its coroutine_handle using `coroutine_handle<Promise>::from_promise()`
+* jest on przekazany do metody `await_suspend()` *awaiter'a* podczas wykonania wyrażenia `co_await` - po zawieszeniu korytyny (można przekazany uchwyt traktować jako uchwyt do kontynuacji [continuation-passing](https://en.wikipedia.org/wiki/Continuation-passing_style))
+* mając referencję do obiektu *promise* korutyny, możemy odtworzyć jej uchwyt za pomocą metody `coroutine_handle<Promise>::from_promise()`
 
-The `coroutine_handle` of the awaiting coroutine will be passed into the `await_suspend()` method of the awaiter after the coroutine has suspended at the `<suspend-point>` of a `co_await` expression. You can think of this `coroutine_handle` as representing the continuation of the coroutine in a [continuation-passing](https://en.wikipedia.org/wiki/Continuation-passing_style) style call.
+```{note}
+Uchwyt typu `std::coroutine_handle` NIE jest obiektem RAII. Należy ręcznie wywołać operację `destroy()`, aby zwolnić zasoby (ramkę korutyny). 
 
-Note that the coroutine_handle is NOT and RAII object. You must manually call `.destroy()` to destroy the coroutine frame and free its resources. Think of it as the equivalent of a void* used to manage memory. This is for performance reasons: making it an RAII object would add additional overhead to coroutine, such as the need for reference counting.
+Można traktować uchwyt jako odpowiednik `void*`. 
 
-## Promise object
+Taka implementacja wynika z przyczyn związanych w wydajnością. Implementacja RAII byłaby zbyt kosztowna (np. reference counting).
+```
 
-* Promise object is an object that allows to pass values from a coroutine to the caller
-* Allows compile time checks using the `std::coroutine_traits<T...>` trait class
-* Is allocated on a coroutine frame that is allocated on a heap using operators `new`/`delete` by default
-* The interface of a promise object contains:
-  - constructor/destructor (RAII)
-  - `get_return_object()` - this function is used to initialize the result of a call to a coroutine
-  - `get_return_object_on_allocation_failure()`
-  - functions that allow to pass values from the coroutine to a caller
-    - `co_return`: `return_value()`, `return_void()`
-    - `co_yield`: `yield_value()`
+## Obiekt promise
+
+Obiekt **promise** umożliwia manipulację z wnętrza korutyny. Jest to tzw. *customization point* odpowiedzialny za:
+
+* zwrócenie obiektu interfejsu korutyny z punktu startu
+* określenie, czy natychmiast zawiesić korutynę po starcie
+* określenie, czy zawiesić korutynę na końcu
+* obsługę wyjątków w trakcie działanie korutyny
+* obsługę zwracanych z korutyny wartości
+
+Obiekt ten jest alokowany w ramce korutyny.
+
+Interfejs obiektu *promise* zawiera: 
+
+- constructor/destructor (RAII)
+- `get_return_object()` - ta funkcja jest wykorzystana do inicjalizacji obiektu zwracanego do wywołującego korutynę
+- `get_return_object_on_allocation_failure()`
+- funkcji implementujących transfer wyniku/wyjątku z korutyny do wywołującego
+  - `co_return`: `return_value()`, `return_void()`
+  - `co_yield`: `yield_value()`
 
 ## co_await
 
-The unary operator `co_await` suspends a coroutine and returns control to the caller.
+Operator unarny `co_await` powoduje zawieszenie (*suspends*) korutyny i powrót to wywołującego.
 
-`co_await` expression is unrolled by a compiler to the following code:
+Wyrażenie `co_await` jest transformowane (rozwijane) przez kompilator do następującego kodu:
 
-````{panels}
-Expression
-^^^
+`````{tab-set}
+````{tab-item} Wyrażenie
 ```cpp
 auto r = co_await expr;
 ```
----
-Unrolled code
-^^^
+````
+````{tab-item} Kod po transformacji
 ```cpp
 auto r = {
     auto&& awaiter = expr;
@@ -254,14 +272,15 @@ resume_label_n:
 };
 ```
 ````
+`````
 
-The expression that follows the `co_await` operator is converted to an *awaitable object*.
+Wyrażenie, które następuje po operatorze `co_await` jest konwertowane do tzw. obiektu *awaitable*.
 
-If the coroutine was suspended in the `co_await` expression, and is later resumed, the resume point is immediately before the call to `awaiter.await_resume()`
+Jeśli korutyna zastała zawieszona w wyrażeniu `co_await` i później wznowiona (operacją `resume()`), to punkt wznowienia znajduje się bezpośrednio przed wywołaniem operacji `awaiter.resume()`.
 
 ### Awaitable object
 
-In order to await for something awaitable type must obey the `awaitable` concept:
+Aby można było oczekiwać na "coś" typ *awaitable* musi spełniać koncept `awaitable`:
 
 ```cpp
 template <typename T>
@@ -289,7 +308,7 @@ Because the coroutine is fully suspended before entering `awaiter.await_suspend(
 For example, it can put it inside a callback, scheduled to run on a `threadpool` when async I/O operation completes. In that case, since the current coroutine may have been resumed and thus executed the awaiter object's destructor, all concurrently as `await_suspend()` continues its execution on the current thread, `await_suspend()` should treat `*this` as destroyed and not access it after the handle was published to other threads.
 ```
 
-#### The simplest awaitables
+#### Proste typy awaitable
 
 ##### suspend_always
 
@@ -323,39 +342,38 @@ struct suspend_never
 };
 ```
 
-(co-return)=
 ## co_return
 
-Returning a value from the coroutine can be done using `co_return` statement.
+Aby zwrócić określoną wartość z korutyny należy użyć instrukcji `co_return`.
 
-When a coroutine reaches the `co_return` statement, it performs the following:
-
-* calls `promise.return_void()` for 
+Kiedy korutyna osiąga punkt wywołania `co_return` wykonuje następujące czynności:
+* wywołuje `promise.return_void()` dla: 
   - `co_return;`
-  - `co_return expr;` where `expr` has type `void`
-  - falling off the end of a void-returning coroutine. If the *promise type* has no `Promise::return_void()` the behavior of the program is undefined
+  - `co_return expr;` gdy `expr` jest typu `void`
+* lub wywołuje `promise.return_value(expr)` dla `co_return expr;`,  gdzie `expr` nie jest typu `void`
+* niszczy wszystkie zmienne automatyczne (lokalne) w kolejności odwrotnej do kolejności ich inicjalizacji
+* wywołuje operację `promise.final_suspend()` i oczekuje na rezultat za pomocą operatora `co_await`
 
-* or calls `promise.return_value(expr)` for `co_return expr;` where `expr` has non-void type
-* destroys all variables with automatic storage duration in reverse order they were created
-* calls `promise.final_suspend()` and `co_await`s the result
+```{attention}
+Wyjście z korutyny bez wywołania instrukcji `co_return`, w sytuacji, gdy typ *promise* nie posiada funkcji `Promise::return_void()` skutkuje *undefined behavior*!
+```
 
-## Yielding a value - co_yield
+## co_yield
 
-A *yield expression* has a following form:
+Wyrażenie *yield* ma następującą postać:
 
-````{panels}
-Expression
-^^^
+`````{tab-set}
+````{tab-item} Wyrażenie
 ```cpp
 co_yield expression;
 ```
----
-Unrolled code
-^^^
+````
+````{tab-item} Rozwinięty kod
 ```cpp
 co_await p.yield_value(expression);
 ```
 ````
+`````
 
 ## Customization points for a coroutine
 

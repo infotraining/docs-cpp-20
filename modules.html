@@ -1,0 +1,1136 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Moduły &#8212; Przykładowa książka w Jupyter Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Korutyny" href="coroutines.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Programowanie w C++20
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="comparisons.html">Porównania</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generic-functions.html">Funkcje szablonowe z auto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Koncepty i ograniczenia szablonów</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ranges.html">Biblioteka Ranges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="span.html">std::span</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core-features.html">Core C++ - nowości</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lambdas-20.html">Lambdy w C++20</a></li>
+<li class="toctree-l1"><a class="reference internal" href="templates.html">Non Type Template Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compile-time-programming.html">Programowanie na etapie kompilacji</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coroutines.html">Korutyny</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Moduły</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/infotraining/cpp-20/issues/new?title=Issue%20on%20page%20%2Fmodules.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/modules.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Moduły</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-module-interface-bmi">Binary Module Interface (BMI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-unit-jednostka-modulowa">Module unit (jednostka modułowa)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rodzaje-jednostek-modulowych">Rodzaje jednostek modułowych</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#partycje-modulow">Partycje modułów</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#podstawowa-jednostka-interfejsu">Podstawowa jednostka interfejsu</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nazwy-modulow">Nazwy modułów</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksport-z-modulow">Eksport z modułów</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deklaracja-export">Deklaracja export</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksport-i-przestrzenie-nazw">Eksport i przestrzenie nazw</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#niejawny-eksport-przestrzeni-nazw">Niejawny eksport przestrzeni nazw</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksportowanie-bloku-kodu">Eksportowanie bloku kodu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-eksportu">Ograniczenia eksportu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#export-import">export import</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modulow">Import modułów</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reguly-importu">Reguły importu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zaleznosci-interfejsow-interface-dependency">Zależności interfejsów (interface dependency)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visible-vs-reachable">Visible vs. Reachable</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-module-fragment">Global module fragment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-plikow-naglowkowych">Import plików nagłówkowych</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prywatny-fragment-modulu-private-module-fragment">Prywatny fragment modułu - <em>private module fragment</em></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="moduly">
+<h1>Moduły<a class="headerlink" href="#moduly" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Dlaczego?</p>
+<ul>
+<li><p>potrzeba lepszego skalowania komponentów C++ ( <code class="docutils literal notranslate"><span class="pre">&gt;1'000'000</span></code> LoC)</p></li>
+<li><p>długie czasy kompilacji (duża część kodu jest w plikach <code class="docutils literal notranslate"><span class="pre">.hpp</span></code>)</p></li>
+</ul>
+</li>
+<li><p>Zalety</p>
+<ul>
+<li><p>szybsze czasy kompilacji</p></li>
+<li><p>możliwość lepszej hermetyzacji kodu</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="_images/modules.png" /></p>
+<section id="binary-module-interface-bmi">
+<h2>Binary Module Interface (BMI)<a class="headerlink" href="#binary-module-interface-bmi" title="Permalink to this heading">#</a></h2>
+<p>Plik <strong>Binary Module Interface</strong> zawiera pre-kompilowaną zawartość modułu (wszystkie eksportowane z danego modułu symbole).</p>
+</section>
+<section id="module-unit-jednostka-modulowa">
+<h2>Module unit (jednostka modułowa)<a class="headerlink" href="#module-unit-jednostka-modulowa" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Do C++20 podstawowym elementem enkapsulującym jednostkę kodu była <em>jednostka translacji</em> (<em>translation unit</em>)</p></li>
+<li><p>Moduły C++ wprowadzają nowy typ jednostki translacji - <em>jednostkę modułu</em> (<em>module unit</em>)</p></li>
+<li><p>Jednostka modułu (<em>module unit</em>) jest to jednostka translacji zawierająca deklarację modułu (<em>module-declaration</em>)</p>
+<ul>
+<li><p>w praktyce jest to dowolny plik, który zawiera na początku deklarację modułu</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">Name;</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Moduł C++ może składać się z kilku jednostek modułowych (<em>module units</em>)</p>
+</div>
+<section id="rodzaje-jednostek-modulowych">
+<h3>Rodzaje jednostek modułowych<a class="headerlink" href="#rodzaje-jednostek-modulowych" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p><strong>module interface</strong> - jednostka modułowa, w której deklaracja modułu zawiera słowo <code class="docutils literal notranslate"><span class="pre">export</span></code></p>
+<ul class="simple">
+<li><p>w ramach jednego modułu może istnieć wiele takich jednostek</p></li>
+</ul>
+</li>
+<li><p><strong>module implementation</strong> - jednostka modułu, która nie jest jednostką interfejsową</p>
+<ul>
+<li><p>brak słowa <code class="docutils literal notranslate"><span class="pre">export</span></code> w deklaracji modułu</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">Name</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>module partition</strong> - jednostka modułu, której deklaracja zawiera komponent partycji modułu</p></li>
+</ul>
+<section id="partycje-modulow">
+<h4>Partycje modułów<a class="headerlink" href="#partycje-modulow" title="Permalink to this heading">#</a></h4>
+<ul>
+<li><p><strong>module interface partition</strong> - jednostka interfejsu, która jednocześnie jest partycją modułu</p>
+<ul>
+<li><p>zawiera w deklaracji zarówno słowo <code class="docutils literal notranslate"><span class="pre">export</span></code> jak i nazwę partycji</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">Name</span><span class="o">:</span><span class="n">Part1</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>module implementation partition</strong> - jednostka implementacji, która jednocześnie jest partycją modułu</p>
+<ul>
+<li><p>zawiera komponent partycji, ale bez słowa <code class="docutils literal notranslate"><span class="pre">export</span></code></p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">Name</span><span class="o">:</span><span class="n">Part1</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<p>Aby mieć dostęp do deklaracji umieszczonej w innej partycji, partycja musi zaimportować żądaną partycję (nie wystarczy import modułu jako całości):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">Name</span><span class="o">:</span><span class="n">Part2</span><span class="p">;</span>
+<span class="nl">import</span><span class="w"> </span><span class="p">:</span><span class="n">Part1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Podstawowa jednostka modułu (<em>primary interface unit</em>) musi importować i re-eksportować partycję w następujący sposób:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="o">:</span><span class="n">Part1</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="o">:</span><span class="n">Part2</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Podstawowa jednostka modułu (<em>primary interface unit</em>) może zaimportować <em>module implementation partition</em>, ale nie może jej eksportować. Jednostki implementacji nie mogą być eksportowane.</p>
+</section>
+<section id="podstawowa-jednostka-interfejsu">
+<h4>Podstawowa jednostka interfejsu<a class="headerlink" href="#podstawowa-jednostka-interfejsu" title="Permalink to this heading">#</a></h4>
+<ul>
+<li><p><strong>primary module interface</strong> - jednostka interfejsu, która eksportuje nazwę modułu</p>
+<ul class="simple">
+<li><p>nie jest partycją modułu</p></li>
+<li><p>może być tylko jedna w module - wszystkie inne jednostki interfejsu muszą być partycjami modułu</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">Name</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="nazwy-modulow">
+<h2>Nazwy modułów<a class="headerlink" href="#nazwy-modulow" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Nazwa modułu może być dowolnym identyfikatorem</p>
+<ul>
+<li><p>dozwolone jest użycie wielu symboli <code class="docutils literal notranslate"><span class="pre">.</span></code> (np. <code class="docutils literal notranslate"><span class="pre">boost.asio.async_completion</span></code>)</p></li>
+<li><p>symbol  <code class="docutils literal notranslate"><span class="pre">.</span></code> ma tylko znaczenie wizualne</p></li>
+<li><p>nazwa modułu może być wykorzystana później do czegoś innego (np. przestrzeni nazw, definicji klasy, funkcji, itp.)</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Moduły C++ <em>nie</em> wprowadzają automatycznie przestrzeni nazw</p>
+</div>
+</section>
+<section id="eksport-z-modulow">
+<h2>Eksport z modułów<a class="headerlink" href="#eksport-z-modulow" title="Permalink to this heading">#</a></h2>
+<section id="deklaracja-export">
+<h3>Deklaracja export<a class="headerlink" href="#deklaracja-export" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Deklaracje eksportu mogą być używane tylko w przestrzeniach nazw (włączając w to globalną przestrzeń nazw)</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Stuff</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Ok</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">MoreStuff</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="k">export</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// Illegal.</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">export</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_value</span><span class="p">();</span><span class="w"> </span><span class="c1">// Error</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="k">export</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Illegal</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">export</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// Error</span>
+<span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">my_container</span><span class="w"> </span><span class="p">{};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Deklaracja eksportu musi coś deklarować</p></li>
+<li><p>Pierwsza deklaracja eksportowanej encji musi być deklaracją eksportu</p>
+<ul>
+<li><p>Późniejsze deklaracje nie muszą używać słowa <code class="docutils literal notranslate"><span class="pre">export</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Thing</span><span class="p">;</span><span class="w">  </span><span class="c1">// Good</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Thing</span><span class="p">;</span><span class="w">  </span><span class="c1">// Okay, but redundant</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Thing</span><span class="p">;</span><span class="w">  </span><span class="c1">// Implicit `export` keyword</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Thing</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Implicit `export` keyword</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SomethingElse</span><span class="p">;</span><span class="w"> </span><span class="c1">// Good. Not exported.</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">SomethingElse</span><span class="p">;</span><span class="w"> </span><span class="c1">// Illegal! First declaration is not exported!</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Deklaracje eksportu mogą być używane tylko w przestrzeniach nazw (włączając w to globalną przestrzeń nazw)</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Stuff</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Ok</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">MoreStuff</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">    </span><span class="k">export</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// Illegal.</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">export</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_value</span><span class="p">();</span><span class="w"> </span><span class="c1">// Error</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="k">export</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Illegal</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">export</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w">  </span><span class="c1">// Please NO</span>
+<span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">my_container</span><span class="w"> </span><span class="p">{};</span>
+</pre></div>
+</div>
+</section>
+<section id="eksport-i-przestrzenie-nazw">
+<h3>Eksport i przestrzenie nazw<a class="headerlink" href="#eksport-i-przestrzenie-nazw" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Deklaracja <code class="docutils literal notranslate"><span class="pre">using</span></code> może być eksportowana. Wyjątkiem są sytuacje gdy alias odnosi się elementu, który wewnętrznie linkowany (<em>internal linkage</em> lub <em>module linkage</em>)</p></li>
+<li><p>Deklaracja <code class="docutils literal notranslate"><span class="pre">using</span> <span class="pre">namespace</span></code> nie może być eksportowana</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">Stuff</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">   </span><span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">   </span><span class="k">namespace</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">      </span><span class="k">class</span><span class="w"> </span><span class="nc">Gizmo</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">   </span><span class="p">}</span><span class="w"> </span><span class="c1">// namespace</span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace Stuff</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Stuff</span><span class="o">::</span><span class="n">Widget</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Stuff</span><span class="o">::</span><span class="n">Gadget</span><span class="p">;</span><span class="w"> </span><span class="c1">// Error</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Stuff</span><span class="o">::</span><span class="n">Gizmo</span><span class="p">;</span><span class="w"> </span><span class="c1">// Illegal</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">Stuff</span><span class="p">;</span><span class="w"> </span><span class="c1">// Error</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Definicja przestrzeni nazw może być eksportowana, ale wszystkie symbole definiowane w tej przestrzeni muszą spełniać wymagania opisane wcześniej</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">Foo</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">   </span><span class="kt">int</span><span class="w"> </span><span class="n">eight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="c1">// Okay. `eight` is exported as `Foo::eight`.</span>
+
+<span class="w">   </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Illegal!</span>
+
+<span class="w">   </span><span class="k">namespace</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">      </span><span class="kt">void</span><span class="w"> </span><span class="nf">do_stuff</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Error!</span>
+<span class="w">          </span><span class="c1">//...</span>
+<span class="w">      </span><span class="p">}</span>
+
+<span class="w">   </span><span class="p">}</span><span class="w"> </span><span class="c1">// namespace</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace Foo</span>
+</pre></div>
+</div>
+<section id="niejawny-eksport-przestrzeni-nazw">
+<h4>Niejawny eksport przestrzeni nazw<a class="headerlink" href="#niejawny-eksport-przestrzeni-nazw" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Eksport przestrzeni nazw skutkuje tym, że każda deklaracja umieszczone w tej przestrzeni jest niejawnie eksportowana jako symbol należący do tej przestrzeni</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">Things</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Implicitly exported as `Things::Widget`</span>
+<span class="w">   </span><span class="p">};</span>
+
+<span class="w">   </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Implicitly exported as `Things::foo`</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">Items</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="k">export</span><span class="w"> </span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">void</span><span class="w"> </span><span class="nf">do_stuff</span><span class="p">();</span><span class="w"> </span><span class="c1">// Implicitly exported as Items::do_stuff</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="w">   </span><span class="k">export</span><span class="w"> </span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C++&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">void</span><span class="w"> </span><span class="nf">do_other_things</span><span class="p">();</span><span class="w"> </span><span class="c1">// Implicitly exported as Items::do_other_things</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Eksportowana encja powoduje niejawny eksport odpowiedniej przestrzeni nazw</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">Foo</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">   </span><span class="k">export</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">bar</span><span class="p">();</span><span class="w"> </span><span class="c1">// Exported as Foo::bar, and namespace `Foo` is now exported</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="eksportowanie-bloku-kodu">
+<h3>Eksportowanie bloku kodu<a class="headerlink" href="#eksportowanie-bloku-kodu" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Słowo kluczowe <code class="docutils literal notranslate"><span class="pre">export</span></code> może być połączone z blokiem kodu</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">   </span><span class="k">class</span><span class="w"> </span><span class="nc">Gadget</span><span class="p">;</span>
+
+<span class="w">   </span><span class="kt">void</span><span class="w"> </span><span class="nf">use</span><span class="p">(</span><span class="n">Gadget</span><span class="o">&amp;</span><span class="p">);</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="ograniczenia-eksportu">
+<h3>Ograniczenia eksportu<a class="headerlink" href="#ograniczenia-eksportu" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Nie można eksportować symboli mających <em>internal linkage</em></p>
+<ul>
+<li><p>statycznych zmiennych, funkcji</p></li>
+<li><p>zmiennych, funkcji i klas zdefiniowanych w anonimowych przestrzeniach nazw</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">   </span><span class="c1">// ILLEGAL! This is an anonymous namespace</span>
+<span class="w">   </span><span class="k">export</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">do_stuff</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// ...</span>
+<span class="w">   </span><span class="p">}</span>
+
+<span class="w">   </span><span class="c1">// ILLEGAL! This is an anonymous namespace</span>
+<span class="w">   </span><span class="k">export</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">five</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+
+<span class="w">   </span><span class="c1">// ILLEGAL! This is an anonymous namespace</span>
+<span class="w">   </span><span class="k">export</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">stuff</span><span class="w"> </span><span class="p">{</span>
+<span class="w">       </span><span class="c1">// ...</span>
+<span class="w">   </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// ILLEGAL! This is declared `static`</span>
+<span class="k">export</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">do_more_stuff</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="c1">// ILLEGAL! This is declared `static`</span>
+<span class="k">export</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">twelve</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="export-import">
+<h3>export import<a class="headerlink" href="#export-import" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Używany wraz z interfejsowymi partycjami modułów (<em>module partitions</em>)</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">MyModule</span><span class="p">;</span>
+
+<span class="c1">// Add `SomePartition` to our module interface:</span>
+<span class="k">export</span><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="o">:</span><span class="n">SomePartition</span><span class="p">;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Może też być użyty przy normalnym imporcie zewnętrznego modułu</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">MyModule</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="n">Widgets</span><span class="p">;</span><span class="w"> </span><span class="c1">// users who import MyModule</span>
+<span class="w">                       </span><span class="c1">// will “implicitly” import Widgets</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="import-modulow">
+<h2>Import modułów<a class="headerlink" href="#import-modulow" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Deklaracja importu partycji modułu może odnosić się tylko do partycji należących do tego modułu, który dokonuje importu</p></li>
+<li><p>Moduł nie może importować samego siebie</p></li>
+<li><p>Importy nie mogą tworzyć cykli</p></li>
+</ul>
+<section id="reguly-importu">
+<h3>Reguły importu<a class="headerlink" href="#reguly-importu" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>W jednostce modułu (<em>module unit</em>), wszystkie importy muszą poprzedzać jakąkolwiek deklarację</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">Pets</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="n">Dogs</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">pet</span><span class="p">(</span><span class="n">Dog</span><span class="o">&amp;</span><span class="w"> </span><span class="n">d</span><span class="p">);</span>
+
+<span class="k">import</span><span class="w"> </span><span class="n">Cats</span><span class="p">;</span><span class="w"> </span><span class="c1">// Not allowed! Move this import above `pet`</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span></code> jest specjalnym identyfikatorem, ale wciąż można używać tej nazwy do definiowania np. typów</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">Pets</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="n">Dogs</span><span class="p">;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">import</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="k">import</span><span class="w"> </span><span class="n">i1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Illegal! `import` declarations must appear in the preamble</span>
+<span class="o">::</span><span class="k">import</span><span class="w"> </span><span class="n">i2</span><span class="p">;</span><span class="w"> </span><span class="c1">// Okay. Declares a variable `i2` of type `import`.</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Widget</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">import</span><span class="w"> </span><span class="n">member</span><span class="p">;</span><span class="w"> </span><span class="c1">// Okay. No scope-resolution needed.</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="zaleznosci-interfejsow-interface-dependency">
+<h3>Zależności interfejsów (interface dependency)<a class="headerlink" href="#zaleznosci-interfejsow-interface-dependency" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jednostka translacji ma zależność interfejsu od modułu <code class="docutils literal notranslate"><span class="pre">U</span></code> jeśli zawiera deklarację modułu lub deklarację importu modułu <code class="docutils literal notranslate"><span class="pre">U</span></code> lub jeśli ma zależność interfejsu od jednostki modułu, który ma zależność interfejsu od <code class="docutils literal notranslate"><span class="pre">U</span></code></p></li>
+<li><p>Interface dependencies are transitive</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// a.cpp</span>
+<span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">Foo</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// b.cpp</span>
+<span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">Bar</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="n">Foo</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// c.cpp - has an interface dependency on a.cpp (transitive)</span>
+<span class="k">import</span><span class="w"> </span><span class="n">Bar</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="visible-vs-reachable">
+<h3>Visible vs. Reachable<a class="headerlink" href="#visible-vs-reachable" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>“Visible” <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> “a candidate for name lookup”</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">speech</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Phrase</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">spelling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="n">Phrase</span><span class="w"> </span><span class="nf">get_phrase</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Phrase</span><span class="p">{</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// main.cpp</span>
+<span class="k">import</span><span class="w"> </span><span class="n">speech</span><span class="p">;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Phrase</span><span class="w"> </span><span class="n">phr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_phrase</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">phr</span><span class="p">.</span><span class="n">spelling</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Moduły C++ wprowadzają nowe pojęcie - dostępności (<em>reachability</em>)</p></li>
+<li><p>Kiedy encja jest dostępna, to wszystkie semantyczne właściwości encji są dostępne, chociaż mogą nie być widoczne (nie biorą udziału w dopasowaniu po nazwie - <em>name lookup</em>)</p></li>
+<li><p>Co to znaczy w praktyce?</p>
+<ul>
+<li><p>Każda widoczna encja jest także dostępna</p></li>
+<li><p>Bycie dostępnym nie implikuje bycia widocznym</p></li>
+<li><p>Jeśli encja jest deklarowana z słowem <code class="docutils literal notranslate"><span class="pre">export</span></code> staje się widoczna</p></li>
+<li><p>Jeśli encja w postaci klasy lub wyliczenia jest dostępna (<em>reachable</em>), wtedy jej składowe stają się widoczne (nawet gdy sama nazwa nadrzędnej encji nie jest)</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// file: secrets.cxx</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">Secrets</span><span class="p">;</span>
+
+<span class="c1">// NOT EXPORTED!</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SecretClass</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">SecretClass</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">value</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="n">SecretClass</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SecretClass</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">delete</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SecretClass</span><span class="p">(</span><span class="n">SecretClass</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// Export a function that returns our non-exported class type</span>
+<span class="k">export</span><span class="w"> </span><span class="n">SecretClass</span><span class="w"> </span><span class="nf">get_secret</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SecretClass</span><span class="p">{</span><span class="mi">42</span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// file: foo.cpp</span>
+
+<span class="k">import</span><span class="w"> </span><span class="n">Secrets</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ILLEGAL: `SecretClass` is not visible:</span>
+<span class="w">    </span><span class="n">SecretClass</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_secret</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Okay: `SecretClass`&#39;s move-constructor is *reachable*:</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_secret</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Okay: The members of the class are *visible*</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">secret_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s2</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// ILLEGAL: `SecretClass` is not copyable:</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">s3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s2</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Okay: A move-construction of `SecretClass`:</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">s4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// WHOA: Okay: Grab the class and give it a name.</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">NamedClass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">decltype</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Okay: The constructor of `SecretClass` is reachable, and we&#39;ve now got</span>
+<span class="w">    </span><span class="c1">// a name on the class.</span>
+<span class="w">    </span><span class="n">NamedClass</span><span class="w"> </span><span class="n">s5</span><span class="p">{</span><span class="mi">53</span><span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="global-module-fragment">
+<h2>Global module fragment<a class="headerlink" href="#global-module-fragment" title="Permalink to this heading">#</a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="p">;</span>
+<span class="c1">// stuff ... [1]</span>
+<span class="k">module</span><span class="w"> </span><span class="n">foo</span><span class="p">;</span>
+<span class="c1">// module purview... [2]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[1]</span></code> is tzw. <em>global module fragment</em> - wszystko co jest deklarowane/definiowane w tej sekcji jest dołączane do globalnego modułu (a nie do modułu, który jest deklarowany w pliku)</p></li>
+<li><p>W tej sekcji mogą znaleźć się <strong>tylko dyrektywy preprocesora</strong></p></li>
+<li><p>Nieprawidłowy kod w sekcji</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// bar.cpp</span>
+<span class="k">module</span><span class="p">;</span>
+
+<span class="k">extern</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">();</span><span class="w">  </span><span class="c1">// ILLEGAL: Not a preprocessor directive!</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">bar</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">call_foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">foo</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Wszysko OK</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// foo.h</span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// bar.cpp</span>
+<span class="k">module</span><span class="p">;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;foo.h&quot;</span><span class="c1"> // // OK: declares `::foo()`</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">bar</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">call_foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">foo</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="import-plikow-naglowkowych">
+<h2>Import plików nagłówkowych<a class="headerlink" href="#import-plikow-naglowkowych" title="Permalink to this heading">#</a></h2>
+<p>Plik nagłówkowy może być wciągnięty do modułu z użyciem słowa <code class="docutils literal notranslate"><span class="pre">import</span></code>. Główna różnica między importowanym nagłówkiem, a importowanym modułem jest taka, że definicje dyrektyw preprocesora w nagłówku są widoczne natychmiast po instrukcji <code class="docutils literal notranslate"><span class="pre">import</span></code>.</p>
+</section>
+<section id="prywatny-fragment-modulu-private-module-fragment">
+<h2>Prywatny fragment modułu - <em>private module fragment</em><a class="headerlink" href="#prywatny-fragment-modulu-private-module-fragment" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Wprowadza separację interfejsu od implementacji</p></li>
+<li><p>Możemy umieścić implementację w tym samym pliku, ale bez niebezpieczeństwa ekspozycji szczegółów implementacji dla klientów modułu</p></li>
+<li><p>Zmiana implementacji w sekcji prywatnej modułu (<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">:private</span></code>) nie powinna skutkować rekompilacją jednostek importujących ten moduł</p></li>
+</ul>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// [The global module fragment - optional]</span>
+<span class="k">module</span><span class="p">;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stuff.hpp&gt;</span>
+
+<span class="c1">// [The module preamble]</span>
+<span class="k">export</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">foo</span><span class="o">:</span><span class="n">bar</span><span class="p">;</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="n">widgets</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="n">gadgets</span><span class="p">;</span>
+
+<span class="c1">// [The module interface - optional]</span>
+<span class="k">export</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">do_stuff</span><span class="p">();</span>
+
+<span class="c1">// [The private module fragment - optional]</span>
+<span class="nl">module</span><span class="w"> </span><span class="p">:</span><span class="k">private</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">do_stuff</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Howdy!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// [The end]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="coroutines.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Korutyny</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-module-interface-bmi">Binary Module Interface (BMI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-unit-jednostka-modulowa">Module unit (jednostka modułowa)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rodzaje-jednostek-modulowych">Rodzaje jednostek modułowych</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#partycje-modulow">Partycje modułów</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#podstawowa-jednostka-interfejsu">Podstawowa jednostka interfejsu</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nazwy-modulow">Nazwy modułów</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksport-z-modulow">Eksport z modułów</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deklaracja-export">Deklaracja export</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksport-i-przestrzenie-nazw">Eksport i przestrzenie nazw</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#niejawny-eksport-przestrzeni-nazw">Niejawny eksport przestrzeni nazw</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksportowanie-bloku-kodu">Eksportowanie bloku kodu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ograniczenia-eksportu">Ograniczenia eksportu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#export-import">export import</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modulow">Import modułów</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reguly-importu">Reguły importu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zaleznosci-interfejsow-interface-dependency">Zależności interfejsów (interface dependency)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visible-vs-reachable">Visible vs. Reachable</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#global-module-fragment">Global module fragment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-plikow-naglowkowych">Import plików nagłówkowych</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prywatny-fragment-modulu-private-module-fragment">Prywatny fragment modułu - <em>private module fragment</em></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Krystian Piękoś - Infotraining
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
