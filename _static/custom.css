@@ -25,10 +25,10 @@ p {
   font-size: 1.1em !important;
 }
 
-p + ul.simple
+/* p + ul.simple
 {
   margin-top: -1rem !important;
-}
+} */
 
 main.bd-content #main-content h1,
 main.bd-content #main-content h2,
