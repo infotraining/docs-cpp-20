@@ -1,0 +1,14 @@
+format: jb-article
+root: intro
+sections:
+- file: comparisons
+- file: generic-functions
+- file: concepts
+- file: ranges
+- file: span
+- file: core-features
+- file: lambdas-20
+- file: templates
+- file: compile-time-programming
+- file: coroutines
+- file: modules
