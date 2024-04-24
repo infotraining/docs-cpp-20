@@ -123,18 +123,18 @@ W trakcie, gdy wywoływana jest funkcja, kompilator konstruuje tzw. *ramkę stos
 * argumenty wywołania funkcji
 * lokalne zmienne
 * zwracaną wartość
-* temporary storage for registers
+* zapisany stan rejestrów CPU
 
 ### Wywołanie korutyny
 
 Wywołanie korutyny zmusza kompilator do konstrukcji tzw. *coroutine stack frame*, która zawiera:
 
-* parametru formalne
-* zmienne lokalne
+* parametry formalne
+* zmienne lokalne korutyny
 * stan wykonania w przypadku, gdy korutyna jest wstrzymana (rejestry, wskaźniki instrukcji, itd.)
-* obiekt *promise*, który jest użyty do zwrócenia wartości (jednej lub kilku) do wywołującego
+* obiekt *promise*, który umożliwia kontrolę zachowania korutyny i jest użyty do zwrócenia wartości (jednej lub kilku) do wywołującego
 
-W ogólności ramka stosu korutyny *coroutine stack frame* musi być alokowana dynamicznie na stercie. Alokacja na stercie pozwala uniknąć utraty lokalnego stanu w momencie zawieszenia działania korutyny. 
+W ogólności ramka stosu korutyny *coroutine stack frame* musi być alokowana dynamicznie na stercie. Alokacja na stercie pozwala uniknąć utraty lokalnego stanu w momencie zawieszenia działania korutyny.
 
 Do alokacji używany jest domyślnie `operator new`.
 
@@ -159,7 +159,7 @@ Jeśli `destroy()` zostało wywołane dla korutyny, która nie jest w stanie zaw
 
 ## Uchwyt korutyny (*coroutine handle*)
 
-Uchwyt korutyny (tzw. *coroutine handle*) jest obiektem, który opakowuje wskaźnik do ramki korutyny, która jest alokowana stercie. Uchwyt pozwala na manipulację z zewnątrz korutyny. Dzięki niemu możemy wznawiać wykonanie zawieszonej korutyny lub ją zniszczyć operacją `destroy()`.
+Uchwyt korutyny (tzw. *coroutine handle*) jest obiektem, który opakowuje wskaźnik do ramki korutyny, która jest alokowana na stercie. Uchwyt pozwala na manipulację korutyną z zewnątrz korutyny. Dzięki niemu możemy wznawiać wykonanie zawieszonej korutyny operacją `resume()` lub ją zniszczyć operacją `destroy()`.
 
 Możemy wyróżnić dwa ogólne przypadki uchwytów korutyn:
 
@@ -204,7 +204,10 @@ struct coroutine_handle : coroutine_handle<void>
 ```
 
 ```{note}
-Ponieważ obiekt *promise* jest konstruowany w ramce korutyny, znając obiekt `promise<T>`, możemy otrzymać odpowiedni uchwyt typu `coroutine_handle<T>`.
+Ponieważ obiekt *promise* jest konstruowany w ramce korutyny:
+
+* znając obiekt `promise<T>`, możemy otrzymać odpowiedni uchwyt typu `coroutine_handle<T>`
+* i odwrotnie mając uchwyt do korutyny możemy otrzymać referencję do obiektu `promise<T>`
 ```
 
 ### Otrzymywanie uchwytu do korutyny (dostęp do ramki korutyny)
@@ -224,7 +227,7 @@ Taka implementacja wynika z przyczyn związanych w wydajnością. Implementacja 
 
 ## Obiekt promise
 
-Obiekt **promise** umożliwia manipulację z wnętrza korutyny. Jest to tzw. *customization point* odpowiedzialny za:
+Obiekt **promise** umożliwia kontrolę korutyny. Jest to tzw. *customization point* odpowiedzialny za:
 
 * zwrócenie obiektu interfejsu korutyny z punktu startu
 * określenie, czy natychmiast zawiesić korutynę po starcie
@@ -291,21 +294,30 @@ concept awaitable = requires(T obj) {
 };
 ```
 
-When the awaiter object is created, then the `awaiter.await_ready()` is called. This is a short-cut to avoid the cost of suspension if the result is ready or can be completed synchronously.
+Kiedy obiekt *awaiter'a* jest utworzony, wywołana jest na nim metoda `awaiter.await_ready()`.
 
- If the returned result is `false`, then the coroutine is suspended and `awaiter.await_suspend(coroutine_handle<P>)` is called. Inside this function the suspended coroutine state is observable via coroutine handle. The responsibility of this function it to schedule the coroutine to resume on some executor (or to be destroyed).
-* if `await_suspend()` returns `void`, control is immediately returned to the caller/resumer of the current coroutine (this coroutine remains suspended), otherwise
-* if `await_suspend()` returns `bool`,
-  * the value `true` returns control to the caller/resumer of the current coroutine
-  * the value `false` resumes the current coroutine
-* if `await_suspend()` returns a coroutine handle for some other coroutine, that handle is resumed (by a call to `handle.resume()`) (this may chain to eventually cause the current coroutine to resume)
-* if `await_suspend()` throws an exception, the exception is caught, the coroutine is resumed, and the exception is immediately re-thrown
+* Jeśli zwrócona jest wartość `true` oznacza to, że nie musimy czekać i zawieszać korutyny (to na co czekamy jest już dostępne) i kod może być dalej wykonany synchronicznie.
 
-Finally, `awaiter.await_resume()` is called, and its result is the result of the whole `co_await expr` expression.
+* Jeśli zwrócona jest wartość `false`, to korutyna jest zawieszana i wywołana jest metoda `awaiter.await_suspend(coroutine_handle<P>)`.
+
+Wewnątrz funkcji `await_suspend(await_suspend(coroutine_handle<P>)` stan zawieszonej korutyny jest dostępny poprzez uchwyt korutyny przekazany jako argument wywołania. Podstawową odpowiedzialnością tej funkcji jest zaszeregowanie jej do wznowienia (poprzez operację `resume()`) w określonym schedulerze (*executor*) lub jej zniszczenie.
+
+Jeżeli `await_suspend()`:
+
+* zwraca `void` - wykonanie wraca natychmiast to wywołującego/wznawiającego bieżącą korutynę i bieżąca korutyna jest zawieszona
+
+* zwraca `bool`:
+  * gdy `true` wykonanie wraca natychmiast to wywołującego/wznawiającego bieżącą korutynę
+  * gdy `false` następuje wznowienie bieżącej korutyny
+
+* zwraca `coroutine_handle<P>` do jakiejś innej korutyny, to ta korutyna jest wznowiona (poprzez wywołanie `handle.resume()`) - może to doprowadzić do łańcuchowego wznowienia bieżącej korutyny
+
+* rzuca wyjątkiem, to wyjątek jest złapany, bieżąca korutyna wznowiona a wyjątek jest rzucony (*re-thrown*) dalej
+
+Ostatecznie wywołana jest metoda `awaiter.await_resume()` i jej rezultat jest wynikiem całego wyrażenia `co_await expr`.
 
 ```{note}
-Because the coroutine is fully suspended before entering `awaiter.await_suspend()`, that function is free to transfer the coroutine handle across threads, with no additional synchronization. 
-For example, it can put it inside a callback, scheduled to run on a `threadpool` when async I/O operation completes. In that case, since the current coroutine may have been resumed and thus executed the awaiter object's destructor, all concurrently as `await_suspend()` continues its execution on the current thread, `await_suspend()` should treat `*this` as destroyed and not access it after the handle was published to other threads.
+Ponieważ wykonanie korutyny jest w pełni zawieszone przed wejściem do funkcji `awaiter.await_suspend()` oznacza to, że funkcja bezpiecznie dokonać transferu uchwytu korutyny między wątkami bez konieczności dodatkowej synchronizacji. Na przykład, można zdefiniować zadanie (callback), które zostanie zaszeregowane do uruchomienia w puli wątków, gdy asynchroniczna operacja I/O zostanie ukończona. W takim przypadku, ponieważ bieżąca korutyna mogła zostać wznowiona powodując wywołanie destruktora obiektu awaitera, to implementacja `await_suspend()` powinna traktować `*this` jako obiekt zniszczony i unikać dostępu do niego po przekazaniu uchwytu korutyny do innych wątków.
 ```
 
 #### Proste typy awaitable
