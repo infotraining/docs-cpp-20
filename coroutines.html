@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -140,9 +140,11 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="intro.html">
+  
   
   
   
@@ -152,8 +154,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Przykładowa książka w Jupyter Book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Przykładowa książka w Jupyter Book - Home"/>`);</script>
   
   
 </a></div>
@@ -332,6 +334,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -341,6 +344,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -563,17 +567,17 @@ Kod po transformacji</label><div class="sd-tab-content docutils">
 <li><p>argumenty wywołania funkcji</p></li>
 <li><p>lokalne zmienne</p></li>
 <li><p>zwracaną wartość</p></li>
-<li><p>temporary storage for registers</p></li>
+<li><p>zapisany stan rejestrów CPU</p></li>
 </ul>
 </section>
 <section id="wywolanie-korutyny">
 <h3>Wywołanie korutyny<a class="headerlink" href="#wywolanie-korutyny" title="Permalink to this heading">#</a></h3>
 <p>Wywołanie korutyny zmusza kompilator do konstrukcji tzw. <em>coroutine stack frame</em>, która zawiera:</p>
 <ul class="simple">
-<li><p>parametru formalne</p></li>
-<li><p>zmienne lokalne</p></li>
+<li><p>parametry formalne</p></li>
+<li><p>zmienne lokalne korutyny</p></li>
 <li><p>stan wykonania w przypadku, gdy korutyna jest wstrzymana (rejestry, wskaźniki instrukcji, itd.)</p></li>
-<li><p>obiekt <em>promise</em>, który jest użyty do zwrócenia wartości (jednej lub kilku) do wywołującego</p></li>
+<li><p>obiekt <em>promise</em>, który umożliwia kontrolę zachowania korutyny i jest użyty do zwrócenia wartości (jednej lub kilku) do wywołującego</p></li>
 </ul>
 <p>W ogólności ramka stosu korutyny <em>coroutine stack frame</em> musi być alokowana dynamicznie na stercie. Alokacja na stercie pozwala uniknąć utraty lokalnego stanu w momencie zawieszenia działania korutyny.</p>
 <p>Do alokacji używany jest domyślnie <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">new</span></code>.</p>
@@ -599,7 +603,7 @@ Kod po transformacji</label><div class="sd-tab-content docutils">
 </section>
 <section id="uchwyt-korutyny-coroutine-handle">
 <h2>Uchwyt korutyny (<em>coroutine handle</em>)<a class="headerlink" href="#uchwyt-korutyny-coroutine-handle" title="Permalink to this heading">#</a></h2>
-<p>Uchwyt korutyny (tzw. <em>coroutine handle</em>) jest obiektem, który opakowuje wskaźnik do ramki korutyny, która jest alokowana stercie. Uchwyt pozwala na manipulację z zewnątrz korutyny. Dzięki niemu możemy wznawiać wykonanie zawieszonej korutyny lub ją zniszczyć operacją <code class="docutils literal notranslate"><span class="pre">destroy()</span></code>.</p>
+<p>Uchwyt korutyny (tzw. <em>coroutine handle</em>) jest obiektem, który opakowuje wskaźnik do ramki korutyny, która jest alokowana na stercie. Uchwyt pozwala na manipulację korutyną z zewnątrz korutyny. Dzięki niemu możemy wznawiać wykonanie zawieszonej korutyny operacją <code class="docutils literal notranslate"><span class="pre">resume()</span></code> lub ją zniszczyć operacją <code class="docutils literal notranslate"><span class="pre">destroy()</span></code>.</p>
 <p>Możemy wyróżnić dwa ogólne przypadki uchwytów korutyn:</p>
 <ol class="arabic simple">
 <li><p>Uchwyt do korutyn, które zwracają <code class="docutils literal notranslate"><span class="pre">void</span></code>:</p></li>
@@ -643,7 +647,11 @@ Kod po transformacji</label><div class="sd-tab-content docutils">
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Ponieważ obiekt <em>promise</em> jest konstruowany w ramce korutyny, znając obiekt <code class="docutils literal notranslate"><span class="pre">promise&lt;T&gt;</span></code>, możemy otrzymać odpowiedni uchwyt typu <code class="docutils literal notranslate"><span class="pre">coroutine_handle&lt;T&gt;</span></code>.</p>
+<p>Ponieważ obiekt <em>promise</em> jest konstruowany w ramce korutyny:</p>
+<ul class="simple">
+<li><p>znając obiekt <code class="docutils literal notranslate"><span class="pre">promise&lt;T&gt;</span></code>, możemy otrzymać odpowiedni uchwyt typu <code class="docutils literal notranslate"><span class="pre">coroutine_handle&lt;T&gt;</span></code></p></li>
+<li><p>i odwrotnie mając uchwyt do korutyny możemy otrzymać referencję do obiektu <code class="docutils literal notranslate"><span class="pre">promise&lt;T&gt;</span></code></p></li>
+</ul>
 </div>
 <section id="otrzymywanie-uchwytu-do-korutyny-dostep-do-ramki-korutyny">
 <h3>Otrzymywanie uchwytu do korutyny (dostęp do ramki korutyny)<a class="headerlink" href="#otrzymywanie-uchwytu-do-korutyny-dostep-do-ramki-korutyny" title="Permalink to this heading">#</a></h3>
@@ -662,7 +670,7 @@ Kod po transformacji</label><div class="sd-tab-content docutils">
 </section>
 <section id="obiekt-promise">
 <h2>Obiekt promise<a class="headerlink" href="#obiekt-promise" title="Permalink to this heading">#</a></h2>
-<p>Obiekt <strong>promise</strong> umożliwia manipulację z wnętrza korutyny. Jest to tzw. <em>customization point</em> odpowiedzialny za:</p>
+<p>Obiekt <strong>promise</strong> umożliwia kontrolę korutyny. Jest to tzw. <em>customization point</em> odpowiedzialny za:</p>
 <ul class="simple">
 <li><p>zwrócenie obiektu interfejsu korutyny z punktu startu</p></li>
 <li><p>określenie, czy natychmiast zawiesić korutynę po starcie</p></li>
@@ -729,24 +737,28 @@ Kod po transformacji</label><div class="sd-tab-content docutils">
 <span class="p">};</span>
 </pre></div>
 </div>
-<p>When the awaiter object is created, then the <code class="docutils literal notranslate"><span class="pre">awaiter.await_ready()</span></code> is called. This is a short-cut to avoid the cost of suspension if the result is ready or can be completed synchronously.</p>
-<p>If the returned result is <code class="docutils literal notranslate"><span class="pre">false</span></code>, then the coroutine is suspended and <code class="docutils literal notranslate"><span class="pre">awaiter.await_suspend(coroutine_handle&lt;P&gt;)</span></code> is called. Inside this function the suspended coroutine state is observable via coroutine handle. The responsibility of this function it to schedule the coroutine to resume on some executor (or to be destroyed).</p>
+<p>Kiedy obiekt <em>awaiter’a</em> jest utworzony, wywołana jest na nim metoda <code class="docutils literal notranslate"><span class="pre">awaiter.await_ready()</span></code>.</p>
 <ul class="simple">
-<li><p>if <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> returns <code class="docutils literal notranslate"><span class="pre">void</span></code>, control is immediately returned to the caller/resumer of the current coroutine (this coroutine remains suspended), otherwise</p></li>
-<li><p>if <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> returns <code class="docutils literal notranslate"><span class="pre">bool</span></code>,</p>
+<li><p>Jeśli zwrócona jest wartość <code class="docutils literal notranslate"><span class="pre">true</span></code> oznacza to, że nie musimy czekać i zawieszać korutyny (to na co czekamy jest już dostępne) i kod może być dalej wykonany synchronicznie.</p></li>
+<li><p>Jeśli zwrócona jest wartość <code class="docutils literal notranslate"><span class="pre">false</span></code>, to korutyna jest zawieszana i wywołana jest metoda <code class="docutils literal notranslate"><span class="pre">awaiter.await_suspend(coroutine_handle&lt;P&gt;)</span></code>.</p></li>
+</ul>
+<p>Wewnątrz funkcji <code class="docutils literal notranslate"><span class="pre">await_suspend(await_suspend(coroutine_handle&lt;P&gt;)</span></code> stan zawieszonej korutyny jest dostępny poprzez uchwyt korutyny przekazany jako argument wywołania. Podstawową odpowiedzialnością tej funkcji jest zaszeregowanie jej do wznowienia (poprzez operację <code class="docutils literal notranslate"><span class="pre">resume()</span></code>) w określonym schedulerze (<em>executor</em>) lub jej zniszczenie.</p>
+<p>Jeżeli <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code>:</p>
+<ul class="simple">
+<li><p>zwraca <code class="docutils literal notranslate"><span class="pre">void</span></code> - wykonanie wraca natychmiast to wywołującego/wznawiającego bieżącą korutynę i bieżąca korutyna jest zawieszona</p></li>
+<li><p>zwraca <code class="docutils literal notranslate"><span class="pre">bool</span></code>:</p>
 <ul>
-<li><p>the value <code class="docutils literal notranslate"><span class="pre">true</span></code> returns control to the caller/resumer of the current coroutine</p></li>
-<li><p>the value <code class="docutils literal notranslate"><span class="pre">false</span></code> resumes the current coroutine</p></li>
+<li><p>gdy <code class="docutils literal notranslate"><span class="pre">true</span></code> wykonanie wraca natychmiast to wywołującego/wznawiającego bieżącą korutynę</p></li>
+<li><p>gdy <code class="docutils literal notranslate"><span class="pre">false</span></code> następuje wznowienie bieżącej korutyny</p></li>
 </ul>
 </li>
-<li><p>if <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> returns a coroutine handle for some other coroutine, that handle is resumed (by a call to <code class="docutils literal notranslate"><span class="pre">handle.resume()</span></code>) (this may chain to eventually cause the current coroutine to resume)</p></li>
-<li><p>if <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> throws an exception, the exception is caught, the coroutine is resumed, and the exception is immediately re-thrown</p></li>
+<li><p>zwraca <code class="docutils literal notranslate"><span class="pre">coroutine_handle&lt;P&gt;</span></code> do jakiejś innej korutyny, to ta korutyna jest wznowiona (poprzez wywołanie <code class="docutils literal notranslate"><span class="pre">handle.resume()</span></code>) - może to doprowadzić do łańcuchowego wznowienia bieżącej korutyny</p></li>
+<li><p>rzuca wyjątkiem, to wyjątek jest złapany, bieżąca korutyna wznowiona a wyjątek jest rzucony (<em>re-thrown</em>) dalej</p></li>
 </ul>
-<p>Finally, <code class="docutils literal notranslate"><span class="pre">awaiter.await_resume()</span></code> is called, and its result is the result of the whole <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">expr</span></code> expression.</p>
+<p>Ostatecznie wywołana jest metoda <code class="docutils literal notranslate"><span class="pre">awaiter.await_resume()</span></code> i jej rezultat jest wynikiem całego wyrażenia <code class="docutils literal notranslate"><span class="pre">co_await</span> <span class="pre">expr</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Because the coroutine is fully suspended before entering <code class="docutils literal notranslate"><span class="pre">awaiter.await_suspend()</span></code>, that function is free to transfer the coroutine handle across threads, with no additional synchronization.
-For example, it can put it inside a callback, scheduled to run on a <code class="docutils literal notranslate"><span class="pre">threadpool</span></code> when async I/O operation completes. In that case, since the current coroutine may have been resumed and thus executed the awaiter object’s destructor, all concurrently as <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> continues its execution on the current thread, <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> should treat <code class="docutils literal notranslate"><span class="pre">*this</span></code> as destroyed and not access it after the handle was published to other threads.</p>
+<p>Ponieważ wykonanie korutyny jest w pełni zawieszone przed wejściem do funkcji <code class="docutils literal notranslate"><span class="pre">awaiter.await_suspend()</span></code> oznacza to, że funkcja bezpiecznie dokonać transferu uchwytu korutyny między wątkami bez konieczności dodatkowej synchronizacji. Na przykład, można zdefiniować zadanie (callback), które zostanie zaszeregowane do uruchomienia w puli wątków, gdy asynchroniczna operacja I/O zostanie ukończona. W takim przypadku, ponieważ bieżąca korutyna mogła zostać wznowiona powodując wywołanie destruktora obiektu awaitera, to implementacja <code class="docutils literal notranslate"><span class="pre">await_suspend()</span></code> powinna traktować <code class="docutils literal notranslate"><span class="pre">*this</span></code> jako obiekt zniszczony i unikać dostępu do niego po przekazaniu uchwytu korutyny do innych wątków.</p>
 </div>
 <section id="proste-typy-awaitable">
 <h4>Proste typy awaitable<a class="headerlink" href="#proste-typy-awaitable" title="Permalink to this heading">#</a></h4>
@@ -968,7 +980,7 @@ Rozwinięty kod</label><div class="sd-tab-content docutils">
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="compile-time-programming.html"
@@ -1064,6 +1076,7 @@ By Krystian Piękoś - Infotraining
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2022.
@@ -1090,8 +1103,8 @@ By Krystian Piękoś - Infotraining
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
